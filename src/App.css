@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.fira-sans-regular {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.fira-sans-medium {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.fira-sans-semibold {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.fira-sans-bold {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  list-style: none;
+  scroll-behavior: smooth;
+  --color-primary: #6383d4; /* Bright Blue */
+  --color-secondary: #6c757d; /* Gray */
+  --color-focus: #779cfb;
+  --color-background: #f8f9fa; /* Light Gray */
+  --color-header-footer: #343a40; /* Dark Gray */
+  --color-main-content: #ffffff; /* White */
+  --color-accent: #28a745; /* Green */
+  --color-warning: #ffc107; /* Amber */
+  --color-error: #dc3545; /* Red */
+}
+body {
+  background-color: #f8f9fa;
+}
+
+.pageWrapper {
+  margin: 0 auto;
+}
+.contentWrapper {
+  margin: 0 auto;
+  max-width: 1440px;
+}
+input {
+  height: 40px;
+  border-radius: 5px;
+  padding: 0px 25px;
+  border: 1px solid #ced4da;
+}
+button {
+  height: 40px;
+  padding: 0 30px;
+  border-radius: 5px;
+  background-color: var(--color-primary);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+button:hover {
+  background-color: #8cacff;
+}
+button.outline {
+  height: 40px;
+  border: 2px solid #8b4513;
+  border-radius: 100px;
+  background-color: transparent;
+  padding: 0 30px;
+  color: #8b4513;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+button.outline:hover {
+  border: 2px solid #6e3710;
+  background-color: #6e3710;
+  color: white;
+}
+button.configure {
+  height: 60px;
+  padding: 0 40px;
+  border: 1px solid rgb(235, 235, 235);
+  border-radius: 5px;
+  background: transparent;
+  color: black;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+button.configure span {
+  font-size: 1.25rem;
+  margin-left: 5px;
+}
+button.configure:hover {
+  background-color: #e8ceaf;
+}
+button.configureItem {
+  border-radius: 5px;
+  padding: 0 20px;
+  background-color: #d1a87d;
+  color: black;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.4s ease;
+}
+button.configureSelected {
+  background-color: #6e3710;
+  color: white;
+}
+button.configureItem:hover {
+  background-color: #b1885d;
+}
+button.transparent {
+  border-radius: 0;
+  height: auto;
+  padding: 0;
+  background-color: transparent;
+  color: black;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+button.transparent .icon {
+  fill: rgb(185, 3, 3);
+  transition: all 0.2s ease;
+  transform: scale(0.8);
+}
+button.transparent:hover .icon {
+  fill: rgb(153, 2, 2);
+}
+button.link {
+  border-radius: 0;
+  border: 1px solid transparent;
+  height: auto;
+  padding: 0;
+  background-color: transparent;
+  color: black;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+button.link:hover {
+  border-bottom: 1px solid black;
+}
+
+.icon {
+  min-width: 30px;
+  min-height: 30px;
+  fill: #8b4513;
+}
+
+header a {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+header a:hover {
+  font-size: 1rem;
+}

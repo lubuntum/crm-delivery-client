@@ -1,0 +1,42 @@
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    gap: 20px;
+}
+.loginTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+.loginTitle p {
+    font-size: 3rem;
+    font-weight: 600;
+    font-family: "Cormorant Garamond", serif;
+}
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 20px;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, .15);
+    padding: 30px;
+}
+.loginForm input {
+    height: 20px;
+    border-bottom: 1px solid lightgray;
+    font-size: .875rem;
+    padding: 10px;
+}
+.forgotPassword button {
+    font-size: .875rem;
+}
+.registrationButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}

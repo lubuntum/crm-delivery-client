@@ -1,0 +1,65 @@
+.reviewsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 150px;
+}
+.reviwesTitle p {
+    font-size: 1.25rem;
+    color: #8B4513;
+    font-weight: 600;
+}
+.reviewsSubtitle {
+    margin-bottom: 50px;
+}
+.reviewsSubtitle p {
+    font-size: 3rem;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+}
+.reviewsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    gap: 20px;
+}
+.reviewsCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 calc(30% - 20px);
+    padding: 30px;
+    max-width: 350px;
+    height: 200px;
+    min-height: 200px;
+    border-radius: 20px;
+    background-color: #fff5e8;
+}
+.reviewsCard .reviewText p {
+    font-size: .875rem;
+    line-height: 25px;
+}
+.reviewsCard .reviewAuthor {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.reviewsCard .reviewAuthor .reviewAuthorName {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.reviewsCard .reviewAuthor .reviewAuthorName p:first-child {
+    font-size: .875rem;
+    font-weight: 500;
+}
+.reviewsCard .reviewAuthor .reviewAuthorName p:last-child {
+    font-size: .875rem;
+    font-weight: 500;
+    color: gray;
+}

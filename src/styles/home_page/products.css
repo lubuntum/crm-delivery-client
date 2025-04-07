@@ -1,0 +1,79 @@
+.productsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 150px;
+}
+.productsCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    position: relative;
+    padding: 30px;
+    width: 100%;
+    max-height: 600px;
+    height: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    perspective: 1000px;
+    transition: all .2s ease;
+}
+.productsCard:hover {
+    border-radius: 0;
+}
+.productsCard::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+    pointer-events: none;
+    z-index: 10;
+}
+.productsCard .productImage {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+.productsCard .productImage img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    transition: transform .3s ease;
+}
+.productsCard:hover .productImage img {
+    transform: rotate(5deg) scale(1.15);
+} 
+.productsCard .proudctText {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 11;
+}
+.productsCard .proudctText .productTitle p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+}
+.productsCard .proudctText .productSubtitle p {
+    font-size: 1.25rem;
+    color: white;
+}
+.productsCard .proudctText .productButton a {
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    transition: all .2s ease;
+}
+.productsCard .proudctText .productButton a:hover {
+    text-decoration: underline;
+}

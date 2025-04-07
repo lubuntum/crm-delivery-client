@@ -1,0 +1,212 @@
+.aboutUsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 100px;
+    margin-top: 150px;
+    gap: 30px;
+}
+.aboutUsTitle p {
+    font-size: 1.25rem;
+    color: #8B4513;
+    font-weight: 700;
+}
+.aboutUsSubtitle p,
+.inviteTitle p,
+.achivementsTitle p {
+    font-size: 3rem;
+    font-weight: 600;
+    font-family: "Cormorant Garamond", serif;
+}
+.aboutUsDescription p,
+.inviteSubtitle p,
+.achivementsSubtitle p {
+    font-size: 1.125rem;
+    color: gray;
+    line-height: 30px;
+    font-weight: 400;
+}
+
+.inviteContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 100px;
+}
+.inviteButton {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.teamContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 100px 0;
+    margin-bottom: 100px;
+    background-color: #591B02;
+}
+.teamContentWrapper {
+    margin: 0 auto;
+    width: 1440px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.teamTitle {
+    width: 100%;
+}
+.teamTitle p {
+    font-size: 3rem;
+    font-weight: 600;
+    font-family: "Cormorant Garamond", serif;
+    color: white;
+}
+.teamSubtitle p {
+    font-size: 1rem;
+    color: white;
+    line-height: 30px;
+    font-weight: 400;
+}
+.teamCards {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 100%;
+}
+.teamCard {
+    width: calc(100% / 4);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.teamCardImg {
+    display: flex;
+    width: 330px;
+    height: 330px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.teamCardImg img {
+    height: auto;
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+}
+.teamCardName {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: white;
+}
+.teamCardName p:nth-child(1) {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+.teamCardName p:nth-child(3) {
+    font-size: .875rem;
+    color: lightgray;
+}
+
+
+
+.achivementsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 200px;
+    text-align: center;
+}
+.achivementsCards {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+.achivementCard {
+    width: calc((100% / 3) - 30px);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    text-align: start;
+    gap: 15px;
+    height: 180px;
+    border-radius: 5px;
+    padding: 20px;
+    border: 1px solid rgb(235, 235, 235);
+}
+.achivementCard .icon {
+    fill: black;
+}
+.achivementCard p:nth-child(2) {
+    font-size: 1rem;
+    color: black;
+    font-weight: 700;
+}
+.achivementCard p:nth-child(3) {
+    font-size: 1rem;
+    color: gray;
+    line-height: 30px;
+    font-weight: 400;
+}
+
+
+
+.placementContainer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 100px;
+    gap: 30px;
+    width: 100%;
+}
+.placementCard {
+    width: calc(100% / 3);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.placementTitle p {
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: "Cormorant Garamond", serif;
+}
+.placemetSubtitle p {
+    text-align: center;
+    font-size: 1rem;
+    color: gray;
+    line-height: 25px;
+    font-weight: 400;
+}
+.placementStreet,
+.placementMail {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.placementStreet p {
+    font-size: 1rem;
+    color: black;
+    font-weight: 600;
+}
+.placementMail p {
+    font-size: 1rem;
+    color: gray;
+    font-weight: 400;
+}

@@ -1,0 +1,72 @@
+.contactsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+        "left right"
+        "bottom bottom";
+    margin-bottom: 100px;
+    row-gap: 20px;
+}
+.contactsLeft {
+    grid-area: left;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.contactsLeft .contactsTitle p {
+    font-size: 3rem;
+    font-weight: 600;
+    font-family: "Cormorant Garamond", serif;
+}
+.contactsLeft .contactsSubtitle p {
+    font-size: 1.125rem;
+    color: gray;
+}
+.contactsRight {
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: end;
+}
+.contactsRight .contactsImage {
+    width: 650px;
+    height: 450px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.contactsRight .contactsImage img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.contactsBootom {
+    grid-area: bottom;
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+}
+.contactsBootom .contactsItem {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.contactsBootom .contactsItem .contactsItemTitle p {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #8B4513;
+}
+.contactsBootom .contactsItem .contactsItemText {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.contactsBootom .contactsItem .contactsItemText p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: gray;
+}

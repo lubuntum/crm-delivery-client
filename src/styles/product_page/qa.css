@@ -1,0 +1,32 @@
+.qaContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-bottom: 100px;
+}
+.qaContainer .qaTitle p {
+    font-size: 3rem;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+}
+.qaContainer .qaContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    row-gap: 60px;
+    column-gap: 80px;
+}
+.qaContainer .qaContent .qaItem {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.qaContainer .qaContent .qaItem .qaQuestion p {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+.qaContainer .qaContent .qaItem .qaAnswer p {
+    line-height: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+}

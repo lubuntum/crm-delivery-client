@@ -1,0 +1,162 @@
+.aboutContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: end;
+    margin-bottom: 150px;
+}
+.aboutLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    min-width: 60%;
+    z-index: 10;
+}
+.aboutTitle p {
+    font-size: 1.25rem;
+    color: #8B4513;
+    font-weight: 700;
+}
+.aboutTitle p span {
+    font-size: 1.30rem !important;
+    color: #6e3710 !important;
+    font-weight: 600 !important;
+}
+.aboutSubtitle p {
+    font-size: 3rem;
+    font-weight: 600;
+    font-family: "Cormorant Garamond", serif;
+}
+.aboutDescription p {
+    font-size: 1.125rem;
+    color: gray;
+    line-height: 30px;
+    font-weight: 400;
+}
+.aboutAdvantages {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.aboutAdvantagesItem {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.aboutAdvantagesItem .aboutAdvantagesText {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.aboutAdvantagesItem .aboutAdvantagesText p:first-child {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+.aboutAdvantagesItem .aboutAdvantagesText p:last-child {
+    font-size: 1.125rem;
+    color: gray;
+    line-height: 30px;
+    font-weight: 400;
+}
+
+.secondAboutContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 150px;
+}
+.secondAboutLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    min-width: 60%;
+    z-index: 10;
+}
+.aboutDivider {
+    width: 100%;
+    height: 1px;
+    background-color: lightgray;
+    margin-top: 50px;
+}
+.secondAboutAdvantages {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+.secondAboutAdvantagesItem {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.secondAboutAdvantagesItem p {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+.secondAboutRight {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 40%;
+}
+.secondAboutRight .aboutImage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 600px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.secondAboutRight .aboutImage img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+.aboutRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: end;
+    padding-bottom: 100px;
+}
+.aboutComment {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.aboutComment .aboutBorder {
+    width: 1px;
+    background-color: lightgray;
+}
+.aboutComment .aboutText {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.aboutComment .aboutText p:nth-child(1) {
+    font-size: 1.125rem;
+    line-height: 30px;
+}
+.aboutComment .aboutText .aboutUser {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.aboutComment .aboutText .aboutUser .aboutUserName {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+}
+.aboutComment .aboutText .aboutUser .aboutUserName p:nth-child(1) {
+    font-size: 1rem;
+}
+.aboutComment .aboutText .aboutUser .aboutUserName p:nth-child(2) {
+    font-size: .875rem;
+    color: gray;
+}

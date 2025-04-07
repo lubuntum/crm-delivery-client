@@ -1,0 +1,178 @@
+.configureContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 150px;
+    margin-bottom: 100px;
+    width: 100%;
+}
+.configureContainer .configureTitle p {
+    font-size: 3rem;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+}
+.configureContainer .configureSubtitle p {
+    font-size: 1rem;
+    color: gray;
+    line-height: 30px;
+}
+.configureContent {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.configureLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+.configureContent .configureLeft .configureLeftTitle p {
+    font-size: 2rem;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+}
+.configureSettings {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.configureSettings .configureSettingsItem {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #8B4513;
+    max-width: 700px;
+    min-width: 700px;
+    transition: all .2s ease;
+}
+.configureSettings .configureSettingsItem:hover {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    transform: translateY(-2px);
+}
+.configureSettings .configureSettingsItem .configureSettingsTitle {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.configureSettings .configureSettingsItem .configureSettingsTitle .configureSettingsName p {
+    font-size: 1rem;
+    font-weight: 600;
+}
+.configureSettings .configureSettingsItem .configureSettingsDescription p {
+    font-weight: .875rem;
+    line-height: 25px;
+    color: gray;
+    font-weight: 500;
+}
+.configureSettings .configureSettingsItem .configureSettingsButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+.configureRight {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 2;
+}
+.configureSelectedItems {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    gap: 20px;
+}
+.configureSelectedItem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid rgb(235, 235, 235);
+    cursor: pointer;
+    transition: all .2s ease;
+}
+.configureSelectedItem:hover {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+.configureSelectedItemTitle {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.orderTitle p {
+    font-size: .875rem;
+    font-weight: 600;
+    text-wrap: nowrap;
+}
+.configureSelectedItemDelete {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+.orderTitleDivider {
+    width: 100%;
+    height: 1px;
+    background-color: lightgray;
+    margin-bottom: 5px;
+}
+.configureSelectedItemText {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.configureSelectedItemType p {
+    font-size: .875rem;
+    font-weight: 500;
+}
+.configureSelectedItemImage {
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.configureSelectedItemImage img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    transform: translateY(-10px);
+}
+.configureSelectedItemColor {
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.configureOrderBuildButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.orderSum p span {
+    font-size: 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 10px;
+}

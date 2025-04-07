@@ -1,0 +1,47 @@
+.careContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 100px 0;
+    margin-bottom: 150px;
+    background-color: #fff5e8;
+}
+.careContainer .careTitle p {
+    font-size: 3rem;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+}
+.careContainer .careSubtitle {
+    margin-bottom: 40px;
+}
+.careContainer .careSubtitle p {
+    font-size: 1rem;
+    color: gray;
+    text-align: center;
+}
+.careCards {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.careCards .careItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20px;
+    height: 210px;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid rgb(235, 235, 235);
+}
+.careCards .careItem .careText p {
+    font-size: 1rem;
+    line-height: 25px;
+    font-weight: 500;
+}
