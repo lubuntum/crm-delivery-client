@@ -1,7 +1,8 @@
 footer {
     width: 100%;
     padding: 80px;
-    background-color: #fff5e8;
+    background-color: var(--color-header-footer);
+    border-top: 1px solid lightgray;
     display: flex;
     flex-direction: column;
     gap: 40px;
