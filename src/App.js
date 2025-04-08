@@ -8,6 +8,7 @@ import { AuthProvider } from './services/auth/AuthProvider';
 import { AuthProtectedRoute } from './services/auth/AuthProtectedRoute';
 import { AboutPage } from './components/about/AboutPage';
 import { OrderInfoPage } from './components/order/OrderInfoPage';
+import { AccountPage } from './components/account/AccountPage';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ const MainPage = () => {
         <Route path={ROUTES.HOME}         element = {<HomePage/>}/>
         <Route path={ROUTES.ABOUT}        element = {<AboutPage/>}/>
         <Route path={ROUTES.AUTH}         element = {<AuthProtectedRoute element={<AuthPage/>}/>}/>
-        <Route path={ROUTES.ACCOUNT}      element = {<ProtectedRoute element={<OrderInfoPage/>}/>}/>
+        <Route path={ROUTES.ACCOUNT}      element = {<AccountPage/>}/>
       </Routes>
     </div>
   )
