@@ -8,7 +8,7 @@ export const FooterComponent = () => {
     return (
         <footer>
             <div className="footerRights">
-                <p>© 2025 Rustic Retreat. Все права защищены.</p>
+                <p>© 2025 crm-delivery. Все права защищены.</p>
             </div>
             
             <div className="footerLinks">
