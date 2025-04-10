@@ -7,8 +7,9 @@ import { ProtectedRoute } from './services/auth/ProtectedRoute';
 import { AuthProvider } from './services/auth/AuthProvider';
 import { AuthProtectedRoute } from './services/auth/AuthProtectedRoute';
 import { AboutPage } from './components/about/AboutPage';
-import { OrderInfoPage } from './components/order/OrderInfoPage';
 import { AccountPage } from './components/account/AccountPage';
+import { CreateOrderPage } from './components/order/create-order/CreateOrderPage';
+import { OrdersPage } from './components/order/orders-list/OrdersPage';
 
 function App() {
   return (
@@ -28,7 +29,9 @@ const MainPage = () => {
         <Route path={ROUTES.HOME}         element = {<HomePage/>}/>
         <Route path={ROUTES.ABOUT}        element = {<AboutPage/>}/>
         <Route path={ROUTES.AUTH}         element = {<AuthProtectedRoute element={<AuthPage/>}/>}/>
-        <Route path={ROUTES.ACCOUNT}      element = {<AccountPage/>}/>
+        <Route path={ROUTES.ACCOUNT}      element = {<ProtectedRoute element={<AccountPage/>} />}/>
+        <Route path={ROUTES.CREATE_ORDER} element = {<ProtectedRoute element={<CreateOrderPage />}/>}/>
+        <Route path={ROUTES.ORDERS}       element = {<ProtectedRoute element={<OrdersPage />} />} />
       </Routes>
     </div>
   )
