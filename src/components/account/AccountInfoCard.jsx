@@ -1,17 +1,19 @@
 
-export const AccountInfoCard = () => {
+export const AccountInfoCard = ({accountData}) => {
 
     return (
         <>
            <div className="cardWrapper">
                 <h4 className="cardTitle">Данные сотрудника</h4>
+                {!accountData ? <p>Загрузка ...</p> :
                 <div className="cardContentWrapper">
-                    <p>ФИО: Иванов Иван Иванович</p>
-                    <p>Номер: +7 (913) 443-12-12</p>
-                    <p>Почта: employee@gmail.com</p>
-                    <p>Должность: Диспетчер</p>
-                    <p>Организация: "ООО OrgName"</p>
+                    <p>ФИО: {`${accountData.employeeSecondName} ${accountData.employeeName} ${accountData.employeePatronymic}`}</p>
+                    <p>Номер: {accountData.phone}</p>
+                    <p>Почта: {accountData.email}</p>
+                    <p>Должность: {accountData.role}</p>
+                    <p>Организация: {accountData.organizationName}</p>
                 </div>
+                }
            </div>
         </>
     )

@@ -3,14 +3,26 @@ import { HeaderComponent } from "../header/HeaderComponent"
 import "../../styles/account_page/account.css"
 import { AccountInfoCard } from "./AccountInfoCard"
 import { ResetPasswordCard } from "./ResetPasswordCard"
+import { useEffect, useState } from "react"
+import { getAccountDataRequest } from "../../services/api/accountApi"
+import { useAuth } from "../../services/auth/AuthProvider"
+import Cookies from "js-cookie"
 export const AccountPage = () => {
-
+    const {getToken} = useAuth()
+    const [accountData, setAccountData] = useState(null)
+    useEffect(()=>{
+        const getAccountData = async () => {
+            const response = await getAccountDataRequest(getToken())
+            setAccountData(response.data)
+        }
+        getAccountData()
+    }, [])
     return(
         <>
             <HeaderComponent/>
             <div className="contentWrapper">
                 <div className="cardsWrapper">
-                        <AccountInfoCard />
+                        <AccountInfoCard accountData={accountData}/>
                         <ResetPasswordCard />
                     </div>
             </div>
