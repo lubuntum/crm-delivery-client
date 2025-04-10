@@ -15,18 +15,14 @@ import { HomeReviews } from "./HomeReviews"
 import { HomeGallery } from "./HomeGallery"
 import { HomeContacts } from "./HomeContacts"
 import { FooterComponent } from "./footer/FooterComponent"
+import { useAuth } from "../services/auth/AuthProvider"
 
 export const HomePage = () => {
+    const {checkAuth} = useAuth()
     return (<>
         <HeaderComponent/>
         <div className="contentWrapper">
-            <HomeBanner/>
-            <HomeAbout/>
-            <HomeProducts/>
-            <HomeSecondAbout/>
-            <HomeReviews/>
-            <HomeGallery/>
-            <HomeContacts/>
+            {checkAuth() ? <p>Welcome home</p> : <p>Main page</p>}
         </div>
         <FooterComponent/>
     </>)
