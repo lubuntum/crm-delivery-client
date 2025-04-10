@@ -1,8 +1,9 @@
 import axios from "axios"
-import { ACCOUNT_INFO, SERVER_URL } from "./urls"
+import { ACCOUNT_DATA, SERVER_URL } from "./urls"
 
-export const accountInfo = async (token) => {
-    return await axios.get(`${SERVER_URL}${ACCOUNT_INFO}`, {
-        headers:{Authorization: token}
+export const getAccountDataRequest = async (token) => {
+    console.log("passed token => ", token)
+    return await axios.get(`${SERVER_URL}${ACCOUNT_DATA}`, {
+        headers: {Authorization : token}
     })
 }
