@@ -1,55 +1,55 @@
 footer {
-    width: 100%;
-    padding: 80px;
-    background-color: var(--color-header-footer);
-    border-top: 1px solid lightgray;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  padding: 20px;
+  background-color: var(--color-header-footer);
+  border-top: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
 }
 footer .footerRights {
-    font-size: .875rem;
-    font-weight: 500;
-    color: gray;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: gray;
 }
 footer .footerLinks {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
 }
 footer .footerLinks .footerNav {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 footer .footerLinks .footerNav a {
-    font-size: .875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all .2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 footer .footerLinks .footerNav a:hover {
-    color: #8B4513;
+  color: #8b4513;
 }
 footer .footerLinks .footerSocials {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
 }
 footer .footerLinks .footerSocials .footerIcon {
-    cursor: pointer;
-    transition: all .2s ease;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 footer .footerLinks .footerSocials .footerIcon:hover {
-    color: #8B4513;
+  color: #8b4513;
 }
 .footerDivider {
-    border-left: 1px solid lightgray;
+  border-left: 1px solid lightgray;
 }
