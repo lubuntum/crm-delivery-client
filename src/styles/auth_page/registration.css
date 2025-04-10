@@ -33,17 +33,7 @@
     box-shadow: 0 20px 30px rgba(0, 0, 0, .15);
     padding: 30px;
 }
-.formTitle {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-}
-.formTitle p {
-    font-size: 1.7rem;
-    font-weight: 600;
-    font-family: "Cormorant Garamond", serif;
-}
+
 .formSubtitle p {
     font-size: .875rem;
     color: gray;

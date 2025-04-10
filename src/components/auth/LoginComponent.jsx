@@ -3,7 +3,7 @@ import { STATUSES } from "../../statuses"
 import { loginRequest } from "../../services/api/authApi"
 import { useAuth } from "../../services/auth/AuthProvider"
 import { authComponentsKeys } from "./AuthPage"
-
+import "../../styles/statuses/statuses.css"
 import { ReactComponent as FaceIcon } from "../../res/icons/face_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg"
 
 const LoginComponent = ({setCurrentComponent}) => {
@@ -15,7 +15,6 @@ const LoginComponent = ({setCurrentComponent}) => {
     const loginHandler = async () => {
         try {
             const response = await loginRequest(email, pass)
-            login(response.data.token)
         } catch(err) {
             setStatus(STATUSES.ERROR)
         }
@@ -23,11 +22,13 @@ const LoginComponent = ({setCurrentComponent}) => {
 
     return (
         <div className="authContainer">
+            
             <div className="formContainer">
-                <p className="fira-sans-regular">Вход в систему</p>
-                <input type="email" placeholder="Почта" />
-                <input type="password" placeholder="Пароль" />
-                <button>Войти</button>
+                {status === STATUSES.IDLE && <p>Вход в систему</p>}
+                {status === STATUSES.ERROR && <p className="errorStatus">Ошибка при входе</p>}
+                <input type="email" placeholder="Почта" onChange={e => setEmail(e.target.value)} />
+                <input type="password" placeholder="Пароль" onChange={e => setPass(e.target.value)}/>
+                <button onClick={loginHandler}>Войти</button>
                 <button>Восстановить пароль</button>
             </div>
         </div>
