@@ -18,9 +18,9 @@ export const HeaderComponent = () => {
 
             <div className="nav">
                 <a href={ROUTES.HOME}>Главная</a>
-                {checkAuth() && <a href={ROUTES.ACCOUNT}>Аккаунт</a>}
                 {checkAuth() && <a href={ROUTES.CREATE_ORDER}>Создать заказ</a>}
                 {checkAuth() && <a href={ROUTES.ORDERS}>Заказы</a>}
+                {checkAuth() && <a href={ROUTES.ACCOUNT}>Аккаунт</a>}
             </div>
 
             <div className="login">
