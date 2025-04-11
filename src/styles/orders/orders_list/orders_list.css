@@ -1,0 +1,27 @@
+.ordersList {
+  padding: 5px;
+  margin: 5px;
+}
+
+.ordersList th {
+  text-align: start;
+  padding: 5px;
+  border: 1px solid gray;
+}
+
+.ordersList td {
+  padding: 5px;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+.ordersList td:hover {
+  background-color: var(--color-focus);
+  color: white;
+}
+
+.tableWrapper {
+  display: flex;
+  padding-top: 100px;
+  align-items: center;
+  justify-content: center;
+}
