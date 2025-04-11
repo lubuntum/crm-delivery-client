@@ -4,5 +4,6 @@ export const ROUTES = {
     AUTH: "/auth",
     CREATE_ORDER: "/create-order",
     ORDERS: "/orders",
+    ORDER_STEPS: "/order-steps",
     ABOUT: "/about"
 }

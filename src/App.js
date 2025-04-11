@@ -10,6 +10,7 @@ import { AboutPage } from './components/about/AboutPage';
 import { AccountPage } from './components/account/AccountPage';
 import { CreateOrderPage } from './components/order/create-order/CreateOrderPage';
 import { OrdersPage } from './components/order/orders-list/OrdersPage';
+import { OrderStepsPage } from './components/order/order-steps/OrderStepsPage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ const MainPage = () => {
         <Route path={ROUTES.ACCOUNT}      element = {<ProtectedRoute element={<AccountPage/>} />}/>
         <Route path={ROUTES.CREATE_ORDER} element = {<ProtectedRoute element={<CreateOrderPage />}/>}/>
         <Route path={ROUTES.ORDERS}       element = {<ProtectedRoute element={<OrdersPage />} />} />
+        <Route path={ROUTES.ORDER_STEPS}  element = {<ProtectedRoute element={<OrderStepsPage />} />} />
       </Routes>
     </div>
   )

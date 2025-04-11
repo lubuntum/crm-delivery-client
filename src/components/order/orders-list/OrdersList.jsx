@@ -1,27 +1,39 @@
-import { useTable } from "react-table"
+import { useFilters, useTable } from "react-table"
 import "../../../styles/orders/orders_list/orders_list.css"
+import { useNavigate } from "react-router-dom"
+import { ROUTES } from "../../../routes"
 export const OrdersList = ({columns, data}) => {
-    const {getTableProps, getTableBodyProps,headerGroups, rows, prepareRow} = useTable({columns, data})
+    const navigate = useNavigate()
+    const {getTableProps, getTableBodyProps,headerGroups, rows, prepareRow} =
+        useTable(
+            {columns, data : data ? data : [{ fullName: "", clientEmail: "", clientPhone: "", address: "", status: "" }], initialState: {filters: []}}, 
+            useFilters )
     return(
         <>
         <div className="tableWrapper">
-            <table className="ordersList">
+            <table className="ordersList" {...getTableProps()}>
                 <thead>
                     {headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map(column => (
                                 <th {...column.getHeaderProps()}>
-                                    {column.render('Header')}
+                                    <div>
+                                        <p>{column.render('Header')}</p>
+                                        <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                    </div>
+                                    
                                 </th>
                             ))}
                         </tr>
                     ))}
                 </thead>
-                <tbody {...getTableProps()}>
+                {data &&
+                <tbody {...getTableBodyProps()}>
+                    
                     {rows.map(row => {
                         prepareRow(row)
                         return (
-                            <tr {...row.getRowProps()} onClick={()=>{console.log(row.getRowProps())}}>
+                            <tr {...row.getRowProps()} onClick={()=>navigate(ROUTES.ORDER_STEPS)}>
                                 {row.cells.map(cell => (
                                     <td {... cell.getCellProps()}>
                                         {cell.render('Cell')}
@@ -30,8 +42,12 @@ export const OrdersList = ({columns, data}) => {
                             </tr>
                         )
                     })}
+                
                 </tbody>
+                }
+                
             </table>
+            {!data && <p>Загрузка...</p>}
         </div>
         </>
     )
