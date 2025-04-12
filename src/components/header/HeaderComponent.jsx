@@ -6,10 +6,24 @@ import logo from "../../res/images/crm-logo.jpg"
 import { Route, useNavigate } from "react-router-dom"
 import { ROUTES } from "../../routes"
 import simpleLogo from "../../res/images/simple_logo.svg"
+import { useEffect, useState } from "react"
+import { getAccountDataRequest } from "../../services/api/authApi"
 export const HeaderComponent = () => {
-    const { logout, checkAuth } = useAuth()
+    const { logout, checkAuth, getToken } = useAuth()
     const navigation = useNavigate()
 
+    const [accountData, setAccountData] = useState(null)
+    useEffect(()=>{
+        const getHeaderData = async () => {
+            try {
+                const response = await getAccountDataRequest(getToken())
+                setAccountData(response.data)
+            } catch (err) {
+                logout()
+            }
+        }
+        if (checkAuth()) getHeaderData()
+    }, [])
     return (
         <header>
             <div onClick={() => navigation(ROUTES.HOME)} className="logo">
@@ -24,6 +38,7 @@ export const HeaderComponent = () => {
             </div>
 
             <div className="login">
+                {accountData && <p>{accountData.email}</p> }
                 {checkAuth() ? <a onClick={logout}>Выход</a> : <a onClick={() => navigation(ROUTES.AUTH)}>Войти</a>}
             </div>
         </header>
