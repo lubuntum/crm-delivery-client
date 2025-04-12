@@ -8,9 +8,13 @@ export const OrdersList = ({columns, data}) => {
         useTable(
             {columns, data : data ? data : [{ fullName: "", clientEmail: "", clientPhone: "", address: "", status: "" }], initialState: {filters: []}}, 
             useFilters )
+    const navigateToOrder = (order) => {
+        navigate(`${ROUTES.ORDER_STEPS}?id=${order.id}`, {state: {order}})
+    }
     return(
         <>
         <div className="tableWrapper">
+        {data &&
             <table className="ordersList" {...getTableProps()}>
                 <thead>
                     {headerGroups.map(headerGroup => (
@@ -27,13 +31,13 @@ export const OrdersList = ({columns, data}) => {
                         </tr>
                     ))}
                 </thead>
-                {data &&
+                
                 <tbody {...getTableBodyProps()}>
                     
                     {rows.map(row => {
                         prepareRow(row)
                         return (
-                            <tr {...row.getRowProps()} onClick={()=>navigate(ROUTES.ORDER_STEPS)}>
+                            <tr {...row.getRowProps()} onClick={()=> navigateToOrder(row.original)}>
                                 {row.cells.map(cell => (
                                     <td {... cell.getCellProps()}>
                                         {cell.render('Cell')}
@@ -44,9 +48,10 @@ export const OrdersList = ({columns, data}) => {
                     })}
                 
                 </tbody>
-                }
+                
                 
             </table>
+            }
             {!data && <p>Загрузка...</p>}
         </div>
         </>
