@@ -14,7 +14,7 @@ export const OrderSteps = () => {
         {stepName: "Прием заказа", onClick: () => {}}
     ]
     const navigateToCreateOrderForm = () => {
-        navigate(ROUTES.CREATE_ORDER, {state : {order}})
+        navigate(`${ROUTES.CREATE_ORDER}?id=${order.id}`, {state : {order}})
     }
     return (
         <>

@@ -24,13 +24,12 @@ export const OrderForm = () => {
         clientPhone: ""
     })
     useEffect(()=>{
-        if (!location.state) return
+        const param = new URLSearchParams(window.location.search)
+        if (!location.state || !param.get("id")) return
         const order = location.state.order
         setOrder(order)
         setIsView(true)
-        //TODO may be is better to separate logic of creation
-        //order and showing is general info
-    }, [])
+    }, [location])
     const createOrderHandler = async () => {
         try {
             const orderData = getFormattedOrderData()
@@ -91,7 +90,7 @@ export const OrderForm = () => {
                         <input type="text" value = {order.clientEmail} placeholder="Почта (опционально)" name="clientEmail" onChange={orderDataHandler}/>
                         <input type="text" value = {order.address} placeholder="Адрес" name="address" onChange={orderDataHandler}/>
                         <textarea rows={5} value = {order.comment} placeholder="Комментарий" name="comment" onChange={orderDataHandler}/>
-                        {!setIsView ? 
+                        {!isView ? 
                             <button className={status === STATUSES.SUCCESS && "successBtn"} onClick={createOrderHandler} disabled = {status === STATUSES.SUCCESS}>
                                 {status === STATUSES.SUCCESS ? "Создано" : "Создать"} 
                             </button> :
