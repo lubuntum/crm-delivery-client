@@ -20,7 +20,7 @@ export const OrdersPage = () => {
     const columns = useMemo(() => [
         {
             Header: "Имя",
-            accessor: "fullName",
+            accessor: "clientFullName",
             Filter: defaultColumnFilter
         },
         {
@@ -50,7 +50,7 @@ export const OrdersPage = () => {
             try {
                 const response = await getOrganizationOrders(getToken())
                 setOrders(response.data.map(order => {
-                    order.fullName = `${order.clientSecondName} ${order.clientName} ${order.clientPatronymic}`
+                    order.clientFullName = `${order.clientSecondName} ${order.clientName} ${order.clientPatronymic}`
                     return order
                 }))
             } catch(err) {
