@@ -1,7 +1,12 @@
-.errorStatus {
+.errorText {
   color: #ff3333;
 }
 
-.successStatus {
-  color: #4db34d;
+.successText {
+  color: #66bb6a;
+}
+
+.successBtn {
+  background-color: #66bb6a;
+  cursor: not-allowed;
 }

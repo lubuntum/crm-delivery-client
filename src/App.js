@@ -1,4 +1,5 @@
 import './App.css';
+import './styles/ui_elements/buttons.css'
 import {Route, Routes, Navigate, BrowserRouter} from 'react-router-dom'
 import { ROUTES } from './routes';
 import { AuthPage } from './components/auth/AuthPage';
