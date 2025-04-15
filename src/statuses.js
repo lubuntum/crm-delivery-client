@@ -3,3 +3,13 @@ export const STATUSES = {
     SUCCESS: "SUCCESS",
     ERROR: "ERROR"
 }
+
+export const ORDER_STATUSES = {
+    CREATED: 'CREATED',
+    PICKED: 'PICKED',
+    TAKEN: 'TAKEN',
+    INSPECTION: 'INSPECTION',
+    READY: 'READY',
+    COMING: 'COMING',
+    COMPLETED: 'COMPLETED'
+}
