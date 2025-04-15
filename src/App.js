@@ -1,5 +1,6 @@
 import './App.css';
 import './styles/ui_elements/buttons.css'
+import './styles/ui_elements/inputs.css'
 import {Route, Routes, Navigate, BrowserRouter} from 'react-router-dom'
 import { ROUTES } from './routes';
 import { AuthPage } from './components/auth/AuthPage';
@@ -12,6 +13,7 @@ import { AccountPage } from './components/account/AccountPage';
 import { CreateOrderPage } from './components/order/create-order/CreateOrderPage';
 import { OrdersPage } from './components/order/orders-list/OrdersPage';
 import { OrderStepsPage } from './components/order/order-steps/OrderStepsPage';
+import { OrderPickupPage } from './components/order/pickup-order/OrderPickupPage';
 
 function App() {
   return (
@@ -33,6 +35,7 @@ const MainPage = () => {
         <Route path={ROUTES.AUTH}         element = {<AuthProtectedRoute element={<AuthPage/>}/>}/>
         <Route path={ROUTES.ACCOUNT}      element = {<ProtectedRoute element={<AccountPage/>} />}/>
         <Route path={ROUTES.CREATE_ORDER} element = {<ProtectedRoute element={<CreateOrderPage />}/>}/>
+        <Route path={ROUTES.PICKUP_ORDER} element = {<ProtectedRoute element={<OrderPickupPage/>} />} />
         <Route path={ROUTES.ORDERS}       element = {<ProtectedRoute element={<OrdersPage />} />} />
         <Route path={ROUTES.ORDER_STEPS}  element = {<ProtectedRoute element={<OrderStepsPage />} />} />
       </Routes>
