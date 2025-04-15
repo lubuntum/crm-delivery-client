@@ -4,18 +4,23 @@ import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { ROUTES } from "../../../routes"
 export const OrderSteps = () => {
-    const location = useLocation()
+    const location = useLocation()//TODO get value not from location but fetch by id which in url param
     const navigate = useNavigate()
     const [order, setOrder] = useState(location.state.order)
-    
-    const steps = [
-        {stepName: "Заявка", onClick: () => {navigateToCreateOrderForm()}},
-        {stepName: "Забрать заказ", onClick: () => {}},
-        {stepName: "Прием заказа", onClick: () => {}}
-    ]
+
     const navigateToCreateOrderForm = () => {
         navigate(`${ROUTES.CREATE_ORDER}?id=${order.id}`, {state : {order}})
     }
+    const navigateToPickupOrderForm = () => {
+        navigate(`${ROUTES.PICKUP_ORDER}?id=${order.id}`, {state: {order}})
+    }
+    
+    const steps = [
+        {stepName: "Заявка", onClick: navigateToCreateOrderForm},
+        {stepName: "Забрать заказ", onClick: navigateToPickupOrderForm},
+        {stepName: "Прием заказа", onClick: () => {}}
+    ]
+    
     return (
         <>
             <div className="contentWrapper">
