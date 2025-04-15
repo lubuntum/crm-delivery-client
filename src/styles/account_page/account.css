@@ -1,11 +1,4 @@
-.contentWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70%;
-  height: 650px;
-  padding-top: 50px;
-}
+
 .cardsWrapper {
   display: flex;
   flex-direction: column;

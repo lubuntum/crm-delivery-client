@@ -1,0 +1,13 @@
+.btnsOptions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.proposalContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

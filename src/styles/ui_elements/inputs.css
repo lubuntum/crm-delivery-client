@@ -1,0 +1,13 @@
+input {
+  height: 40px;
+  border-radius: 5px;
+  padding: 0px 25px;
+  border: 1px solid #ced4da;
+}
+
+textarea {
+  padding: 15px 25px;
+  resize: none;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}

@@ -1,9 +1,4 @@
-input {
-  height: 40px;
-  border-radius: 5px;
-  padding: 0px 25px;
-  border: 1px solid #ced4da;
-}
+
 button {
   height: 40px;
   padding: 0 30px;
@@ -106,7 +101,3 @@ button.link:hover {
   border-bottom: 1px solid black;
 }
 
-textarea {
-  padding: 15px 25px;
-  resize: none;
-}
