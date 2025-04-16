@@ -4,7 +4,7 @@ import "../../../styles/orders/create_order_page/create_order.css"
 import { useLocation } from "react-router-dom"
 import { STATUSES } from "../../../statuses"
 import { EMAIL_REGEX } from "../../../services/validation/validationRegexes"
-import { createOrderRequest } from "../../../services/api/orderApi"
+import { createOrderRequest, getOrderByIdRequest } from "../../../services/api/orderApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 export const OrderForm = () => {
     const {getToken} = useAuth()
@@ -25,11 +25,23 @@ export const OrderForm = () => {
     })
     useEffect(()=>{
         const param = new URLSearchParams(window.location.search)
-        if (!location.state || !param.get("id")) return
-        const order = location.state.order
-        setOrder(order)
+        if (!param.get("id")) return
         setIsView(true)
-    }, [location])
+        const getOrderById = async () => {
+            try {
+                setStatus(STATUSES.LOADING)
+                const response = await getOrderByIdRequest(param.get("id"), getToken())
+                const orderTemp = response.data
+                orderTemp.clientFullName = `${orderTemp.clientSecondName} ${orderTemp.clientName} ${orderTemp.clientPatronymic}`
+                setOrder(orderTemp)
+                setStatus(STATUSES.IDLE)
+            } catch(err) {
+                setStatus(STATUSES. ERROR)
+            }
+        }
+        getOrderById()
+        
+    }, [])
     const createOrderHandler = async () => {
         try {
             const orderData = getFormattedOrderData()
@@ -81,6 +93,7 @@ export const OrderForm = () => {
         <div className="contentWrapper">
             <div className="formWrapper">
                 <div className="form">
+                {status === STATUSES.LOADING && <div className="loadingBar"></div>}
                     <div className="formTitle">
                         {status.name === STATUSES.ERROR ? <p className="errorText"> {status.message}</p> : <p>Форма заказа</p> }
                     </div>

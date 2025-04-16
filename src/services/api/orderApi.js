@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CHANGE_ORDER_STATUS, CREATE_ORDER, ORGANIZATION_ORDERS, SERVER_URL } from "./urls"
+import { CHANGE_ORDER_STATUS, CREATE_ORDER, GET_ORDER_BY_ID, ORGANIZATION_ORDERS, SERVER_URL } from "./urls"
 
 export const createOrderRequest = async (order, token) => {
     return await axios.post(`${SERVER_URL}${CREATE_ORDER}`, order, {
@@ -14,5 +14,10 @@ export const changeOrderStatusRequest = async (orderId, status, token) => {
 export const getOrganizationOrders = async (token) => {
     return await axios.get(`${SERVER_URL}${ORGANIZATION_ORDERS}`, {
         headers:{Authorization: token}
+    })
+}
+export const getOrderByIdRequest = async (id, token) => {
+    return await axios.get(`${SERVER_URL}${GET_ORDER_BY_ID}/${id}`, {
+        headers: {Authorization: token}
     })
 }

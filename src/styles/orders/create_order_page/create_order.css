@@ -5,6 +5,7 @@
   width: 100%;
 }
 .form {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 25px 30px;

@@ -1,0 +1,21 @@
+.loadingBar {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  left: 50%;
+  visibility: visible;
+  border-radius: 50%;
+  border: 7px solid var(--color-secondary);
+  border-top: 7px solid var(--color-primary);
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
