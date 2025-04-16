@@ -1,21 +1,34 @@
 import { useEffect, useState } from "react"
 import "../../../styles/orders/create_order_page/create_order.css"
 import "../../../styles/orders/order_pickup/order_pickup.css"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate, useNavigation } from "react-router-dom"
 import { ORDER_STATUSES, STATUSES } from "../../../statuses"
-import { changeOrderStatusRequest } from "../../../services/api/orderApi"
+import { changeOrderStatusRequest, getOrderByIdRequest } from "../../../services/api/orderApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
+import { ROUTES } from "../../../routes"
 export const OrderPickupForm = () => {
     const location = useLocation()
+    const navigate = useNavigate()
     const {getToken} = useAuth()
     const [order, setOrder] = useState()
 
     const [status, setStatus] = useState(STATUSES.IDLE)
     useEffect(()=> {
-        if (!location.state) return
-        const order = location.state.order
-        console.log(order)
-        setOrder(order)
+        const param = new URLSearchParams(window.location.search)
+        if (!param.get("id")) {
+            navigate(-1)
+        }
+        const getOrderById = async() => {
+            try {
+                setStatus(STATUSES.LOADING)
+                const response = await getOrderByIdRequest(param.get("id"), getToken())
+                setOrder(response.data)
+                setStatus(STATUSES.IDLE)
+            } catch(err) {
+                setStatus(STATUSES.ERROR)
+            }
+        }
+        getOrderById()
     }, [])
 
     const changeOrderStatusHandler = async (orderStatus) => {
@@ -31,12 +44,14 @@ export const OrderPickupForm = () => {
     return(
         <>
             <div className="contentWrapper">
-                {order?.status === ORDER_STATUSES.CREATED ? 
+                {status === STATUSES.LOADING && <div className="loadingBar"> </div>}
+                {order && order.status === ORDER_STATUSES.CREATED && 
                     <div className="proposalContainer"> 
                         <p>Хотите начать работу с текущим заказом ?</p>
                         <button onClick={()=> changeOrderStatusHandler(ORDER_STATUSES.PICKED)}>Взять заказ</button> 
-                    </div> :
-                    
+                    </div>
+                }
+                {order && order.status !== ORDER_STATUSES.CREATED &&
                     <div className="formWrapper">
                         <div className="form">
                             <div className="orderTitle">
@@ -51,6 +66,7 @@ export const OrderPickupForm = () => {
                         </div>
                     </div>
                 }
+                
             </div>
         </>
     )
