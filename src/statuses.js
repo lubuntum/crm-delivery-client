@@ -1,7 +1,8 @@
 export const STATUSES = {
     IDLE: "IDLE",
     SUCCESS: "SUCCESS",
-    ERROR: "ERROR"
+    ERROR: "ERROR",
+    LOADING: "LOADING"
 }
 
 export const ORDER_STATUSES = {
