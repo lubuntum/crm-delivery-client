@@ -46,8 +46,12 @@ export const OrderForm = () => {
         try {
             const orderData = getFormattedOrderData()
             console.log(orderData)
-            if (!orderData || !orderData.clientEmail.match(EMAIL_REGEX) || orderData.clientPhone.length !== 11) {
-                setStatus({name: STATUSES.ERROR, message: "Введите все поля коректно"})
+            if (orderData.clientPhone.length !== 11) {
+                setStatus({name: STATUSES.ERROR, message: "Введите номер в нужном формате"})
+                return
+            }
+            if (orderData.clientEmail && !orderData.clientEmail.match(EMAIL_REGEX)) {
+                setStatus({name: STATUSES.ERROR, message: "Введите почту корректно"})
                 return
             }
             await createOrderRequest(orderData, getToken())
