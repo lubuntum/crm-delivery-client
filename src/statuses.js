@@ -2,6 +2,7 @@ export const STATUSES = {
     IDLE: "IDLE",
     SUCCESS: "SUCCESS",
     ERROR: "ERROR",
+    VALIDATION_ERROR: "VALIDATION_ERROR",
     LOADING: "LOADING"
 }
 
