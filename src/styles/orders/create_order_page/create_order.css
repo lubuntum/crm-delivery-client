@@ -20,5 +20,12 @@
 .formInputs {
   display: flex;
   flex-direction: column;
+  font-size: 14px;
+  gap: 10px;
+}
+.inputsRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 10px;
 }
