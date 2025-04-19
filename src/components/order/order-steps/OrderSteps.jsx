@@ -14,11 +14,14 @@ export const OrderSteps = () => {
     const navigateToPickupOrderForm = () => {
         navigate(`${ROUTES.PICKUP_ORDER}?id=${order.id}`, {state: {order}})
     }
+    const navigateToOrderInspection = () => {
+        navigate(`${ROUTES.ORDER_INSPECTION}?id=${order.id}`)
+    }
     
     const steps = [
         {stepName: "Заявка", onClick: navigateToCreateOrderForm},
         {stepName: "Забрать заказ", onClick: navigateToPickupOrderForm},
-        {stepName: "Прием заказа", onClick: () => {}}
+        {stepName: "Прием заказа", onClick: navigateToOrderInspection}
     ]
     
     return (
