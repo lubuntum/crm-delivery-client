@@ -20,8 +20,9 @@ export const OrderSteps = () => {
     
     const steps = [
         {stepName: "Заявка", onClick: navigateToCreateOrderForm},
-        {stepName: "Забрать заказ", onClick: navigateToPickupOrderForm},
-        {stepName: "Прием заказа", onClick: navigateToOrderInspection}
+        {stepName: "Курьер", onClick: navigateToPickupOrderForm},
+        {stepName: "Цех", onClick: navigateToOrderInspection},
+        {stepName: "Доставка", onClick: navigateToOrderInspection}
     ]
     
     return (

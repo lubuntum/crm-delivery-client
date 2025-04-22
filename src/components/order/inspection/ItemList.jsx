@@ -27,6 +27,8 @@ export const ItemList = ({orderItems}) => {
                         ))}
                     </tbody>
                 </table>
+                {orderItems && <p>Итоговая цена заказа: {orderItems.reduce((acc, item) => {return acc + item.price}, 0)}₽</p>}
+                {orderItems && <p>Итоговая площадь: {orderItems.reduce((acc, item) => {return acc + item.size}, 0)}м2</p>}
                 {orderItems && <button className={!isReady && "blocked"}>Завершить проверку</button>}
         </div>
             
