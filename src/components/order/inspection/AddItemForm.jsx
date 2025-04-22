@@ -14,7 +14,7 @@ export const AddItemForm = ({setItems}) => {
     const [materials, setMaterials] = useState([])
 
     const [selectedMaterialId, setSelectedMaterialId] = useState(null)
-    const [item, setItem] = useState({materialId: null, size: 0, price: 0, width: '', height: '', pricePerUnit: '', additionalPrice: ''})
+    const [item, setItem] = useState({materialId: null, size: 0, price: 0, width: '', height: '', pricePerUnit: '', additionalPrice: '', comment: ''})
 
     useEffect(()=> {
         const param = new URLSearchParams(window.location.search)
@@ -61,12 +61,14 @@ export const AddItemForm = ({setItems}) => {
         setItem(tempItem)
     }
     const additionalPriceHandler = (e) => {
-        
         const tempItem = {...item}
         tempItem.price -= tempItem.additionalPrice
         tempItem.additionalPrice = Number(e.target.value)
         tempItem.price += tempItem.additionalPrice
         setItem(tempItem)
+    }
+    const commentHandler = (e) => {
+        setItem(prev => ({...prev, comment: e.target.value}))
     }
     const addItemToOrderHandler = async () => {
         if (!item.price || !item.size || !item.materialId) {
@@ -84,7 +86,8 @@ export const AddItemForm = ({setItems}) => {
         }
     }
     const resetForm = () => {
-        const tempResetValue = {materialId: null, size: 0, price: 0, width: '', height: '', pricePerUnit: '', additionalPrice: ''}
+        const tempResetValue = {materialId: null, size: 0, price: 0, width: '', height: '', 
+            pricePerUnit: '', additionalPrice: '', comment: ''}
         const {name, id} = materials[0]
         tempResetValue.materialName = name
         tempResetValue.materialId = id
@@ -97,7 +100,7 @@ export const AddItemForm = ({setItems}) => {
             <div className="formWrapper">
                 <div className="form">
                     <div className="formTitle">
-                        Добавить предмет к заказу
+                        Добавить позицию к заказу
                         {status === STATUSES.VALIDATION_ERROR && <p className="errorText">Проверьте все поля</p>}
                     </div>
                     <div className="formInputs">
@@ -119,6 +122,8 @@ export const AddItemForm = ({setItems}) => {
                             <input type="number" step={0.1} min={0} placeholder="Доп. цена" onChange={additionalPriceHandler} value={item.additionalPrice}/>
                             <p>Итог: {item.price}₽</p>
                         </div>
+                        <textarea placeholder="Комментарий к позиции" maxLength={250} value={item.comment} onChange={commentHandler}/>
+                        <button>Добавить фото</button>
                         <button onClick={addItemToOrderHandler}>Добавить к заказу</button>
                     </div>
                 </div>
