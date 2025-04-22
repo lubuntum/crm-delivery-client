@@ -1,21 +1,47 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import '../../../styles/orders/order_inspection/order_inspection.css'
-export const AddItemForm = () => {
-    const tempMaterial = [
-        {id: 1, name: "Хлопок" },
-        {id: 2, name: "Шерсть"},
-        {id: 3, name: "Полиэстр"},
-        {id: 4, name: "Полиамид"}
-    ]
-    const [selectedMaterialId, setSelectedMaterialId] = useState(null)
+import { STATUSES } from "../../../statuses"
+import { getMaterialByOrganizationId } from "../../../services/api/materialsApi"
+import { useAuth } from "../../../services/auth/AuthProvider"
+import { useNavigate } from "react-router-dom"
+import { createItemRequest } from "../../../services/api/itemApi"
+export const AddItemForm = ({setItems}) => {
+    const [status, setStatus] = useState(STATUSES.IDLE)
+    const orderIdRef = useRef(null)
+    const {getToken} = useAuth()
+    const navigate = useNavigate()
 
-    const [item, setItem] = useState({materialId: null, size: 0, price: 0, width: 0, height: 0, pricePerUnit: 0, additionalPrice: 0})
-    const [width, setWidth] = useState(0)
-    const [height, setHeight] = useState(0)
-    const updateItemHandler = (e) => {
-        const {name, value} = e.target
-        console.log(name, value)
-        setItem(prev => ({...prev, [name] : value}))
+    const [materials, setMaterials] = useState([])
+
+    const [selectedMaterialId, setSelectedMaterialId] = useState(null)
+    const [item, setItem] = useState({materialId: null, size: 0, price: 0, width: '', height: '', pricePerUnit: '', additionalPrice: ''})
+
+    useEffect(()=> {
+        const param = new URLSearchParams(window.location.search)
+        if (!param.get("id")) navigate(-1)
+        //when page is loading save id from url
+        orderIdRef.current = param.get("id")
+        const getMaterials = async () => {
+            try {
+                const response = await getMaterialByOrganizationId(getToken())
+                setMaterials(response.data)
+                //by default pick first element
+                const {name, id} = response.data[0]
+                setItem(prev => ({...prev, materialName : name, materialId: id}))
+            } catch(err) {
+                console.error(err)
+                setStatus(STATUSES.ERROR)
+            }
+        }
+        getMaterials()
+    }, [])
+
+    
+
+    const pickMaterialHandler = (e) => {
+        const {value} = e.target
+        const {name, id} = materials.find((m) => m.id === Number(value))
+        setItem(prev => ({...prev, materialName : name, materialId: id}))
     }
     const changeItemSizeHanler = (e) => {
         const {name, value} = e.target
@@ -42,17 +68,42 @@ export const AddItemForm = () => {
         tempItem.price += tempItem.additionalPrice
         setItem(tempItem)
     }
+    const addItemToOrderHandler = async () => {
+        if (!item.price || !item.size || !item.materialId) {
+            setStatus(STATUSES.VALIDATION_ERROR)
+            return
+        }
+        const itemForRequest = {...item}
+        itemForRequest.orderId = orderIdRef.current
+        try {
+            const response = await createItemRequest(itemForRequest, getToken())
+            setItems(prev => ([...prev, response.data]))
+            resetForm()
+        } catch(err) {
+            setStatus(STATUSES.ERROR)
+        }
+    }
+    const resetForm = () => {
+        const tempResetValue = {materialId: null, size: 0, price: 0, width: '', height: '', pricePerUnit: '', additionalPrice: ''}
+        const {name, id} = materials[0]
+        tempResetValue.materialName = name
+        tempResetValue.materialId = id
+        console.log(tempResetValue)
+        setItem(tempResetValue)
+        setStatus(STATUSES.IDLE)
+    }
     return (
         <>
             <div className="formWrapper">
                 <div className="form">
                     <div className="formTitle">
                         Добавить предмет к заказу
+                        {status === STATUSES.VALIDATION_ERROR && <p className="errorText">Проверьте все поля</p>}
                     </div>
                     <div className="formInputs">
-                        <select name="materialId" value={selectedMaterialId} onChange={updateItemHandler}>
+                        <select name="materialId" value={selectedMaterialId} onChange={pickMaterialHandler}>
                             <option value="" disabled>Материал</option>
-                            {tempMaterial && tempMaterial.map(material => (
+                            {materials && materials.map(material => (
                                 <option key={material.id} value={material.id}>{material.name}</option>
                             ))}
                         </select>
@@ -62,13 +113,13 @@ export const AddItemForm = () => {
                             <p>{item.size} см<sup>2</sup></p>
                         </div>
                         <div className="inputsRow">
-                            <input type="number" step={0.1} min={0} placeholder="Цена единицы" onChange={changePricePerUnitHandler}/>
+                            <input type="number" step={0.1} min={0} placeholder="Цена единицы" onChange={changePricePerUnitHandler} value={item.pricePerUnit}/>
                         </div>
                         <div className="inputsRow">
-                            <input type="number" step={0.1} min={0} placeholder="Доп. цена" onChange={additionalPriceHandler}/>
+                            <input type="number" step={0.1} min={0} placeholder="Доп. цена" onChange={additionalPriceHandler} value={item.additionalPrice}/>
                             <p>Итог: {item.price}₽</p>
                         </div>
-                        <button>Добавить к заказу</button>
+                        <button onClick={addItemToOrderHandler}>Добавить к заказу</button>
                     </div>
                 </div>
             </div>
