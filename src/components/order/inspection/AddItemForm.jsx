@@ -5,7 +5,7 @@ import { getMaterialByOrganizationId } from "../../../services/api/materialsApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { useNavigate } from "react-router-dom"
 import { createItemRequest } from "../../../services/api/itemApi"
-export const AddItemForm = ({setItems}) => {
+export const AddItemForm = ({setOrderItems, item, setItem}) => {
     const [status, setStatus] = useState(STATUSES.IDLE)
     const orderIdRef = useRef(null)
     const {getToken} = useAuth()
@@ -14,7 +14,6 @@ export const AddItemForm = ({setItems}) => {
     const [materials, setMaterials] = useState([])
 
     const [selectedMaterialId, setSelectedMaterialId] = useState(null)
-    const [item, setItem] = useState({materialId: null, size: 0, price: 0, width: '', height: '', pricePerUnit: '', additionalPrice: '', comment: ''})
 
     useEffect(()=> {
         const param = new URLSearchParams(window.location.search)
@@ -35,6 +34,10 @@ export const AddItemForm = ({setItems}) => {
         }
         getMaterials()
     }, [])
+    useEffect(()=> {
+        console.log(selectedMaterialId === item.materialId)
+        if (selectedMaterialId !== item.materialId) setSelectedMaterialId(item.materialId)
+    }, [item])
 
     
 
@@ -79,7 +82,7 @@ export const AddItemForm = ({setItems}) => {
         itemForRequest.orderId = orderIdRef.current
         try {
             const response = await createItemRequest(itemForRequest, getToken())
-            setItems(prev => ([...prev, response.data]))
+            setOrderItems(prev => ([...prev, response.data]))
             resetForm()
         } catch(err) {
             setStatus(STATUSES.ERROR)

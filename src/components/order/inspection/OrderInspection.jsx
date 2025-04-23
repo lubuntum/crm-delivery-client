@@ -15,10 +15,9 @@ export const OrderInspection = () => {
     const navigate = useNavigate()
     const {getToken} = useAuth()
 
-    const [items, setItems] = useState([{materialName: "Хлопоп", size: "135", price: "2500"},
-        {materialName: "Шерсть", size: "100", price: "3500"},
-        {materialName: "Полиэстр", size: "25", price: "1200"},
-        {materialName: "Полиамид", size: "125", price: "3500"}])
+    const [orderItems, setOrderItems] = useState([])
+    const [item, setItem] = useState({materialId: null, size: 0, price: 0, width: '', height: '', pricePerUnit: '', additionalPrice: '', comment: ''})
+
     useEffect(()=> {
         const param = new URLSearchParams(window.location.search)
         if (!param.get("id")) navigate(-1)
@@ -30,7 +29,7 @@ export const OrderInspection = () => {
         }
         const getItemsByOrderId = async () => {
             const response = await getItemsByOrderIdRequest(param.get("id"), getToken())
-            setItems(response.data)
+            setOrderItems(response.data)
         }
         try {
             getOrderById()
@@ -54,8 +53,8 @@ export const OrderInspection = () => {
                     {checkOrderForPrevStatus() && <p>Заказ пока не готов к инспекции</p> }
                     {(order && !checkOrderForPrevStatus()) && 
                         <>
-                            <AddItemForm setItems={setItems}/>
-                            <ItemList orderItems = {items} />
+                            <AddItemForm setOrderItems={setOrderItems} item={item} setItem={setItem}/>
+                            <ItemList orderItems = {orderItems} setItem={setItem} />
                         </>}
                 </div>
         </div>

@@ -1,12 +1,15 @@
 import { useState } from "react"
 import "../../../styles/orders/orders_list/orders_list.css"
-export const ItemList = ({orderItems}) => {
+export const ItemList = ({orderItems, setItem}) => {
     const tableHeaderData = ['Материал', 'Размер', 'Цена']
     const [isReady, setIsReady] = useState(false)
+    const showItemDetails = (item) => {
+        setItem(item)
+    }
     return (
         <>  
         <div className="itemsWrapper">
-            <table>
+            <table className="ordersList">
                     <thead>
                         <tr>
                             {tableHeaderData.map(header => (
@@ -18,7 +21,7 @@ export const ItemList = ({orderItems}) => {
                     </thead>
                     <tbody>
                         {orderItems && orderItems.map(item => (
-                            <tr>
+                            <tr onClick={()=>{showItemDetails(item)}}>
                                 <th>{item.materialName}</th>
                                 <th>{item.size}</th>
                                 <th>{item.price}</th>

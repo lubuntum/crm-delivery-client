@@ -20,6 +20,9 @@
   border: 1px solid gray;
   cursor: pointer;
 }
+.ordersList tbody tr {
+  cursor: pointer;
+}
 .ordersList tbody tr:hover {
   background-color: var(--color-primary);
   color: white;
