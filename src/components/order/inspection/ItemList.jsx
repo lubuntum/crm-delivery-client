@@ -6,6 +6,13 @@ export const ItemList = ({orderItems, setItem}) => {
     const showItemDetails = (item) => {
         setItem(item)
     }
+    const itemCheckHandler = (e) => {
+        console.log(e.target.value)
+        //TODO
+        //There is a bug when click on check button still works select item details (devide this events)
+        //add in database isCheked property to item 
+        //check if all roderItems has checked true then set isReady to true
+    }
     return (
         <>  
         <div className="itemsWrapper">
@@ -25,14 +32,17 @@ export const ItemList = ({orderItems, setItem}) => {
                                 <th>{item.materialName}</th>
                                 <th>{item.size}</th>
                                 <th>{item.price}</th>
-                                <th><input style={{width:17, height: 17}} type="checkbox" /></th>
+                                <th><input style={{width:17, height: 17}} type="checkbox" 
+                                    onChange={(e)=> {itemCheckHandler(e)}}  
+                                    onClick={(e) => e.stopPropagation()}/>
+                                </th>
                             </tr>
                         ))}
                     </tbody>
                 </table>
                 {orderItems && <p>Итоговая цена заказа: {orderItems.reduce((acc, item) => {return acc + item.price}, 0)}₽</p>}
                 {orderItems && <p>Итоговая площадь: {orderItems.reduce((acc, item) => {return acc + item.size}, 0)}м2</p>}
-                {orderItems && <button className={!isReady && "blocked"}>Завершить проверку</button>}
+                {orderItems && <button className={(!isReady || orderItems.length === 0) && "blocked"}>Завершить проверку</button>}
         </div>
             
         </>
