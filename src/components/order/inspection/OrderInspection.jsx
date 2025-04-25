@@ -3,7 +3,7 @@ import { AddItemForm } from "./AddItemForm"
 import { ItemList } from "./ItemList"
 import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 import { useNavigate } from "react-router-dom"
-import { getOrderByIdRequest } from "../../../services/api/orderApi"
+import { changeOrderStatusRequest, getOrderByIdRequest } from "../../../services/api/orderApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { getMaterialByOrganizationId } from "../../../services/api/materialsApi"
 import { getItemsByOrderIdRequest } from "../../../services/api/itemApi"
@@ -16,7 +16,7 @@ export const OrderInspection = () => {
     const {getToken} = useAuth()
 
     const [orderItems, setOrderItems] = useState([])
-    const [item, setItem] = useState({materialId: null, size: 0, price: 0, width: '', height: '', pricePerUnit: '', additionalPrice: '', comment: ''})
+    const [item, setItem] = useState({materialId: null, size: 0, price: 0, width: '', height: '', pricePerUnit: '', additionalPrice: '', comment: '', isReady: false})
 
     useEffect(()=> {
         const param = new URLSearchParams(window.location.search)
@@ -29,7 +29,11 @@ export const OrderInspection = () => {
         }
         const getItemsByOrderId = async () => {
             const response = await getItemsByOrderIdRequest(param.get("id"), getToken())
-            setOrderItems(response.data)
+            setOrderItems(response.data.sort((a,b) => {
+                if (a.materialName < b.materialName) return -1
+                if (a.materialName > b.materialName) return 1
+                return 0
+            }))
         }
         try {
             getOrderById()
@@ -45,16 +49,31 @@ export const OrderInspection = () => {
             order.status === ORDER_STATUSES.PICKED || 
             order.status === ORDER_STATUSES.TAKEN))
     }
+    const completeInspectionForOrder = async () => {
+        
+        try {
+            const response = await changeOrderStatusRequest(order.id, ORDER_STATUSES.READY, getToken())
+
+            setOrder(prev => ({...prev, status: response.data}))
+            //TODO
+            //  - дать знать что статус успешно изменен и заблокировать UI
+            //  - Передать функцию в ItemList и вызвать ее при завершении заказа
+        } catch(err) {
+            console.error(err)
+            setStatus(STATUSES.ERROR)
+        }
+    }
     return (
         <> 
         <div className="inspectionContainer">
             <div className="inspectionContentWrapper">
                     {status === STATUSES.LOADING && <div className="loadingBar"> </div>}
-                    {checkOrderForPrevStatus() && <p>Заказ пока не готов к инспекции</p> }
+                    {checkOrderForPrevStatus() && <p>Заказ пока не готов к инспекции</p>}
                     {(order && !checkOrderForPrevStatus()) && 
                         <>
-                            <AddItemForm setOrderItems={setOrderItems} item={item} setItem={setItem}/>
-                            <ItemList orderItems = {orderItems} setItem={setItem} />
+                            <AddItemForm setOrderItems={setOrderItems} item={item} setItem={setItem} order={order}/>
+                            <ItemList orderItems = {orderItems} setOrderItems={setOrderItems} setItem={setItem} 
+                                      order={order} completeInspectionForOrder = {completeInspectionForOrder}/>
                         </>}
                 </div>
         </div>
