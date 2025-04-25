@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react"
 import '../../../styles/orders/order_inspection/order_inspection.css'
-import { STATUSES } from "../../../statuses"
+import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 import { getMaterialByOrganizationId } from "../../../services/api/materialsApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { useNavigate } from "react-router-dom"
 import { createItemRequest } from "../../../services/api/itemApi"
-export const AddItemForm = ({setOrderItems, item, setItem}) => {
+export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
     const [status, setStatus] = useState(STATUSES.IDLE)
     const orderIdRef = useRef(null)
     const {getToken} = useAuth()
@@ -74,6 +74,10 @@ export const AddItemForm = ({setOrderItems, item, setItem}) => {
         setItem(prev => ({...prev, comment: e.target.value}))
     }
     const addItemToOrderHandler = async () => {
+        if (order.status !== ORDER_STATUSES.INSPECTION) {
+            setStatus(STATUSES.ORDER_STATUS_ERROR)
+            return
+        }
         if (!item.price || !item.size || !item.materialId) {
             setStatus(STATUSES.VALIDATION_ERROR)
             return
@@ -98,6 +102,7 @@ export const AddItemForm = ({setOrderItems, item, setItem}) => {
         setItem(tempResetValue)
         setStatus(STATUSES.IDLE)
     }
+    
     return (
         <>
             <div className="formWrapper">
@@ -105,6 +110,7 @@ export const AddItemForm = ({setOrderItems, item, setItem}) => {
                     <div className="formTitle">
                         Добавить позицию к заказу
                         {status === STATUSES.VALIDATION_ERROR && <p className="errorText">Проверьте все поля</p>}
+                        {status === STATUSES.ORDER_STATUS_ERROR && <p className="errorText">Этап завершен</p>}
                     </div>
                     <div className="formInputs">
                         <select name="materialId" value={selectedMaterialId} onChange={pickMaterialHandler}>
@@ -126,8 +132,8 @@ export const AddItemForm = ({setOrderItems, item, setItem}) => {
                             <p>Итог: {item.price}₽</p>
                         </div>
                         <textarea placeholder="Комментарий к позиции" maxLength={250} value={item.comment} onChange={commentHandler}/>
-                        <button>Добавить фото</button>
-                        <button onClick={addItemToOrderHandler}>Добавить к заказу</button>
+                        <button className={order.status !== ORDER_STATUSES.INSPECTION && "blocked"}>Добавить фото</button>
+                        <button className={order.status !== ORDER_STATUSES.INSPECTION && "blocked"} onClick={addItemToOrderHandler}>Добавить к заказу</button>
                     </div>
                 </div>
             </div>
