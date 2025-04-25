@@ -8,6 +8,7 @@ export const CHANGE_ORDER_STATUS = "/api/orders/change-order-status"
 export const GET_ORDER_BY_ID = "/api/orders/order"
 export const CREATE_ITEM_FOR_ORDER = "/api/orders/items/create-item"
 export const GET_ITEMS_BY_ORDER_ID = "/api/orders/items/by-order-id"
+export const CHANGE_ITEM_READY_STATE = "/api/orders/items/item/change-ready-state"
 
 export const CREATE_ORDER_PICKUP = "/api/orders-pickup/create"
 export const GET_ORDER_PICKUP_BY_ID = "/api/orders-pickup/order-pickup"
