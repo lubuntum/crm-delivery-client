@@ -52,7 +52,7 @@ export const OrderPickupForm = () => {
         try {
             const response = await changeOrderStatusRequest(order.id, orderStatus, getToken())
             setOrder(prev => ({...prev, status: response.data}))
-            setStatus(STATUSES.IDLE)
+            setStatus(STATUSES.SUCCESS)
         } catch (err) {
             setStatus(STATUSES.ERROR)
             console.error(err)
@@ -70,6 +70,7 @@ export const OrderPickupForm = () => {
             await createOrderPickupRequest(getToken(), orderPickupData)
             await changeOrderStatusHandler(ORDER_STATUSES.TAKEN)
             setStatus(STATUSES.SUCCESS)
+            setTimeout(()=> setStatus(STATUSES.IDLE), 5000)
         } catch(err) {
             setStatus(STATUSES.ERROR)
         }
@@ -97,7 +98,7 @@ export const OrderPickupForm = () => {
                             <div className="formTitle">
                             <p>Забрать заказ</p>
                             {status === STATUSES.VALIDATION_ERROR && <p className="errorText">Формат некоторых полей неверен</p>}
-                            {status === STATUSES.SUCCESS && <p className="successText">Заказ успешно забран</p>}
+                            {status === STATUSES.SUCCESS && <p className="successText">Успешно</p>}
                             </div>
                             <div className="formInputs">
                                 <input type="number" step={1} min={1} required name = "itemsCount" placeholder="Количество" value={orderPickup.itemsCount} onChange={orderPickupHandler} />
