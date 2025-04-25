@@ -17,12 +17,14 @@ export const OrderSteps = () => {
     const navigateToOrderInspection = () => {
         navigate(`${ROUTES.ORDER_INSPECTION}?id=${order.id}`)
     }
-    
+    const navigateToFinishOrderForm = () => {
+        navigate(`${ROUTES.FINISH_ORDER}?id=${order.id}`)
+    }
     const steps = [
         {stepName: "Заявка", onClick: navigateToCreateOrderForm},
         {stepName: "Курьер", onClick: navigateToPickupOrderForm},
         {stepName: "Цех", onClick: navigateToOrderInspection},
-        {stepName: "Доставка", onClick: navigateToOrderInspection}
+        {stepName: "Доставка", onClick: navigateToFinishOrderForm}
     ]
     
     return (
