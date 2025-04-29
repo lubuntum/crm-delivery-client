@@ -3,13 +3,44 @@ input {
   border-radius: 5px;
   padding: 0px 20px;
   border: 1px solid #ced4da;
+  font-size: 16px;
 }
-
+input::placeholder {
+  font-size: 12px;
+}
+input[type="radio"] {
+  display: none;
+}
+.custom-radio {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  position: relative;
+  margin-right: 5px;
+  cursor: pointer;
+}
+input[type="radio"]:checked + .custom-radio::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
 textarea {
   padding: 15px 20px;
   resize: none;
   border: 1px solid lightgray;
   border-radius: 5px;
+  font-size: 16px;
+}
+textarea::placeholder {
+  font-size: 12px;
 }
 
 select {
