@@ -53,6 +53,7 @@ export const OrderPickupForm = () => {
             const response = await changeOrderStatusRequest(order.id, orderStatus, getToken())
             setOrder(prev => ({...prev, status: response.data}))
             setStatus(STATUSES.SUCCESS)
+            setTimeout(()=> setStatus(STATUSES.IDLE), 5000)
         } catch (err) {
             setStatus(STATUSES.ERROR)
             console.error(err)
@@ -96,7 +97,7 @@ export const OrderPickupForm = () => {
                     <div className="formWrapper">
                         <div className="form">
                             <div className="formTitle">
-                            <p>Забрать заказ</p>
+                            <h4>Забрать заказ</h4>
                             {status === STATUSES.VALIDATION_ERROR && <p className="errorText">Формат некоторых полей неверен</p>}
                             {status === STATUSES.SUCCESS && <p className="successText">Успешно</p>}
                             </div>

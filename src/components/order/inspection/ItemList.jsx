@@ -3,7 +3,8 @@ import "../../../styles/orders/orders_list/orders_list.css"
 import { updateItemReadyStateRequest } from "../../../services/api/itemApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { ORDER_STATUSES } from "../../../statuses"
-export const ItemList = ({orderItems, setOrderItems, setItem, order, completeInspectionForOrder}) => {
+import { formatDate } from "../../../services/date/dateFormattes"
+export const ItemList = ({orderItems, setOrderItems, setItem, order, completeInspectionForOrder, orderInspection}) => {
     const tableHeaderData = ['Материал', 'Размер', 'Цена']
     const [isReady, setIsReady] = useState(false)
     const {getToken} = useAuth()
@@ -73,6 +74,7 @@ export const ItemList = ({orderItems, setOrderItems, setItem, order, completeIns
                 </table>
                 {orderItems && <p className="lato-semibold">Итоговая цена заказа: {orderItems.reduce((acc, item) => {return acc + item.price}, 0)}₽</p>}
                 {orderItems && <p className="lato-semibold">Итоговая площадь: {orderItems.reduce((acc, item) => {return acc + item.size}, 0)}м<sup>2</sup></p>}
+                {orderInspection && <p className="lato-semibold">Дата выполнения: {formatDate(orderInspection.inspectedAt)}</p>}
                 {orderItems && <button onClick={completeInspectionForOrderHandler} className={(!isReady || orderItems.length === 0 || order.status !== ORDER_STATUSES.INSPECTION) && "blocked"}>{order.status === ORDER_STATUSES.READY ? "Проверка выполнена" : "Завершить проверку"}</button>}
         </div>
             

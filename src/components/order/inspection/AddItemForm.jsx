@@ -108,7 +108,7 @@ export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
             <div className="formWrapper">
                 <div className="form">
                     <div className="formTitle">
-                        Добавить позицию к заказу
+                        <h4>Добавить позицию к заказу</h4>
                         {status === STATUSES.VALIDATION_ERROR && <p className="errorText">Проверьте все поля</p>}
                         {status === STATUSES.ORDER_STATUS_ERROR && <p className="errorText">Этап завершен</p>}
                     </div>

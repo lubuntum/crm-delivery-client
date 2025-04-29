@@ -99,7 +99,7 @@ export const OrderForm = () => {
                 <div className="form">
                 {status === STATUSES.LOADING && <div className="loadingBar"></div>}
                     <div className="formTitle">
-                        {status.name === STATUSES.ERROR ? <p className="errorText"> {status.message}</p> : <p>Форма заказа</p> }
+                        {status.name === STATUSES.ERROR ? <p className="errorText"> {status.message}</p> : <h4>Форма заказа</h4> }
                     </div>
                     <div className="formInputs">
                         <input type="text" value = {order.clientFullName}placeholder="ФИО" name="clientFullName" onChange={orderDataHandler}/>
