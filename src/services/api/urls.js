@@ -14,6 +14,9 @@ export const CREATE_ORDER_PICKUP = "/api/orders-pickup/create"
 export const GET_ORDER_PICKUP_BY_ID = "/api/orders-pickup/order-pickup"
 export const GET_ORDER_PICKUP_BY_ORDER_ID = "/api/orders-pickup/order-pickup/by-order-id"
 
+export const CREATE_ORDER_INSPECTION = "/api/orders-inspection/create"
+export const GET_ORDER_INSPECTION_BY_ORDER_ID = "/api/orders-inspection/order-inspection/by-order-id"
+
 export const ORGANIZATION_ORDERS = "/api/organization/orders"
 export const ORGANIZATION_MATERIALS = "/api/organization/materials"
 export const BARREL_COMPONENTS = "/api/barrel/components"
