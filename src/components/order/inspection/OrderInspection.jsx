@@ -7,11 +7,13 @@ import { changeOrderStatusRequest, getOrderByIdRequest } from "../../../services
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { getMaterialByOrganizationId } from "../../../services/api/materialsApi"
 import { getItemsByOrderIdRequest } from "../../../services/api/itemApi"
+import { createOrderInspectionRequest, getOrderInspectionByOrderIdRequest } from "../../../services/api/orderInspectionApi"
 
 
 export const OrderInspection = () => {
     const [status, setStatus] = useState(STATUSES.IDLE)
     const [order, setOrder] =  useState(null)
+    const [orderInspection, setOrderInspection] = useState(null)
     const navigate = useNavigate()
     const {getToken} = useAuth()
 
@@ -44,6 +46,17 @@ export const OrderInspection = () => {
         }
         
     }, [])
+    useEffect(()=>{
+        const getOrderInspectionByOrderId = async() => {
+            try {
+                const response = await getOrderInspectionByOrderIdRequest(getToken(), order.id)
+                setOrderInspection(response.data)
+            } catch(err) {
+                console.log(err)
+            }
+        }
+        getOrderInspectionByOrderId()
+    }, [order])
     const checkOrderForPrevStatus = () => {
         return (order && (order.status === ORDER_STATUSES.CREATED || 
             order.status === ORDER_STATUSES.PICKED || 
@@ -52,6 +65,7 @@ export const OrderInspection = () => {
     const completeInspectionForOrder = async () => {
         
         try {
+            await createOrderInspectionRequest({orderId: order.id, itemsCount: orderItems.length,}, getToken())
             const response = await changeOrderStatusRequest(order.id, ORDER_STATUSES.READY, getToken())
 
             setOrder(prev => ({...prev, status: response.data}))
@@ -73,7 +87,8 @@ export const OrderInspection = () => {
                         <>
                             <AddItemForm setOrderItems={setOrderItems} item={item} setItem={setItem} order={order}/>
                             <ItemList orderItems = {orderItems} setOrderItems={setOrderItems} setItem={setItem} 
-                                      order={order} completeInspectionForOrder = {completeInspectionForOrder}/>
+                                      order={order} completeInspectionForOrder = {completeInspectionForOrder} 
+                                      orderInspection = {orderInspection}/>
                         </>}
                 </div>
         </div>
