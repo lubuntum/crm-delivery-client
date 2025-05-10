@@ -122,7 +122,7 @@ export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
                         <div className="inputsRow">
                             <input type="number" name="width" step={0.1} min={0} max={9999} placeholder="Ширина" value={item.width} onChange={changeItemSizeHanler} />
                             <input type="number" name="height" step={0.1} min={0} max={9999} placeholder="Высота" value={item.height} onChange={changeItemSizeHanler} />
-                            <p>{item.size} см<sup>2</sup></p>
+                            <p>{item.size} м<sup>2</sup></p>
                         </div>
                         <div className="inputsRow">
                             <input type="number" step={0.1} min={0} placeholder="Цена единицы" onChange={changePricePerUnitHandler} value={item.pricePerUnit}/>
