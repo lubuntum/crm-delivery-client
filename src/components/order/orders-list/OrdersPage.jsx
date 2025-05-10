@@ -49,7 +49,8 @@ export const OrdersPage = () => {
         const getOrdersData = async () => {
             try {
                 const response = await getOrganizationOrders(getToken())
-                setOrders(response.data.map(order => {
+                const sortedOrders = response.data.sort((a, b) => {return new Date(b.createdAt) - new Date(a.createdAt)})
+                setOrders(sortedOrders.map(order => {
                     order.clientFullName = `${order.clientSecondName} ${order.clientName} ${order.clientPatronymic}`
                     return order
                 }))
