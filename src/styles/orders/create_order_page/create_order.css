@@ -29,3 +29,11 @@
   align-items: center;
   gap: 10px;
 }
+.imgBtnsRow {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.imgBtnsRow button {
+  width: 50%;
+}
