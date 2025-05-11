@@ -1,0 +1,46 @@
+.floating-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.floating-component {
+    position: relative;
+    color: black;
+    box-shadow: 0px 4px 15px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 20px;
+    background-color: var(--color-background);
+    width: 450px;
+    height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.exit-button {
+    height: 30px;
+    width: 30px;
+    position: fixed;
+    padding: 5px 10px;
+    background-color: var(--color-primary);
+    border-radius: 5%;
+    top: 0%;
+    right: 0%;
+}
+.floating-component img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.imgCards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -8,5 +8,6 @@ export const ROUTES = {
     FINISH_ORDER: "/order-finish",
     ORDERS: "/orders",
     ORDER_STEPS: "/order-steps",
+    ORDER_IMAGES: "/order-images",
     ABOUT: "/about"
 }
