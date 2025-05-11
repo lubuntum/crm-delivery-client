@@ -64,7 +64,7 @@ export const FinishOrderForm = () => {
     }, [order])
     const validateOrderStatus = () => {
         return order && (order.status === ORDER_STATUSES.READY || 
-            order.status === ORDER_STATUSES.TAKEN || 
+            order.status === ORDER_STATUSES.COMING || 
             order.status === ORDER_STATUSES.COMPLETED)
     }
     const isDataValid = () => {
@@ -89,7 +89,7 @@ export const FinishOrderForm = () => {
     const takeOrder = async () => {
         if (order.status !== ORDER_STATUSES.READY) return
         try {
-            const response = await changeOrderStatusRequest(order.id, ORDER_STATUSES.TAKEN, getToken())
+            const response = await changeOrderStatusRequest(order.id, ORDER_STATUSES.COMING, getToken())
             setOrder(prev => ({...prev, status:response.data}))
             setStatus(STATUSES.SUCCESS)
             setTimeout(()=> {setStatus(STATUSES.IDLE)}, 5000)
@@ -129,7 +129,7 @@ export const FinishOrderForm = () => {
                         <input type="text" name="itemsCount" placeholder="Количество" onChange={handleFinishOrderData} value={orderFinishData.itemsCount}/>
                         <textarea name="comment" placeholder="Дополнительная информация" rows={3} onChange={handleFinishOrderData} value={orderFinishData.comment}></textarea>
                         <button className={order.status !== ORDER_STATUSES.READY && "blocked"} onClick={takeOrder}>Забрать заказ</button>
-                        <button className={(!isDataValid() || isOrderCompleted() || order.status !== ORDER_STATUSES.TAKEN ) && "blocked"} onClick={finishOrder}>Доставить заказ</button>
+                        <button className={(!isDataValid() || isOrderCompleted() || order.status !== ORDER_STATUSES.COMING ) && "blocked"} onClick={finishOrder}>Доставить заказ</button>
                     </div>
                 </div>}
         </div>
