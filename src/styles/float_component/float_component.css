@@ -4,6 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
+    padding: 1px;
 }
 
 .floating-component {
@@ -24,7 +25,7 @@
 }
 .exit-button {
     height: 30px;
-    width: 30px;
+    width: 40px;
     position: fixed;
     padding: 5px 10px;
     background-color: var(--color-primary);

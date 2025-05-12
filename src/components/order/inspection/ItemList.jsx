@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react"
 import "../../../styles/orders/orders_list/orders_list.css"
+import showImagesIcon from "../../../res/icons/photo_camera_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 import { updateItemReadyStateRequest } from "../../../services/api/itemApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { ORDER_STATUSES } from "../../../statuses"
 import { formatDate } from "../../../services/date/dateFormattes"
+import { OrderImagesViewer } from "../OrderImagesViewer"
 export const ItemList = ({orderItems, setOrderItems, setItem, order, completeInspectionForOrder, orderInspection}) => {
     const tableHeaderData = ['Материал', 'Размер', 'Цена']
     const [isReady, setIsReady] = useState(false)
     const {getToken} = useAuth()
+    const [pickedItem, setPickedItem] = useState(null)
+    const [showImages, setShowImages] = useState(false)
     useEffect(()=> {
         if (!orderItems) return
         setIsReady(orderItems.filter(item => item.isReady).length === orderItems.length)
     }, [orderItems])
     const showItemDetails = (item) => {
         setItem(item)
+        setShowImages(true)
     }
     const itemCheckHandler = async (item) => {
         if (order.status !== ORDER_STATUSES.INSPECTION) return
@@ -34,6 +39,11 @@ export const ItemList = ({orderItems, setOrderItems, setItem, order, completeIns
         //
         //+check if all roderItems has checked true then set isReady to true
     }
+    const showItemImages = (e, item) => {
+        e.stopPropagation()
+        console.log(item.orderImages)
+        setPickedItem(item)
+    }
     const updateItemReadyState = async (item) => {
         try {
             const response = await updateItemReadyStateRequest(item.id, item.isReady, getToken())
@@ -47,7 +57,12 @@ export const ItemList = ({orderItems, setOrderItems, setItem, order, completeIns
         completeInspectionForOrder()
     }
     return (
-        <>  
+        <>
+        {(pickedItem?.orderImages && showImages) && 
+            <OrderImagesViewer 
+                images={pickedItem.orderImages} 
+                imagesContentType={`${pickedItem.materialName}, ${pickedItem.size}, ${pickedItem.price}`} 
+                setShowImages={setIsReady}/>}
         <div className="itemsWrapper">
             <table className="ordersList">
                     <thead>
@@ -67,6 +82,9 @@ export const ItemList = ({orderItems, setOrderItems, setItem, order, completeIns
                                 <th>{item.price}</th>
                                 <th><input style={{width:17, height: 17}} type="checkbox" checked = {item.isReady} 
                                     onClick={(e) => {e.stopPropagation(); itemCheckHandler(item)}}/>
+                                </th>
+                                <th>
+                                    <img className="listImg" src={showImagesIcon} onClick={(e) => showItemImages(e, item)} on alt="show additional images"/>
                                 </th>
                             </tr>
                         ))}

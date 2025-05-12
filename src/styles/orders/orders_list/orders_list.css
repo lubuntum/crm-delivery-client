@@ -35,3 +35,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.listImg{
+  display: block;
+}
+.itemsWrapper tbody th:last-child{
+  border: none;
+}
