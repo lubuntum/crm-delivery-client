@@ -8,7 +8,7 @@ export const FooterComponent = () => {
     return (
         <footer>
             <div className="footerRights">
-                <p>© 2025 crm-delivery. Все права защищены.</p>
+                <p>ООО "ЕСА"  89832707050.</p>
             </div>
             
             <div className="footerLinks">
