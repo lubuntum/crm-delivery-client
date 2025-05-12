@@ -15,6 +15,10 @@ export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
 
     const [selectedMaterialId, setSelectedMaterialId] = useState(null)
 
+    const [images, setImages] = useState([])
+    const imageChangeHandler = (e) => {
+            setImages(Array.from(e.target.files))
+        }
     useEffect(()=> {
         const param = new URLSearchParams(window.location.search)
         if (!param.get("id")) navigate(-1)
@@ -101,6 +105,7 @@ export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
         console.log(tempResetValue)
         setItem(tempResetValue)
         setStatus(STATUSES.IDLE)
+        setImages([])
     }
     
     return (
@@ -132,7 +137,11 @@ export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
                             <p>Итог: {item.price}₽</p>
                         </div>
                         <textarea placeholder="Комментарий к позиции" maxLength={250} value={item.comment} onChange={commentHandler}/>
-                        <button className={order.status !== ORDER_STATUSES.INSPECTION && "blocked"}>Добавить фото</button>
+                        
+                        <div className="fileUploadContainer" style={{width: 'auto'}}>
+                            <label className={`fileUpload ${order.status !== ORDER_STATUSES.INSPECTION && "blocked"}`} htmlFor="file-input">Выбрать изображения ({images?.length})</label>
+                            <input id="file-input" disabled={order.status !== ORDER_STATUSES.INSPECTION} type="file" multiple onChange={imageChangeHandler} accept="image/*" />
+                        </div>
                         <button className={order.status !== ORDER_STATUSES.INSPECTION && "blocked"} onClick={addItemToOrderHandler}>Добавить к заказу</button>
                     </div>
                 </div>
