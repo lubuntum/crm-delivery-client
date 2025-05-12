@@ -121,9 +121,9 @@ export const OrderPickupForm = () => {
                                 <input type="number" step={1} min={1} required name = "itemsCount" placeholder="Количество" value={orderPickup.itemsCount} onChange={orderPickupHandler} />
                                 <textarea name="comment" placeholder="Комментарий" value={orderPickup.comment} onChange={orderPickupHandler}/>
                                 <div className="imgBtnsRow">
-                                    <div className="fileUploadContainer">
-                                        <label className="fileUpload" htmlFor="file-input">Выбрать изображения ({images && images.length})</label>
-                                        <input id="file-input" disabled={order?.status !== ORDER_STATUSES.PICKED} type="file" multiple onChange={imagesChangeHandler} accept="image/*"/>
+                                    <div className={"fileUploadContainer"}>
+                                        <label className={`fileUpload ${order?.status !== ORDER_STATUSES.PICKED ? 'blocked' : ''}`} htmlFor="file-input">Выбрать изображения ({images && images.length})</label>
+                                        <input id="file-input" disabled={order.status !== ORDER_STATUSES.PICKED} type="file" multiple onChange={imagesChangeHandler} accept="image/*"/>
                                     </div>
                                     
                                     <button className={(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0) && "blocked"} onClick={navigateToImageViewer}>Просмотреть все фото</button>

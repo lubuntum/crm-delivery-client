@@ -11,6 +11,13 @@ input::placeholder {
 input[type="file"]{
   display: none;
 }
+.fileUpload.blocked {
+  background-color: var(--color-secondary);
+  cursor: auto;
+}
+.fileUpload.blocked:hover {
+  background-color: var(--color-secondary);
+}
 .fileUploadContainer {
   display: inline-block;
   position: relative;
