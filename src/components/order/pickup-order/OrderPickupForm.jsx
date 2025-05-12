@@ -121,11 +121,15 @@ export const OrderPickupForm = () => {
                                 <input type="number" step={1} min={1} required name = "itemsCount" placeholder="Количество" value={orderPickup.itemsCount} onChange={orderPickupHandler} />
                                 <textarea name="comment" placeholder="Комментарий" value={orderPickup.comment} onChange={orderPickupHandler}/>
                                 <div className="imgBtnsRow">
-                                    <input disabled={order?.status !== ORDER_STATUSES.PICKED} type="file" multiple onChange={imagesChangeHandler} accept="image/*"/>
+                                    <div className="fileUploadContainer">
+                                        <label className="fileUpload" htmlFor="file-input">Выбрать изображения ({images && images.length})</label>
+                                        <input id="file-input" disabled={order?.status !== ORDER_STATUSES.PICKED} type="file" multiple onChange={imagesChangeHandler} accept="image/*"/>
+                                    </div>
+                                    
                                     <button className={(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0) && "blocked"} onClick={navigateToImageViewer}>Просмотреть все фото</button>
                                 </div>
                                 <button className={order?.status !== ORDER_STATUSES.PICKED && "blocked"} onClick={createOrderPickupHandler}>Забрать</button>
-                                <button className={order?.status !== ORDER_STATUSES.TAKEN && "blocked"} onClick={() => changeOrderStatusHandler(ORDER_STATUSES.INSPECTION)}>Доставлено</button>
+                                <button className={order?.status !== ORDER_STATUSES.TAKEN && "blocked"} disabled={order?.status !== ORDER_STATUSES.TAKEN} onClick={() => changeOrderStatusHandler(ORDER_STATUSES.INSPECTION)}>Доставлено</button>
                             </div>
                         </div>
                     </div>

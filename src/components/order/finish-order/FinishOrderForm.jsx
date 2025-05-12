@@ -129,7 +129,9 @@ export const FinishOrderForm = () => {
                         <input type="text" name="itemsCount" placeholder="Количество" onChange={handleFinishOrderData} value={orderFinishData.itemsCount}/>
                         <textarea name="comment" placeholder="Дополнительная информация" rows={3} onChange={handleFinishOrderData} value={orderFinishData.comment}></textarea>
                         <button className={order.status !== ORDER_STATUSES.READY && "blocked"} onClick={takeOrder}>Забрать заказ</button>
-                        <button className={(!isDataValid() || isOrderCompleted() || order.status !== ORDER_STATUSES.COMING ) && "blocked"} onClick={finishOrder}>Доставить заказ</button>
+                        <button className={(!isDataValid() || isOrderCompleted() || order.status !== ORDER_STATUSES.COMING ) && "blocked"} 
+                                disabled={(!isDataValid() || isOrderCompleted() || order.status !== ORDER_STATUSES.COMING )} 
+                                onClick={finishOrder}>Доставить заказ</button>
                     </div>
                 </div>}
         </div>
