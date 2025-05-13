@@ -2,10 +2,12 @@
   padding: 0px;
   margin: 0px;
 }
-
+.ordersList input {
+  height: 30px;
+  width: 150px;
+}
 .ordersList th {
   text-align: start;
-  padding: 10px 15px;
   border: 1px solid gray;
 }
 
@@ -16,7 +18,7 @@
 }
 
 .ordersList td {
-  padding: 10px 15px;
+  padding: 5px;
   border: 1px solid gray;
   cursor: pointer;
 }

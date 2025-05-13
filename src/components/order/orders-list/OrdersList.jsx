@@ -6,7 +6,7 @@ export const OrdersList = ({columns, data}) => {
     const navigate = useNavigate()
     const {getTableProps, getTableBodyProps,headerGroups, rows, prepareRow} =
         useTable(
-            {columns, data : data ? data : [{ clientFullName: "", clientEmail: "", clientPhone: "", address: "", status: "" }], initialState: {filters: []}}, 
+            {columns, data : data ? data : [{ clientNumber:"", clientFullName: "", clientPhone: "", createdAt: "" ,address: "", status: "" }], initialState: {filters: []}}, 
             useFilters )
     const navigateToOrder = (order) => {
         navigate(`${ROUTES.ORDER_STEPS}?id=${order.id}`, {state: {order}})
