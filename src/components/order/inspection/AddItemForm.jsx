@@ -89,7 +89,7 @@ export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
         const itemForRequest = {...item}
         itemForRequest.orderId = orderIdRef.current
         try {
-            const response = await createItemRequest(itemForRequest, getToken())
+            const response = await createItemRequest(itemForRequest, images, getToken())
             setOrderItems(prev => ([...prev, response.data]))
             resetForm()
         } catch(err) {

@@ -18,7 +18,6 @@ export const ItemList = ({orderItems, setOrderItems, setItem, order, completeIns
     }, [orderItems])
     const showItemDetails = (item) => {
         setItem(item)
-        setShowImages(true)
     }
     const itemCheckHandler = async (item) => {
         if (order.status !== ORDER_STATUSES.INSPECTION) return
@@ -43,6 +42,7 @@ export const ItemList = ({orderItems, setOrderItems, setItem, order, completeIns
         e.stopPropagation()
         console.log(item.orderImages)
         setPickedItem(item)
+        setShowImages(true)
     }
     const updateItemReadyState = async (item) => {
         try {
@@ -61,8 +61,8 @@ export const ItemList = ({orderItems, setOrderItems, setItem, order, completeIns
         {(pickedItem?.orderImages && showImages) && 
             <OrderImagesViewer 
                 images={pickedItem.orderImages} 
-                imagesContentType={`${pickedItem.materialName}, ${pickedItem.size}, ${pickedItem.price}`} 
-                setShowImages={setIsReady}/>}
+                imagesContentType={`${pickedItem.materialName}, Размер: ${pickedItem.size}м², Цена: ${pickedItem.price}₽`} 
+                setShowImages={setShowImages}/>}
         <div className="itemsWrapper">
             <table className="ordersList">
                     <thead>
