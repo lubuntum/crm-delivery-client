@@ -1,0 +1,74 @@
+.sidebar {
+    position: fixed;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    height: 100%;
+    width: var(--sidebar-width);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    right: calc(var(--sidebar-width) * -1);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: right .2s ease;
+}
+.sidebar.active {
+    -webkit-box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.3) inset;
+    -moz-box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.3) inset;
+    box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.3) inset;
+    right: 0;
+}
+.sidebar .divider {
+    border-bottom: 1px solid var(--brighter-accent-color);
+    width: 70%;
+}
+.sidebar .logoItem,
+.sidebar .optionsContainer .optionsItem,
+.sidebar .logoutContainer .logoutItem {
+    width: var(--sidebar-button-size);
+    height: var(--sidebar-button-size);
+    background-color: var(--primary-color);
+    border-radius: var(--sidebar-button-border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+}
+.sidebar .logoItem .svgIcon,
+.sidebar .optionsContainer .optionsItem .svgIcon,
+.sidebar .logoutContainer .logoutItem .svgIcon {
+    width: var(--sidebar-button-icon-size);
+    height: var(--sidebar-button-icon-size);
+    fill: var(--darker-accent-color);
+    transform: translateX(-100%);
+    transition: transform .6s ease;
+}
+.sidebar.active .logoItem .svgIcon,
+.sidebar.active .optionsContainer .optionsItem .svgIcon,
+.sidebar.active .logoutContainer .logoutItem .svgIcon {
+    transform: translateX(0);
+}
+.sidebar .logoContainer,
+.sidebar .logoutContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sidebar-button-gap);
+}
+.sidebar .logoContainer {
+    margin-top: var(--sidebar-button-gap);
+}
+.sidebar .logoutContainer {
+    margin-bottom: var(--sidebar-button-gap);
+}
+.sidebar .optionsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sidebar-button-gap);
+}
