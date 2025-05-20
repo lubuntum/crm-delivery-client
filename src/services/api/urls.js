@@ -5,6 +5,7 @@ export const ACCOUNT_DATA = "/api/auth/account-data"
 export const ACCOUNTS_BY_ORGANIZATION = "/api/accounts/by-organization"
 export const GET_ACCOUNTS_ROLES = "/api/accounts/roles"
 export const UPDATE_ACCOUNT_STATUS = "/api/accounts/update-status"
+export const CREATE_ACCOUNT = "/api/accounts/create"
 
 export const CREATE_ORDER = "/api/orders/create-order"
 export const CHANGE_ORDER_STATUS = "/api/orders/change-order-status"

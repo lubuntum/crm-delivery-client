@@ -41,7 +41,7 @@ export const EmployeesList = () => {
     if (accounts === null) return <div className="loadingBar"></div>
     return (
         <> 
-            {showCreateAccount && <CreateAccountView setShowView={setShowCreateAccount} />}
+            {showCreateAccount && <CreateAccountView setShowView={setShowCreateAccount} setAccounts={setAccounts} />}
             <div className="employeesWrapper">
                 {status === STATUSES.ERROR && "Возникла ошибка при получении сотрудников"}
                 <table>

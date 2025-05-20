@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { getRolesRequest } from "../../services/api/accountApi"
+import { createAccountRequest, getRolesRequest } from "../../services/api/accountApi"
 import { useAuth } from "../../services/auth/AuthProvider"
 import { STATUSES } from "../../statuses"
+import { ROLES } from "../../roles"
 
 
-export const CreateAccountView = ({setShowView}) => {
+export const CreateAccountView = ({setShowView, setAccounts}) => {
     const [status, setStatus] = useState(STATUSES.IDLE)
     const {getToken} = useAuth()
     const [roles, setRoles] = useState(null)
@@ -15,8 +16,9 @@ export const CreateAccountView = ({setShowView}) => {
         const getRoles = async() => {
             try {
                 const response = await getRolesRequest(getToken())
-                setAccountData(prev => ({...prev, role: response.data[0]}))
-                setRoles(response.data)
+                const rolesTemp = response.data.filter(role => role.name !== ROLES.ADMIN)
+                setAccountData(prev => ({...prev, role: rolesTemp[0]}))
+                setRoles(rolesTemp)
             } catch(err) {
                 console.error(err)
             }
@@ -50,6 +52,8 @@ export const CreateAccountView = ({setShowView}) => {
             }
         console.log(accountTemp)
         try {
+            const response = await createAccountRequest(getToken(), accountTemp)
+            setAccounts(prev => ([...prev, {...accountTemp, accountStatus: 'ENABLED'}]))
             setStatus(STATUSES.SUCCESS)
             setTimeout(()=> setStatus(STATUSES.IDLE), 5000)
             resetForm()
@@ -75,7 +79,7 @@ export const CreateAccountView = ({setShowView}) => {
                         <label htmlFor="roles">Выберите должность:</label>
                         <select id="roles" name="role" onChange={handleAccountData} >
                             {roles.map(role => (
-                                <option key={role.id} value={role}>
+                                <option key={role.id} value={role.name}>
                                     {role.name}
                                 </option>
                             ))}
