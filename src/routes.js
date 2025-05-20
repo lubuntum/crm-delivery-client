@@ -9,5 +9,6 @@ export const ROUTES = {
     ORDERS: "/orders",
     ORDER_STEPS: "/order-steps",
     ORDER_IMAGES: "/order-images",
-    ABOUT: "/about"
+    ABOUT: "/about",
+    EMPLOYEES_LIST: "employees-list"
 }

@@ -18,6 +18,7 @@ import { OrderPickupPage } from './components/order/pickup-order/OrderPickupPage
 import { OrderInspectionPage } from './components/order/inspection/OrderInspectionPage';
 import { FinishOrderPage } from './components/order/finish-order/FinishOrderPage';
 import { OrderImagesViewer } from './components/order/OrderImagesViewer';
+import { EmployeesPage } from './components/employees/EmployeesPage';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ const MainPage = () => {
         <Route path={ROUTES.ORDER_INSPECTION} element = {<ProtectedRoute element={<OrderInspectionPage/>} />} />
         <Route path={ROUTES.FINISH_ORDER} element = {<ProtectedRoute element={<FinishOrderPage />} />} />
         <Route path={ROUTES.ORDER_IMAGES} element = {<ProtectedRoute element={<OrderImagesViewer />} />} />
+        <Route path={ROUTES.EMPLOYEES_LIST} element = {<ProtectedRoute element={<EmployeesPage/>}/>} />
       </Routes>
     </div>
   )

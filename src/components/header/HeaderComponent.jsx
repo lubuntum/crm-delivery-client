@@ -34,6 +34,7 @@ export const HeaderComponent = () => {
                 <a href={ROUTES.HOME}>Главная</a>
                 {(checkAuth() && accountData?.role === "DISPATCHER") && <a href={ROUTES.CREATE_ORDER}>Создать заказ</a>}
                 {checkAuth() && <a href={ROUTES.ORDERS}>Заказы</a>}
+                {(checkAuth() && accountData?.role === "DIRECTOR") && <a href={ROUTES.EMPLOYEES_LIST}>Сотрудники</a>}
                 {checkAuth() && <a href={ROUTES.ACCOUNT}>Аккаунт</a>}
             </div>
 

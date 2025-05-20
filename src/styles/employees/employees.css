@@ -1,0 +1,10 @@
+.employeesWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-top: 50px;
+    margin: 0 auto;
+    max-width: 1440px;
+    gap: 10px;
+}
