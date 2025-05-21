@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ACCOUNT_DATA, ACCOUNTS_BY_ORGANIZATION, CREATE_ACCOUNT, GET_ACCOUNTS_ROLES, SERVER_URL, UPDATE_ACCOUNT_STATUS } from "./urls"
+import { ACCOUNT_DATA, ACCOUNTS_BY_ORGANIZATION, CREATE_ACCOUNT, GET_ACCOUNTS_ROLES, SERVER_URL, UPDATE_ACCOUNT_STATUS, UPDATE_PASSOWRD } from "./urls"
 
 export const getAccountDataRequest = async (token) => {
     console.log("passed token => ", token)
@@ -28,5 +28,11 @@ export const getRolesRequest = async (token) => {
 export const createAccountRequest = async (token, accountData) => {
     return await axios.post(`${SERVER_URL}${CREATE_ACCOUNT}`, accountData, {
         headers: {Authorization: token}
+    })
+}
+export const updatePasswordRequest = async (token, authCredential) => {
+    console.log(authCredential)
+    return await axios.post(`${SERVER_URL}${UPDATE_PASSOWRD}`, authCredential, {
+        headers:{Authorization: token}
     })
 }

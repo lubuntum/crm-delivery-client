@@ -1,6 +1,7 @@
 export const SERVER_URL = "http://192.168.212.211:8080"
 export const REGISTER = "/api/auth/register"
 export const LOGIN = "/api/auth/login"
+export const UPDATE_PASSOWRD = "/api/auth/update-password"
 export const ACCOUNT_DATA = "/api/auth/account-data"
 export const ACCOUNTS_BY_ORGANIZATION = "/api/accounts/by-organization"
 export const GET_ACCOUNTS_ROLES = "/api/accounts/roles"

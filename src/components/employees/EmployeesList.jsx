@@ -23,9 +23,10 @@ export const EmployeesList = () => {
             }
             getAccounts()
         }, [])
-    const disableAccount = async (account) => {
+    const changeAccountStatus = async (account) => {
         try {
-            const accountTemp = {...account, accountStatus: "DISABLED"}
+            const currentStatus = account.accountStatus
+            const accountTemp = {...account, accountStatus: currentStatus === "DISABLED" ? "ENABLED" : "DISABLED"}
             const response = await updateAccountStatus(getToken(), accountTemp)
             if (response.data) {
                 setAccounts(prev => 
@@ -61,7 +62,7 @@ export const EmployeesList = () => {
                                 <th>{acc.role}</th>
                                 <th>{acc.phone}</th>
                                 <th>{acc.email}</th>
-                                <th><button onClick={()=>disableAccount(acc)}>Отключить аккаунт</button></th>
+                                <th><button onClick={()=>changeAccountStatus(acc)}>{acc.accountStatus === "DISABLED" ? "Активировать" : "Отключить"} аккаунт</button></th>
                                 <th>{acc.accountStatus}</th>
                             </tr>
                         ))}
