@@ -1,25 +1,31 @@
 .sidebar {
     position: fixed;
-    background-color: var(--accent-color);
     color: var(--primary-color);
-    height: 100%;
+    height: calc(100% - 30px);
     width: var(--sidebar-width);
+    top: 15px;
+    border-radius: 15px;
     align-items: center;
     display: flex;
     flex-direction: column;
-    top: 0;
     right: calc(var(--sidebar-width) * -1);
     z-index: 9999;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border: 1px solid var(--primary-color);
     transition: right .2s ease;
 }
+.sidebarBackgroud {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-sidebar-color);
+    backdrop-filter: blur(3px);
+    z-index: 1;
+}
 .sidebar.active {
-    -webkit-box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.3) inset;
-    -moz-box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.3) inset;
-    box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.3) inset;
-    right: 0;
+    right: 15px;
 }
 .sidebar .divider {
     border-bottom: 1px solid var(--brighter-accent-color);
@@ -32,10 +38,12 @@
     height: var(--sidebar-button-size);
     background-color: var(--primary-color);
     border-radius: var(--sidebar-button-border-radius);
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    cursor: pointer;
     -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
     -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
     box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);

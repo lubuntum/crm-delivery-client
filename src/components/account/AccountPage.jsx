@@ -36,7 +36,7 @@ export const AccountPage = () => {
                 <AccountInfoCard accountData={accountData}/>
 
                 {accountData?.role === ROLES.COURIER &&  
-                    <EmployeeResultsCard />}
+                <EmployeeResultsCard />}
 
                 <ResetPasswordCard/>
 

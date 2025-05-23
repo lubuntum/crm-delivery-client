@@ -35,6 +35,7 @@ export const OrdersList = ({columns, data}) => {
                 <tbody {...getTableBodyProps()}>
                     
                     {rows.map(row => {
+                        console.log(row)
                         prepareRow(row)
                         return (
                             <tr {...row.getRowProps()} onClick={()=> navigateToOrder(row.original)}>

@@ -1,0 +1,40 @@
+.orderStepsWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 15px;
+}
+
+
+
+/*Стили для списка шагов заказа*/
+.orderStepsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 15px;
+    cursor: pointer;
+}
+.orderStepsItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+}
+.orderStepsContent {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.orderStepsContainer .svgIcon {
+    fill: var(--accent-color);
+}

@@ -32,7 +32,6 @@ export const OrderSteps = () => {
             <div className="contentWrapper">
                 
                 <div className="orderStepsWrapper">
-                    <p>Этапы заказа</p>
                     {steps.map(step => {
                         return <div className="orderStep" onClick={step.onClick}>
                             <div className="orderStepContent">

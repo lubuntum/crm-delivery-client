@@ -58,12 +58,11 @@ export const Sidebar = ({ isActive, onClose }) => {
 
     return ( 
         <div className={`sidebar ${isActive ? "active" : ""}`} ref={sidebarRef}>
+            <div className="sidebarBackgroud"></div>
             <div className="logoContainer">
                 <div className="logoItem" onClick={handleClose}>
                     <CrmCloseIcon className="svgIcon"/>
                 </div>
-
-                <div className="divider"></div>
             </div>
 
             <div className="optionsContainer">
@@ -82,8 +81,6 @@ export const Sidebar = ({ isActive, onClose }) => {
             </div>
 
             <div className="logoutContainer">
-                <div className="divider"></div>
-
                 <div className="logoutItem" onClick={() => {handleClose(); navigate(ROUTES.ACCOUNT)}}>
                     <CrmBadgeIcon className="svgIcon"/>
                 </div>
@@ -92,7 +89,6 @@ export const Sidebar = ({ isActive, onClose }) => {
                     <CrmLogoutIcon className="svgIcon"/>
                 </div>
             </div>
-
         </div>
     )
 }
