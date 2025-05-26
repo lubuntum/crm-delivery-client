@@ -19,7 +19,7 @@ export const formatDateLocalDate = (dateString) => {
 
     const year = date.getFullYear()
 
-    return `${day}/${month}/${year}`  
+    return `${day}.${month}.${year}`  
 }
 export const formateLocalDateForServer = (date) => {
     const year = date.getFullYear()
