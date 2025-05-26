@@ -9,6 +9,7 @@ export const UPDATE_ACCOUNT_STATUS = "/api/accounts/update-status"
 export const CREATE_ACCOUNT = "/api/accounts/create"
 
 export const CREATE_ORDER = "/api/orders/create-order"
+export const REMOVE_ORDER = "/api/orders/remove-order"
 export const CHANGE_ORDER_STATUS = "/api/orders/change-order-status"
 export const GET_ORDER_BY_ID = "/api/orders/order"
 export const CREATE_ITEM_FOR_ORDER = "/api/orders/items/create-item"
