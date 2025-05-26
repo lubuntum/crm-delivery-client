@@ -28,7 +28,7 @@ const LoginComponent = () => {
                 <p>Добро пожаловать!</p>
             </div>
 
-            <div className="inputAuthContainer">
+            <div className="cutomInputContainer">
                 <input className="customInput" 
                        type="email" 
                        placeholder="Электронная почта" 
@@ -37,7 +37,7 @@ const LoginComponent = () => {
                 <CrmEmailIcom className="svgIcon"/>
             </div>
 
-            <div className="inputAuthContainer">
+            <div className="cutomInputContainer">
                 <input className="customInput" 
                        type="password" 
                        placeholder="Пароль" 

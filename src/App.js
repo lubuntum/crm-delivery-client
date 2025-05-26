@@ -16,12 +16,12 @@ import { OrderStepsPage } from './components/order/order-steps/OrderStepsPage';
 import { OrderPickupPage } from './components/order/pickup-order/OrderPickupPage';
 import { OrderInspectionPage } from './components/order/inspection/OrderInspectionPage';
 import { FinishOrderPage } from './components/order/finish-order/FinishOrderPage';
-import { OrderImagesViewer } from './components/order/OrderImagesViewer';
 import { Sidebar } from './components/sidebar/Sidebar';
 
 import { ReactComponent as CrmLoginIcon } from "./res/icons/crm_login_icon.svg"
 import { ReactComponent as CrmMenuIcon } from "./res/icons/crm_menu_icon.svg"
 import { ReactComponent as CrmBackIcon } from "./res/icons/crm_back_icon.svg"
+import { OrderImagesPopup } from './components/order/pickup-order/OrderImagesPopup';
 
 function App() {
 	return (
@@ -80,7 +80,7 @@ const MainPage = () => {
 					<Route path={ROUTES.ORDER_STEPS} 		element={<ProtectedRoute element={<OrderStepsPage />} />} />
 					<Route path={ROUTES.ORDER_INSPECTION} 	element={<ProtectedRoute element={<OrderInspectionPage />} />} />
 					<Route path={ROUTES.FINISH_ORDER} 		element={<ProtectedRoute element={<FinishOrderPage />} />} />
-					<Route path={ROUTES.ORDER_IMAGES} 		element={<ProtectedRoute element={<OrderImagesViewer />} />} />
+					<Route path={ROUTES.ORDER_IMAGES} 		element={<ProtectedRoute element={<OrderImagesPopup />} />} />
 				</Routes>
 			</div>
 		</div>

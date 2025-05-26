@@ -5,7 +5,7 @@ import { updateItemReadyStateRequest } from "../../../services/api/itemApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { ORDER_STATUSES } from "../../../statuses"
 import { formatDate } from "../../../services/date/dateFormattes"
-import { OrderImagesViewer } from "../OrderImagesViewer"
+import { OrderImagesViewer } from "../OrderImagesViewer (OLD)"
 export const ItemList = ({orderItems, setOrderItems, setItem, order, completeInspectionForOrder, orderInspection}) => {
     const tableHeaderData = ['Материал', 'Размер', 'Цена']
     const [isReady, setIsReady] = useState(false)

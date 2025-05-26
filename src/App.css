@@ -15,6 +15,7 @@
 	--brighter-accent-color: #e3f2fd;
 	--secondary-text-color: gray;
 	--disabled-color: gray;
+	--delete-color: #e12729;
 
 	--per10-30-color: #e12729; 
 	--per40-70-color: #f8cc1b; 
@@ -97,9 +98,57 @@ body {
 	border-bottom: 1px solid var(--secondary-text-color);
 	transition: all .2s ease;
 }
+.customTextarea {
+	background-color: transparent;
+	width: 100%;
+	resize: none;
+	font-size: 1rem;
+	outline: none;
+	padding: 0 10px;
+	border-bottom: 1px solid var(--secondary-text-color);
+	transition: all .2s ease;
+}
+.cutomInputContainer,
+.cutomTextareaContainer {
+    position: relative;
+	display: flex;
+}
+.cutomInputContainer .customInput,
+.cutomTextareaContainer .customTextarea {
+    padding: 0 30px;
+}
+.cutomInputContainer .svgIcon {
+	position: absolute;
+	height: 20px;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	fill: var(--secondary-text-color);
+	transition: all .2s ease;
+}
+.cutomTextareaContainer .svgIcon {
+	position: absolute;
+	height: 20px;
+	left: 0;
+	fill: var(--secondary-text-color);
+	transition: all .2s ease;
+}
+.cutomInputContainer .customInput:focus,
+.cutomInputContainer .customInput:valid,
+.cutomTextareaContainer .customTextarea:focus,
+.cutomTextareaContainer .customTextarea:valid {
+	border-bottom: 1px solid var(--accent-color);
+}
+.cutomInputContainer .customInput:focus + .svgIcon,
+.cutomInputContainer .customInput:valid + .svgIcon,
+.cutomTextareaContainer .customTextarea:focus + .svgIcon,
+.cutomTextareaContainer .customTextarea:valid + .svgIcon {
+	fill: var(--accent-color);
+}
 .customButton {
 	width: 100%;
 	height: 40px;
+	min-height: 40px;
 	background-color: var(--accent-color);
 	color: var(--primary-color);
 	border-radius: 50px;
@@ -115,5 +164,37 @@ body {
 }
 .disabledButton {
 	background-color: var(--disabled-color);
+	cursor: none;
+}
+
+
+
+.customFileUploadContainer {
+	display: flex;
+	width: 100%;
+	height: 40px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+.customFileUploadContainer input[type="file"] {
+	display: none;
+}
+.customFileUploadContainer label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 40px;
+	min-height: 40px;
+	background-color: var(--accent-color);
+	color: var(--primary-color);
+	border-radius: 50px;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: transform .5s ease;
+}
+.customFileUploadLabelDisabled {
+	background-color: var(--disabled-color) !important;
 	cursor: none;
 }

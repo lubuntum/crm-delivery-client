@@ -24,6 +24,7 @@ export const OrderPickupForm = () => {
     const [images, setImages] = useState([])
     const [status, setStatus] = useState(STATUSES.IDLE)
     const [showImages, setShowImages] = useState(false)
+
     useEffect(()=> {
         const param = new URLSearchParams(window.location.search)
         if (!param.get("id")) {
@@ -49,6 +50,7 @@ export const OrderPickupForm = () => {
         }
         getOrderById()
     }, [])
+    
     const imagesChangeHandler = (e) => {
         setImages(Array.from(e.target.files))
     }

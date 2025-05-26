@@ -134,6 +134,20 @@
     z-index: 3;
     opacity: 0;
 }
+.accordionItemDelete {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    right: 0;
+    opacity: 1;
+    z-index: 999;
+    cursor: pointer;
+    transform: translate(0, 0);
+    transition: all .3s ease;
+}
+.accordionItemDelete .svgIcon {
+    fill: var(--delete-color);
+}
 .accordionContainer ul li input[type=checkbox]:checked ~ .accordionItem {
     margin-top: 14px;
     max-height: 100px;
@@ -141,7 +155,8 @@
     transition: all .3s ease;
 }
 .accordionContainer ul li input[type=checkbox]:not(:checked) ~ .accordionItem,
-.accordionContainer ul li input[type=checkbox]:not(:checked) ~ .divider {
+.accordionContainer ul li input[type=checkbox]:not(:checked) ~ .divider,
+.accordionContainer ul li input[type=checkbox]:not(:checked) ~ .accordionItemDelete {
     margin-top: 0;
     max-height: 0;
     opacity: 0;

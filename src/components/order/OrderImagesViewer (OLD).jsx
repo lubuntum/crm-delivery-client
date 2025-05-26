@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
 import { SERVER_URL } from "../../services/api/urls"
-import { useNavigate } from "react-router-dom"
 
 export const OrderImagesViewer = ({images, imagesContentType, setShowImages}) => {
     

@@ -6,12 +6,13 @@ import { useAuth } from "../../services/auth/AuthProvider"
 import { getAccountDataRequest } from "../../services/api/authApi"
 import { ROUTES } from "../../routes"
 
-import { ReactComponent as CrmCloseIcon} from "../../res/icons/crm_close_icon.svg"
-import { ReactComponent as CrmHomeIcon} from "../../res/icons/crm_home_icon.svg"
-import { ReactComponent as CrmCreateIcon} from "../../res/icons/crm_create_icon.svg"
-import { ReactComponent as CrmListIcon} from "../../res/icons/crm_list_icon.svg"
-import { ReactComponent as CrmBadgeIcon} from "../../res/icons/crm_badge_icon.svg"
-import { ReactComponent as CrmLogoutIcon} from "../../res/icons/crm_logout_icon.svg"
+import { ReactComponent as CrmCloseIcon } from "../../res/icons/crm_close_icon.svg"
+import { ReactComponent as CrmHomeIcon } from "../../res/icons/crm_home_icon.svg"
+import { ReactComponent as CrmCreateIcon } from "../../res/icons/crm_create_icon.svg"
+import { ReactComponent as CrmListIcon } from "../../res/icons/crm_list_icon.svg"
+import { ReactComponent as CrmBadgeIcon } from "../../res/icons/crm_badge_icon.svg"
+import { ReactComponent as CrmLogoutIcon } from "../../res/icons/crm_logout_icon.svg"
+import { ReactComponent as CrmInfoIcon } from "../../res/icons/crm_info_icon.svg"
 
 export const Sidebar = ({ isActive, onClose }) => {
     const navigate = useNavigate()
@@ -83,6 +84,10 @@ export const Sidebar = ({ isActive, onClose }) => {
             <div className="logoutContainer">
                 <div className="logoutItem" onClick={() => {handleClose(); navigate(ROUTES.ACCOUNT)}}>
                     <CrmBadgeIcon className="svgIcon"/>
+                </div>
+
+                <div className="logoutItem">
+                    <CrmInfoIcon className="svgIcon"/>
                 </div>
                 
                 <div className="logoutItem" onClick={() => {handleClose(); logout()}}>

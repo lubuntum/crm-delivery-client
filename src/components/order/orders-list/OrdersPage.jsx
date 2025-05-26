@@ -63,6 +63,18 @@ export const OrdersPage = () => {
                 <div className="pageTitle">
                     <p>Список заказов</p>
                 </div>
+                
+                <div className="ordersFilterContainer">
+                    <div className="cutomInputContainer">
+                        <input className="customInput"
+                               type="text"
+                               placeholder="Поиск..."
+                               required
+                               onChange={handleFilterChange}/>
+                        <CrmFilterIcon className="svgIcon"/>
+                    </div>
+                </div>
+
                 <div className="ordersListContainer">
                     {loading ? (
                         <div className="ordersLoadingContainer">
@@ -72,17 +84,6 @@ export const OrdersPage = () => {
                     filteredOrders.map((order, index) => (
                         <OrderItem key={`orderItem${index}`} data={order}/>
                     )))}
-                </div>
-
-                <div className="ordersFilterContainer">
-                    <div className="inputOrdersContainer">
-                        <input className="customInput"
-                               type="text"
-                               placeholder="Поиск..."
-                               required
-                               onChange={handleFilterChange}/>
-                        <CrmFilterIcon className="svgIcon"/>
-                    </div>
                 </div>
             </div>
         </div> 

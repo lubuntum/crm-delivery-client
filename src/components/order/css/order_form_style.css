@@ -1,0 +1,54 @@
+.orderFormWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 15px;
+}
+
+
+
+.orderFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+.orderFromInputs {
+    background-color: var(--primary-color);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+}
+.inputOrderFormContainer {
+    position: relative;
+	display: flex;
+}
+.inputOrderFormContainer .customInput {
+    padding: 0 30px;
+}
+.inputOrderFormContainer .svgIcon {
+	position: absolute;
+	height: 20px;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	fill: var(--secondary-text-color);
+	transition: all .2s ease;
+}
+.inputOrderFormContainer .customInput:focus,
+.inputOrderFormContainer .customInput:valid {
+	border-bottom: 1px solid var(--accent-color);
+}
+.inputOrderFormContainer .customInput:focus + .svgIcon,
+.inputOrderFormContainer .customInput:valid + .svgIcon {
+	fill: var(--accent-color);
+}
