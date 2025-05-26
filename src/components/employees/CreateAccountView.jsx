@@ -53,6 +53,7 @@ export const CreateAccountView = ({setShowView, setAccounts}) => {
         console.log(accountTemp)
         try {
             const response = await createAccountRequest(getToken(), accountTemp)
+            accountTemp.id = response.data
             setAccounts(prev => ([...prev, {...accountTemp, accountStatus: 'ENABLED'}]))
             setStatus(STATUSES.SUCCESS)
             setTimeout(()=> setStatus(STATUSES.IDLE), 5000)

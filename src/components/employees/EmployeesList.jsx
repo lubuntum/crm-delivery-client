@@ -4,6 +4,7 @@ import { getOrganizationAccountsRequest, updateAccountStatus } from "../../servi
 import { STATUSES } from "../../statuses"
 import "../../styles/employees/employees.css"
 import { CreateAccountView } from "./CreateAccountView"
+import { ROLES } from "../../roles"
 export const EmployeesList = () => {
     const {getToken} = useAuth()
     const [status, setStatus] = useState(STATUSES.IDLE)
@@ -39,7 +40,15 @@ export const EmployeesList = () => {
             setStatus(STATUSES.ERROR)
         }
     }
-    if (accounts === null) return <div className="loadingBar"></div>
+    if (accounts === null) 
+        return <>
+            {showCreateAccount && <CreateAccountView setShowView={setShowCreateAccount} setAccounts={setAccounts} />}
+            <div className="employeesWrapper">
+                <div className="options">
+                    <button onClick={()=>{setShowCreateAccount(true)}}>Добавить сотрудника</button>
+                </div>
+            </div>
+        </>
     return (
         <> 
             {showCreateAccount && <CreateAccountView setShowView={setShowCreateAccount} setAccounts={setAccounts} />}
@@ -62,8 +71,11 @@ export const EmployeesList = () => {
                                 <th>{acc.role}</th>
                                 <th>{acc.phone}</th>
                                 <th>{acc.email}</th>
-                                <th><button onClick={()=>changeAccountStatus(acc)}>{acc.accountStatus === "DISABLED" ? "Активировать" : "Отключить"} аккаунт</button></th>
                                 <th>{acc.accountStatus}</th>
+                                {(acc.role !== ROLES.DIRECTOR && acc.role !== ROLES.ADMIN) &&
+                                    <th><button onClick={()=>changeAccountStatus(acc)}>{acc.accountStatus === "DISABLED" ? "Активировать" : "Отключить"} аккаунт</button></th>
+                                }
+                                
                             </tr>
                         ))}
                     </tbody>
