@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { STATUSES } from "../../statuses"
 import { useAuth } from "../../services/auth/AuthProvider"
 import { updatePasswordRequest } from "../../services/api/accountApi"
-
+import { ReactComponent as CrmPassIcom } from "../../res/icons/crm_password_icon.svg"
 export const ResetPasswordCard = () => {
     const {getToken} = useAuth()
     const [status, setStatus] = useState(STATUSES.IDLE)
@@ -36,17 +36,36 @@ export const ResetPasswordCard = () => {
 
     }, [password, repeatPassword])
     return (
-        <>
-            <div className="cardWrapper">
-                <h4 className="cardTitle">Сброс пароля</h4>
-                <div className="cardContentWrapper">
-                    <input type="password" placeholder="Введите пароль" />
-                    <input type="password" placeholder="Повторите пароль" />
-                    <button>Изменить пароль</button>
+        <div className="accountCardContainer">
+            <div className="accountCardTitle">
+                <p>Сброс пароля</p>
+                {status === STATUSES.ERROR && <span style={{color: "red"}}>Пароли не совпадают</span>}
+                {status === STATUSES.SUCCESS && <span style={{color: "green"}}>Успешно</span>}
+            </div>
+            
+            <div className="accountCardWrapper">
+                <div className="inputAccountConatiner">
+                    <input className="customInput"
+                        type="password" 
+                        name="password"
+                        placeholder="Новый пароль"
+                        required
+                        onChange={passwordHandler}/>
+                    <CrmPassIcom className="svgIcon"/>
+                </div>
+
+                <div className="inputAccountConatiner">
+                    <input className="customInput"
+                        type="password" 
+                        name="repeatPassword"
+                        placeholder="Повторите пароль"
+                        required
+                        onChange={passwordHandler}/>
+                    <CrmPassIcom className="svgIcon"/>
                 </div>
                     
-                <button className="customButton">Изменить пароль</button>
+                <button className="customButton" onClick={updatePassword}>Изменить пароль</button>
             </div>
-        </>
+        </div>
     )
 }
