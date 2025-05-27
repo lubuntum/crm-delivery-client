@@ -1,7 +1,7 @@
 import "../css/order_list_style.css"
 
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { getOrganizationOrders } from "../../../services/api/orderApi"
+import { getOrganizationOrders, removeOrderRequest } from "../../../services/api/orderApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { formatDateLocalDate } from "../../../services/date/dateFormattes"
 
@@ -9,7 +9,7 @@ import { OrderItem } from "./OrderItem"
 
 import { ReactComponent as CrmFilterIcon } from "../../../res/icons/crm_filter_icon.svg"
 
-import { STATUSES } from "../../../statuses"
+import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 
 export const OrdersPage = () => {
     const { getToken } = useAuth()
@@ -56,7 +56,15 @@ export const OrdersPage = () => {
             order.status?.toLowerCase().includes(searchTerm)
         ))
     }, [orders, filter])
-
+    const removeOrder = async (order) => {
+        if (order.status !== ORDER_STATUSES.CREATED) return
+        try {
+            const response = await removeOrderRequest({id: order.id}, getToken())
+            setOrders(prev => prev.filter(item => item.id !== order.id))
+        } catch(err) {
+            setStatus(STATUSES.ERROR)
+        }
+    }
     return (
         <div className="contentWrapper">
             <div className="ordersListWrapper">
@@ -82,7 +90,7 @@ export const OrdersPage = () => {
                         </div>
                     ) : (
                     filteredOrders.map((order, index) => (
-                        <OrderItem key={`orderItem${index}`} data={order}/>
+                        <OrderItem key={`orderItem${index}`} data={order} removeOrder={removeOrder}/>
                     )))}
                 </div>
             </div>

@@ -47,7 +47,7 @@ const statusTranslations = {
     COMPLETED: "Завершено",
 }
 
-export const OrderItem = ({ data }) => {
+export const OrderItem = ({ data, removeOrder}) => {
     const navigate = useNavigate()
 
     const statusStyle = statusStyles[data.status] || ""
@@ -57,7 +57,7 @@ export const OrderItem = ({ data }) => {
     const navigateToOrder = (order) => {
         navigate(`${ROUTES.ORDER_STEPS}?id=${order.id}`, {state: {order}})
     }
-
+    
     return (
         <div className="orderContainer">
             <div className={`accordionContainer ${statusStyle}`}>
@@ -96,7 +96,7 @@ export const OrderItem = ({ data }) => {
 
                         {data.status === "CREATED" &&
                         <div className="accordionItemDelete">
-                            <CrmDeleteIcon className="svgIcon"/>
+                            <CrmDeleteIcon onClick={() => removeOrder(data)} className="svgIcon"/>
                         </div>}
                     </li>
                 </ul>
