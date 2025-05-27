@@ -1,0 +1,41 @@
+.popupWrapper {
+    position: absolute;
+    width: 100%;
+    background-color: var(--primary-color);
+    padding: 20px;
+    border-radius: 15px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.popupContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+    max-height: 600px;
+}
+.popupContainer p {
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    font-size: 1.25rem;
+}
+
+.popupCards {
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    gap: 15px;
+    overflow: auto;
+}
+.popupCard {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.popupCard img {
+    width: 100%;
+    height: auto;
+}

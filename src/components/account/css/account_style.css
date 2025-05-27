@@ -1,0 +1,87 @@
+.accountCardsWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto !important;
+    gap: 15px;
+    border-radius: 15px;
+}
+.accountCardContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-color);
+    padding: 15px;
+    border-radius: 15px;
+}
+.accountCardContainer .accountCardTitle {
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+.accountCardWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/*Секция с данными*/
+.accountCardPersonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.accountCardPersonItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.accountCardPersonItem .svgIcon {
+    width: 25px;
+    height: 25px;
+    fill: var(--accent-color);
+}
+.accountCardPersonItem .accountCardPersonItemData p:nth-child(1) {
+    color: var(--secondary-text-color);
+}
+
+
+/*Секция со статистикой*/
+.accountCardResultsInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.accountCardResultsInfo span {
+    text-decoration: underline;
+}
+
+
+/*Секция с восстановлением пароля*/
+.inputAccountConatiner {
+    position: relative;
+	display: flex;
+}
+.inputAccountConatiner .customInput {
+    padding: 0 30px;
+}
+.inputAccountConatiner .svgIcon {
+	position: absolute;
+	height: 20px;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	fill: var(--secondary-text-color);
+	transition: all .2s ease;
+}
+.inputAccountConatiner .customInput:focus,
+.inputAccountConatiner .customInput:valid {
+	border-bottom: 1px solid var(--accent-color);
+}
+.inputAccountConatiner .customInput:focus + .svgIcon,
+.inputAccountConatiner .customInput:valid + .svgIcon {
+	fill: var(--accent-color);
+}

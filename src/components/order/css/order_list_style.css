@@ -1,0 +1,265 @@
+.ordersListWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 15px;
+}
+
+
+
+/*Стили для загрузки данных*/
+.ordersLoadingContainer {
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/*Стили для списка заказов*/
+.orderContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.orderContainer button {
+    height: 100%;
+    width: 50px;
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    cursor: pointer;
+    -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+}
+.orderContainer button .svgIcon {
+    fill: var(--accent-color);
+}
+.ordersListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto !important;
+    border-radius: 15px;
+    height: calc(100% - 80px);
+}
+.accordionContainer {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    border-radius: 15px;
+    border-bottom: 2px solid var(--accent-color);
+    -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
+}
+.accordionContainer .accordionTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+}
+.accordionContainer .accordionTitle h2 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+.accordionContainer .accordionTitle .svgIcon {
+    fill: var(--accent-color);
+    width: 25px;
+    height: 25px;
+}
+.accordionContainer .accordionItem {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    line-height: 20px;
+    letter-spacing: 1px;
+    position: relative;
+    opacity: 1;
+    z-index: 2;
+}
+.accordionContainer .accordionItem .svgIcon {
+    fill: var(--accent-color);
+    width: 25px;
+    height: 25px;
+}
+.accordionContainer ul {
+    list-style: none;
+    perspective: 900;
+    padding: 0 20px 10px;
+    margin: 0;
+    background-color: var(--primary-color);
+    border-radius: 15px;
+}
+.accordionContainer .divider {
+    border-top: 1px solid var(--accent-color);
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+    opacity: 1;
+    transform: translate(0, 0);
+    z-index: 2;
+    transition: all .3s ease;
+}
+.accordionContainer ul li {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 5px;
+    padding-top: 15px;
+    user-select: none;
+}
+.accordionContainer ul li .svgIcon:nth-child(2) {
+    position: absolute;
+    margin-top: 10px;
+    right: 0;
+    fill: var(--accent-color);
+    width: 30px;
+    height: 30px;
+    transition: all .3s ease;
+}
+.accordionContainer ul li input[type=checkbox] {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    opacity: 0;
+}
+.accordionItemDelete {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    right: 0;
+    opacity: 1;
+    z-index: 999;
+    cursor: pointer;
+    transform: translate(0, 0);
+    transition: all .3s ease;
+}
+.accordionItemDelete .svgIcon {
+    fill: var(--delete-color);
+}
+.accordionContainer ul li input[type=checkbox]:checked ~ .accordionItem {
+    margin-top: 14px;
+    max-height: 100px;
+    opacity: 1;
+    transition: all .3s ease;
+}
+.accordionContainer ul li input[type=checkbox]:not(:checked) ~ .accordionItem,
+.accordionContainer ul li input[type=checkbox]:not(:checked) ~ .divider,
+.accordionContainer ul li input[type=checkbox]:not(:checked) ~ .accordionItemDelete {
+    margin-top: 0;
+    max-height: 0;
+    opacity: 0;
+    transform: translate(0, 50%);
+    transition: all .3s ease;
+}
+.accordionContainer ul li input[type=checkbox]:checked ~ .svgIcon {
+    transform: rotate(180deg);
+}
+.createdStyle:not(.accordionItem) {
+    border-bottom: 2px solid var(--per10-30-color);
+}
+.pickedStyle:not(.accordionItem) {
+    border-bottom: 2px solid var(--per10-30-color);
+}
+.takenStyle:not(.accordionItem) {
+    border-bottom: 2px solid var(--per10-30-color);
+}
+.inspectionStyle:not(.accordionItem) {
+    border-bottom: 2px solid var(--per40-70-color);
+}
+.readyStyle:not(.accordionItem) {
+    border-bottom: 2px solid var(--per40-70-color);
+}
+.comingStyle:not(.accordionItem) {
+    border-bottom: 2px solid var(--per40-70-color);
+}
+.completedStyle:not(.accordionItem) {
+    border-bottom: 2px solid var(--per80-100-color);
+}
+.accordionItem.createdStyle .svgIcon,
+.accordionItem.createdStyle p {
+    fill: var(--per10-30-color);
+    color: var(--per10-30-color);
+}
+.accordionItem.pickedStyle .svgIcon,
+.accordionItem.pickedStyle p {
+    fill: var(--per10-30-color);
+    color: var(--per10-30-color);
+}
+
+.accordionItem.takenStyle .svgIcon,
+.accordionItem.takenStyle p {
+    fill: var(--per10-30-color);
+    color: var(--per10-30-color);
+}
+
+.accordionItem.inspectionStyle .svgIcon,
+.accordionItem.inspectionStyle p {
+    fill: var(--per40-70-color);
+    color: var(--per40-70-color);
+}
+
+.accordionItem.readyStyle .svgIcon,
+.accordionItem.readyStyle p {
+    fill: var(--per40-70-color);
+    color: var(--per40-70-color);
+}
+
+.accordionItem.comingStyle .svgIcon,
+.accordionItem.comingStyle p {
+    fill: var(--per40-70-color);
+    color: var(--per40-70-color);
+}
+
+.accordionItem.completedStyle .svgIcon,
+.accordionItem.completedStyle p {
+    fill: var(--per80-100-color);
+    color: var(--per80-100-color);
+}
+
+
+
+/*Стили для поля фильтрации*/
+.ordersFilterContainer {
+    height: 80px;
+    border-radius: 15px;
+    background-color: var(--primary-color);
+    width: 100%;
+    padding: 20px;
+    z-index: 10;
+}
+.inputOrdersContainer {
+    position: relative;
+    display: flex;
+}
+.inputOrdersContainer .customInput {
+    padding: 0 30px;
+}
+.inputOrdersContainer .svgIcon {
+    position: absolute;
+	height: 20px;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	fill: var(--secondary-text-color);
+	transition: all .2s ease;
+}
+.inputOrdersContainer .customInput:focus,
+.inputOrdersContainer .customInput:valid {
+    border-bottom: 1px solid var(--accent-color);
+}
+.inputOrdersContainer .customInput:focus + .svgIcon,
+.inputOrdersContainer .customInput:valid + .svgIcon {
+	fill: var(--accent-color);
+}

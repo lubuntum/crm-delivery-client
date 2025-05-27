@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useAuth } from "../../services/auth/AuthProvider"
 import { STATUSES } from "../../statuses"
+import { useAuth } from "../../services/auth/AuthProvider"
 import { updatePasswordRequest } from "../../services/api/accountApi"
 
 export const ResetPasswordCard = () => {
@@ -35,18 +35,17 @@ export const ResetPasswordCard = () => {
         else setStatus(STATUSES.IDLE)
 
     }, [password, repeatPassword])
-
     return (
         <>
             <div className="cardWrapper">
-                {status === STATUSES.ERROR && <p style={{color: "red"}}>Пароли не совпадают</p>}
-                {status === STATUSES.SUCCESS && <p style={{color: "green"}}>Пароль успешно изменен</p>}
                 <h4 className="cardTitle">Сброс пароля</h4>
                 <div className="cardContentWrapper">
-                    <input type="password" onChange={(e) => passwordHandler(e)} value={password} name="password" placeholder="Введите пароль" />
-                    <input type="password" onChange={(e) => passwordHandler(e)} value={repeatPassword} name="repeatPassword" placeholder="Повторите пароль" />
-                    <button onClick={updatePassword}>Изменить пароль</button>
+                    <input type="password" placeholder="Введите пароль" />
+                    <input type="password" placeholder="Повторите пароль" />
+                    <button>Изменить пароль</button>
                 </div>
+                    
+                <button className="customButton">Изменить пароль</button>
             </div>
         </>
     )

@@ -1,76 +1,91 @@
-import { useEffect, useMemo, useState } from "react"
-import { FooterComponent } from "../../footer/FooterComponent"
-import { HeaderComponent } from "../../header/HeaderComponent"
-import { OrdersList } from "./OrdersList"
+import "../css/order_list_style.css"
+
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { getOrganizationOrders } from "../../../services/api/orderApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
-import { STATUSES } from "../../../statuses"
 import { formatDateLocalDate } from "../../../services/date/dateFormattes"
 
+import { OrderItem } from "./OrderItem"
+
+import { ReactComponent as CrmFilterIcon } from "../../../res/icons/crm_filter_icon.svg"
+
+import { STATUSES } from "../../../statuses"
+
 export const OrdersPage = () => {
-    const {getToken} = useAuth()
+    const { getToken } = useAuth()
 
-    const [orders, setOrders] = useState(null)
+    const [orders, setOrders] = useState([])
+    const [loading, setLoading] = useState(true)
     const [status, setStatus] = useState(STATUSES.IDLE)
+    const [filter, setFilter] = useState("")
 
-    const defaultColumnFilter = ({column: {filterValue, setFilter}}) => {
-        return (
-            <input value={filterValue || ''} onChange={e => setFilter(e.target.value || undefined)} placeholder={`Найти ...`} />
-        )
-    }
-    const columns = useMemo(() => [
-        {   Header: "Номер",
-            accessor: "serialNumber",
-            Filter: defaultColumnFilter
-        },
-        {
-            Header: "Имя",
-            accessor: "clientFullName",
-            Filter: defaultColumnFilter
-        },
-        {
-            Header: "Номер",
-            accessor: "clientPhone",
-            Filter: defaultColumnFilter
-        },
-        {
-            Header: "Дата",
-            accessor: "createdAt",
-            Filter: defaultColumnFilter
-        },
-        {
-            Header: "Адрес",
-            accessor: "address",
-            Filter: defaultColumnFilter
-        },
-        {
-            Header: "Статус",
-            accessor: "status",
-            Filter: defaultColumnFilter
+    const fetchOrders = useCallback(async () => {
+        setLoading(true)
+        try {
+            const response = await getOrganizationOrders(getToken())
+            const sortedOrders = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            const formattedOrders = sortedOrders.map(order => ({
+                ...order,
+                clientFullName: `${order.clientSecondName} ${order.clientName} ${order.clientPatronymic}`,
+                createdAt: formatDateLocalDate(order.createdAt)
+            }))
+            setOrders(formattedOrders)
+        } catch (err) {
+            console.error(err)
+            setStatus(STATUSES.ERROR)
+        } finally {
+            setLoading(false)
         }
-    ])
+    }, [getToken])
 
     useEffect(() => {
-        const getOrdersData = async () => {
-            try {
-                const response = await getOrganizationOrders(getToken())
-                const sortedOrders = response.data.sort((a, b) => {return new Date(b.createdAt) - new Date(a.createdAt)})
-                setOrders(sortedOrders.map(order => {
-                    order.clientFullName = `${order.clientSecondName} ${order.clientName} ${order.clientPatronymic}`
-                    order.createdAt = formatDateLocalDate(order.createdAt)
-                    return order
-                }))
-            } catch(err) {
-                setStatus(STATUSES.ERROR)
-            }
-        }
-        getOrdersData()
+        fetchOrders()
+    }, [fetchOrders])
+
+    const handleFilterChange = useCallback((e) => {
+        setFilter(e.target.value)
     }, [])
+
+    const filteredOrders = useMemo(() => {
+        const searchTerm = filter.toLowerCase()
+        return orders.filter(order => (
+            order.serialNumber?.toLowerCase().includes(searchTerm) ||
+            order.clientFullName?.toLowerCase().includes(searchTerm) ||
+            order.createdAt?.toLowerCase().includes(searchTerm) ||
+            order.address?.toLowerCase().includes(searchTerm) ||
+            order.status?.toLowerCase().includes(searchTerm)
+        ))
+    }, [orders, filter])
+
     return (
-        <>
-            <HeaderComponent />
-            <OrdersList data={orders} columns={columns} />
-            <FooterComponent/>
-        </>
+        <div className="contentWrapper">
+            <div className="ordersListWrapper">
+                <div className="pageTitle">
+                    <p>Список заказов</p>
+                </div>
+                
+                <div className="ordersFilterContainer">
+                    <div className="cutomInputContainer">
+                        <input className="customInput"
+                               type="text"
+                               placeholder="Поиск..."
+                               required
+                               onChange={handleFilterChange}/>
+                        <CrmFilterIcon className="svgIcon"/>
+                    </div>
+                </div>
+
+                <div className="ordersListContainer">
+                    {loading ? (
+                        <div className="ordersLoadingContainer">
+                            <p>Загрузка данных...</p>
+                        </div>
+                    ) : (
+                    filteredOrders.map((order, index) => (
+                        <OrderItem key={`orderItem${index}`} data={order}/>
+                    )))}
+                </div>
+            </div>
+        </div> 
     )
 }

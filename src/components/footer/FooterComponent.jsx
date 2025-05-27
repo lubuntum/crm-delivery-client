@@ -1,9 +1,5 @@
 import "../../styles/footer.css"
 
-import { ReactComponent as VkIcon } from "../../res/icons/VkontakteFill.svg"
-import { ReactComponent as TelegramIcon } from "../../res/icons/Telegram.svg"
-import { ReactComponent as YoutubeIcon } from "../../res/icons/YoutubeFill.svg"
-
 export const FooterComponent = () => {
     return (
         <footer>
@@ -21,12 +17,6 @@ export const FooterComponent = () => {
                 </div>
 
                 <div className="footerDivider"></div>
-
-                <div className="footerSocials">
-                    <a><VkIcon className="footerIcon"/></a>
-                    <a><TelegramIcon className="footerIcon"/></a>
-                    <a><YoutubeIcon className="footerIcon"/></a>
-                </div>
             </div>
         </footer>
     )
