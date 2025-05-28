@@ -132,7 +132,7 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, 
                                 <CrmImageIcon className="svgIcon"/>
                             </button>
 
-                            <button className="transparent" onClick={handleShowDetails}>
+                            <button className="transparent" onClick={()=> {setItem(item); setShowDetails(true)}}>
                                 <CrmOpenIcon className="svgIcon"/>
                             </button>
                         </div>

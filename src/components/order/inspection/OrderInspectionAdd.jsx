@@ -187,17 +187,21 @@ export const OrderInspectionAdd = ({ setShowDetails, setItem, item, order, setOr
                               onChange={commentHandler}/>
                 </div>
                 
-                <div className="customFileUploadContainer">
-                    <label className={`customFileUploadLabel`}
-                           htmlFor="customFileUploadInputOrderInspect">Выбрать изображения ({images?.length ? images.length : 0})</label>
-                    <input id="customFileUploadInputOrderInspect"
-                           type="file"
-                           multiple
-                           accept="image/*"
-                           onChange={imageChangeHandler}/>
-                </div>
-
-                <button className="customButton" onClick={addItemToOrderHandler}>Добавить к заказу</button>
+                
+				{order.status === ORDER_STATUSES.INSPECTION &&
+					<>
+						<div className="customFileUploadContainer">
+						<label className={`customFileUploadLabel`}
+							htmlFor="customFileUploadInputOrderInspect">Выбрать изображения ({images?.length ? images.length : 0})</label>
+						<input id="customFileUploadInputOrderInspect"
+							type="file"
+							multiple
+							accept="image/*"
+							onChange={imageChangeHandler}/>
+						</div>
+						<button className="customButton" onClick={addItemToOrderHandler}>Добавить к заказу</button>
+					</>
+				}
 
                 <button className="customButton" onClick={() => setShowDetails(false)}>Закрыть</button>
             </div>
