@@ -12,7 +12,7 @@ import { useAuth } from "../../../services/auth/AuthProvider"
 import { OrderImagesPopup } from "../pickup-order/OrderImagesPopup"
 import { OrderInspectionAdd } from "./OrderInspectionAdd"
 
-export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, order, completeInspection, orderInspection }) => {
+export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, order, completeInspection, orderInspection }) => {
     const { getToken } = useAuth()
     
     const [isReady, setIsReady] = useState(false)
@@ -69,8 +69,12 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, order,
                               setShowImages={setShowImages}/>}
 
             {showDetails &&
-            <OrderInspectionAdd detailsContentType={"Добавление позиции"}
-                                setShowDetails={setShowDetails}/>}
+            <OrderInspectionAdd
+                                setShowDetails={setShowDetails}
+                                setItem={setItem}
+                                item={item}
+                                order={order}
+                                setOrderItems={setOrderItems} />}
 
             {(!showImages && !showDetails) &&
             <div className="inspectTotalContainer">
@@ -143,7 +147,7 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, order,
                 </button>
 
                 <button className={`customButton ${(!isReady || orderItems.length === 0 || order.status !== ORDER_STATUSES.INSPECTION) ? "disabledButton" : ""}`} onClick={handleCompleteInspection}>
-                    Завершить проверку
+                    {order?.status === ORDER_STATUSES.READY ? "Проверка выполнена" : "Завершить проверку"}
                 </button>
             </div>}
         </>

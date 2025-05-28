@@ -105,7 +105,10 @@ export const OrderInspectionPage = () => {
                 <OrderInspectionList orderItems={orderItems}
                                      orderInspection={orderInspection}
                                      order={order}
-                                     completeInspection={completeInspection}/>
+                                     completeInspection={completeInspection}
+                                     setItem={setItem}
+                                     item={item}
+                                     setOrderItems={setOrderItems}/>
                                      
                 <Toaster position="bottom-center" reverseOrder={false}/>
             </div>
