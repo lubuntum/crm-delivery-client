@@ -1,4 +1,4 @@
-.popupWrapper {
+.detailsWrapper {
     position: absolute;
     width: 100%;
     background-color: var(--primary-color);
@@ -9,31 +9,32 @@
     transform: translateY(-50%);
     z-index: 10;
 }
-.popupContainer {
+.detailsContaner {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 15px;
     max-height: 600px;
 }
-.popupContainer p {
+.detailsContaner p {
     font-weight: 400;
     color: var(--secondary-text-color);
     font-size: 1.25rem;
 }
-.popupCards {
+.detailsInput {
     display: flex;
     flex-direction: column;
-    border-radius: 15px;
     gap: 15px;
-    overflow: auto;
 }
-.popupCard {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+.detailsInputRow {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
 }
-.popupCard img {
+.detailsTotal {
     width: 100%;
-    height: auto;
+    text-align: center;
+}
+.detailsTotal p {
+    font-size: 1rem;
 }

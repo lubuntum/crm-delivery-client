@@ -1,6 +1,6 @@
 import "../css/order_form_style.css"
 
-import { ReactComponent as CrmBarcodeIcon } from "../../../res/icons/crm_barcode_icon.svg"
+import { ReactComponent as CrmPersonIcon } from "../../../res/icons/crm_person_icon.svg"
 import { ReactComponent as CrmPhoneIcon } from "../../../res/icons/crm_phone_icon.svg"
 import { ReactComponent as CrmEmailIcon } from "../../../res/icons/crm_email_icon.svg"
 import { ReactComponent as CrmAddressIcon } from "../../../res/icons/crm_location_icon.svg"
@@ -140,7 +140,7 @@ export const CreateOrderPage = () => {
                                 name="clientFullName"
                                 required 
                                 onChange={handleOrderData}/>
-                            <CrmBarcodeIcon className="svgIcon"/>
+                            <CrmPersonIcon className="svgIcon"/>
                         </div>
 
                         <div className="cutomInputContainer">
@@ -186,15 +186,15 @@ export const CreateOrderPage = () => {
                                 onChange={handleOrderData}/>
                             <CrmCommentaryIcon className="svgIcon"/>
                         </div>
-
-                        {!isView ? 
-                        <button className="customButton" onClick={handleCreateOrder}>
-                            {status === STATUSES.SUCCESS ? "Успешно" : "Создать заказ"}
-                        </button> :
-                        <button className="customButton disabledButton" disabled = {status === STATUSES.SUCCESS}>
-                            Заказ уже создан
-                        </button>}
                     </div>
+                    
+                    {!isView ? 
+                    <button className="customButton" onClick={handleCreateOrder}>
+                        {status === STATUSES.SUCCESS ? "Успешно" : "Создать заказ"}
+                    </button> :
+                    <button className="customButton disabledButton" disabled = {status === STATUSES.SUCCESS}>
+                        Заказ уже создан
+                    </button>}
                 </div>
 
                 <Toaster position="bottom-center" reverseOrder={false}/>

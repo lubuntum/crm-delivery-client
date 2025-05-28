@@ -28,13 +28,10 @@
 }
 .orderContainer button {
     height: 100%;
-    width: 50px;
+    min-width: 40px;
     background-color: var(--primary-color);
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
-    -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
-    -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
-    box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
 }
 .orderContainer button .svgIcon {
     fill: var(--accent-color);
@@ -45,7 +42,6 @@
     gap: 15px;
     overflow-y: auto !important;
     border-radius: 15px;
-    height: calc(100% - 80px);
 }
 .accordionContainer {
     display: inline-block;
@@ -53,9 +49,6 @@
     width: 100%;
     border-radius: 15px;
     border-bottom: 2px solid var(--accent-color);
-    -webkit-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
-    -moz-box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
-    box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.08);
 }
 .accordionContainer .accordionTitle {
     display: flex;
@@ -232,34 +225,9 @@
 
 /*Стили для поля фильтрации*/
 .ordersFilterContainer {
-    height: 80px;
     border-radius: 15px;
     background-color: var(--primary-color);
     width: 100%;
     padding: 20px;
     z-index: 10;
-}
-.inputOrdersContainer {
-    position: relative;
-    display: flex;
-}
-.inputOrdersContainer .customInput {
-    padding: 0 30px;
-}
-.inputOrdersContainer .svgIcon {
-    position: absolute;
-	height: 20px;
-	left: 0;
-	top: 50%;
-	transform: translateY(-50%);
-	fill: var(--secondary-text-color);
-	transition: all .2s ease;
-}
-.inputOrdersContainer .customInput:focus,
-.inputOrdersContainer .customInput:valid {
-    border-bottom: 1px solid var(--accent-color);
-}
-.inputOrdersContainer .customInput:focus + .svgIcon,
-.inputOrdersContainer .customInput:valid + .svgIcon {
-	fill: var(--accent-color);
 }

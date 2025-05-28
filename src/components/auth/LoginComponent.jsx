@@ -11,8 +11,7 @@ const LoginComponent = () => {
     
     const [email, setEmail] = useState(null)
     const [pass, setPass] = useState(null)
-    
-    
+
     const loginHandler = async () => {
         try {
             const response = await loginRequest(email, pass)

@@ -1,0 +1,83 @@
+.orderInspectionWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+}
+.inspectTotalContainer {
+    background-color: var(--primary-color);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.inspectTotalItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+.inspectListContainer {
+    overflow-y: auto !important;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 15px;
+}
+.inspectListItem {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.inspectListItemInfo {
+    background-color: var(--primary-color);
+    padding: 20px;
+    position: relative;
+    border-radius: 15px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 15px;
+}
+.inspectListItemInfo input[type="checkbox"] {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    height: 15px;
+    width: 15px;
+}
+.inspectListItemName {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.inspectListItemName .svgIcon {
+    fill: var(--accent-color);
+}
+.inspectListItemButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+}
+.inspectListItemButtons button {
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+.inspectListItemButtons button .svgIcon {
+    fill: var(--accent-color);
+}
+.inspectButtonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

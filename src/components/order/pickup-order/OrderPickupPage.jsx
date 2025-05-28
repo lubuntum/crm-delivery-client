@@ -163,38 +163,36 @@ export const OrderPickupPage = () => {
                                       required/>
                             <CrmCommentIcon className="svgIcon"/>
                         </div>
-
-                        <div className="orderPickupImagesButtonContainer">
-                            <div className="customFileUploadContainer">
-                                <label className={`customFileUploadLabel ${order?.status !== ORDER_STATUSES.PICKED ? "customFileUploadLabelDisabled" : ""}`}
-                                       htmlFor="customFileUploadInputOrderPickup">Выбрать изображения ({images && images.length})</label>
-                                <input id="customFileUploadInputOrderPickup"
-                                       disabled={order.status !== ORDER_STATUSES.PICKED}
-                                       type="file"
-                                       multiple
-                                       onChange={handleImagesChange}
-                                       accept="image/*"/>
-                            </div>
-
-                            <button className={`customButton ${(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0) && "disabledButton"}`}
-                                    disabled={(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0)}
-                                    onClick={handleImageViewer}>
-                                Все изображения
-                            </button>
-                        </div>
-
-                        <button className={`customButton ${order?.status !== ORDER_STATUSES.PICKED && "disabledButton"}`}
-                                disabled={order?.status !== ORDER_STATUSES.PICKED}
-                                onClick={handleCreateOrderPickup}>
-                            Заказ забран
-                        </button>
-                        
-                        <button className={`customButton ${order?.status !== ORDER_STATUSES.TAKEN && "disabledButton"}`}
-                                disabled={order?.status !== ORDER_STATUSES.TAKEN}
-                                onClick={() => handleChangeOrderStatus(ORDER_STATUSES.INSPECTION)}>
-                            Заказ доставлен
-                        </button>
                     </div>  
+
+                    <div className="customFileUploadContainer">
+                        <label className={`customFileUploadLabel ${order?.status !== ORDER_STATUSES.PICKED ? "customFileUploadLabelDisabled" : ""}`}
+                                htmlFor="customFileUploadInputOrderPickup">Выбрать изображения ({images && images.length})</label>
+                        <input id="customFileUploadInputOrderPickup"
+                                disabled={order.status !== ORDER_STATUSES.PICKED}
+                                type="file"
+                                multiple
+                                onChange={handleImagesChange}
+                                accept="image/*"/>
+                    </div>
+
+                    <button className={`customButton ${(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0) && "disabledButton"}`}
+                            disabled={(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0)}
+                            onClick={handleImageViewer}>
+                        Все изображения
+                    </button>
+
+                    <button className={`customButton ${order?.status !== ORDER_STATUSES.PICKED && "disabledButton"}`}
+                            disabled={order?.status !== ORDER_STATUSES.PICKED}
+                            onClick={handleCreateOrderPickup}>
+                        Заказ забран
+                    </button>
+                    
+                    <button className={`customButton ${order?.status !== ORDER_STATUSES.TAKEN && "disabledButton"}`}
+                            disabled={order?.status !== ORDER_STATUSES.TAKEN}
+                            onClick={() => handleChangeOrderStatus(ORDER_STATUSES.INSPECTION)}>
+                        Заказ доставлен
+                    </button>
                 </div>}
 
                 <Toaster position="bottom-center" reverseOrder={false}/>

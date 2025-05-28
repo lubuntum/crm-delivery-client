@@ -14,6 +14,7 @@
 	--darker-accent-color: #22223b;
 	--brighter-accent-color: #e3f2fd;
 	--secondary-text-color: gray;
+	--border-underline-color: lightgray;
 	--disabled-color: gray;
 	--delete-color: #e12729;
 
@@ -197,4 +198,16 @@ body {
 .customFileUploadLabelDisabled {
 	background-color: var(--disabled-color) !important;
 	cursor: none;
+}
+
+
+
+.customSelect {
+	display: flex;
+	width: 100%;
+	height: 40px;
+	font-size: 1rem;
+	outline: none;
+	padding: 0 10px;
+	border-bottom: 1px solid var(--secondary-text-color);
 }

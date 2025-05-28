@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
-import { AddItemForm } from "./AddItemForm"
-import { ItemList } from "./ItemList"
+import { AddItemForm } from "./AddItemForm (OLD)"
+import { ItemList } from "./ItemList (OLD)"
 import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 import { useNavigate } from "react-router-dom"
 import { changeOrderStatusRequest, getOrderByIdRequest } from "../../../services/api/orderApi"
