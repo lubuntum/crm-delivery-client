@@ -3,6 +3,7 @@ import { ReactComponent as CrmPhoneIcon } from "../../res/icons/crm_phone_icon.s
 import { ReactComponent as CrmEmailIcon } from "../../res/icons/crm_email_icon.svg"
 import { ReactComponent as CrmRoleIcon } from "../../res/icons/crm_role_icon.svg"
 import { ReactComponent as CrmOrgIcon } from "../../res/icons/crm_org_icon.svg"
+import { ROLES_RU } from "../../roles"
 
 export const AccountInfoCard = ({ accountData }) => {
     return (
@@ -42,7 +43,7 @@ export const AccountInfoCard = ({ accountData }) => {
                         <CrmRoleIcon className="svgIcon" />
                         <div className="accountCardPersonItemData">
                             <p>Должность</p>
-                            <p>{accountData.role}</p>
+                            <p>{ROLES_RU[accountData.role]}</p>
                         </div>
                     </div>
 

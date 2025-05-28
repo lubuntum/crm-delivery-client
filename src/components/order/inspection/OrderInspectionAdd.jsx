@@ -150,7 +150,7 @@ export const OrderInspectionAdd = ({ setShowDetails, setItem, item, order, setOr
                     </div>
 
                     <div className="detailsTotal">
-                        <p>ИТОГО (площадь): {item.size} м<sup>2</sup></p>
+                        <p>ИТОГО (площадь): {item.size.toFixed(2)} м<sup>2</sup></p>
                     </div>
 
                     <div className="detailsInputRow">
@@ -176,7 +176,7 @@ export const OrderInspectionAdd = ({ setShowDetails, setItem, item, order, setOr
                     </div>
 
                     <div className="detailsTotal">
-                        <p>ИТОГО (сумма): {item.price} ₽</p>
+                        <p>ИТОГО (сумма): {item.price.toFixed(2)} ₽</p>
                     </div>
 
                     <textarea className="customTextarea"
