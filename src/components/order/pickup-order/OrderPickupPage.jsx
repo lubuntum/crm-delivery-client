@@ -194,13 +194,13 @@ export const OrderPickupPage = () => {
                     <button className={`customButton ${order?.status !== ORDER_STATUSES.PICKED && "disabledButton"}`}
                             disabled={order?.status !== ORDER_STATUSES.PICKED}
                             onClick={handleCreateOrderPickup}>
-                        Заказ забран
+                        {order?.status === ORDER_STATUSES.PICKED ? "Забрать заказ" : "Заказ уже забран"}
                     </button>
                     
                     <button className={`customButton ${order?.status !== ORDER_STATUSES.TAKEN && "disabledButton"}`}
                             disabled={order?.status !== ORDER_STATUSES.TAKEN}
                             onClick={() => handleChangeOrderStatus(ORDER_STATUSES.INSPECTION)}>
-                        Заказ доставлен
+                        {(order?.status !== ORDER_STATUSES.TAKEN) ? "Доставить заказ" : "Заказ уже доставлен"}
                     </button>
                 </div>}</>}
 

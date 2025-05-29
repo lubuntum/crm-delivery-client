@@ -20,8 +20,8 @@
 }
 .orderStepsItem {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 15px;
     padding: 20px;
     background-color: var(--primary-color);
     border-radius: 15px;
@@ -29,9 +29,33 @@
 .orderStepsContent {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    justify-content: space-between;
+}
+.orderStepsName {
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 .orderStepsContainer .svgIcon {
     fill: var(--accent-color);
+}
+
+
+
+.orderStepsProgressBar {
+    height: 5px;
+    background-color: var(--completed-color);
+    border-radius: 50px;
+}
+
+.orderStepsItemCompleted {
+    background-color: var(--completed-color);
+}
+.orderStepsItemCompleted p {
+    color: var(--completed-text-color);
+}
+.orderStepsItemCompleted .svgIcon {
+    fill: var(--completed-text-color);
 }

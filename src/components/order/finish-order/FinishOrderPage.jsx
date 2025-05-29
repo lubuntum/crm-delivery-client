@@ -142,6 +142,11 @@ export const FinishOrderPage = () => {
                 <div className="orderLoadingContainer">
                     <Loader/>
                 </div> : <>
+
+                {!validateOrderStatus() &&
+                <div className="orderFinishNotComplete">
+                    <p>Заказ пока не готов к отправке</p>
+                </div>}
                 
                 {validateOrderStatus() && <>
                 <div className="orderFinishInputs">

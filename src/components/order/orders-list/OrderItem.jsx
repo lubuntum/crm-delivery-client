@@ -16,7 +16,6 @@ import { ReactComponent as CrmStatus90Icon } from "../../../res/icons/crm_status
 import { ReactComponent as CrmStatusDoneIcon } from "../../../res/icons/crm_status_done_icon.svg"
 
 import { ROUTES } from "../../../routes"
-import { STATUSES } from "../../../statuses"
 
 const statusIcons = {
     CREATED: CrmStatus10Icon,
@@ -24,7 +23,7 @@ const statusIcons = {
     TAKEN: CrmStatus40Icon,
     INSPECTION: CrmStatus60Icon,
     READY: CrmStatus80Icon,
-    COMMING: CrmStatus90Icon,
+    COMING: CrmStatus90Icon,
     COMPLETED: CrmStatusDoneIcon,
 }
 
@@ -34,14 +33,14 @@ const statusTranslations = {
     TAKEN: "Взято",
     INSPECTION: "На проверке",
     READY: "Готово",
-    COMMING: "Прибыло",
+    COMING: "Прибыло",
     COMPLETED: "Завершено",
 }
 
 export const OrderItem = ({ data, removeOrder }) => {
     const navigate = useNavigate()
 
-    const StatusIcon = statusIcons[data.status] || <CrmStatus10Icon/>
+    const StatusIcon = statusIcons[data.status]
     const statusTranslation = statusTranslations[data.status]
 
     const navigateToOrder = (order) => {

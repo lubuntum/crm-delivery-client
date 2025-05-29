@@ -46,12 +46,16 @@ export const OrderStepsPage = () => {
 
                 <div className="orderStepsContainer">
                     {orderSteps.map((step, index) => (
-                        <div className="orderStepsItem" key={`orderStep${index}`} onClick={step.onClick}>
+                        <div className={`orderStepsItem ${"orderStepsItemCompleted_T"}`} key={`orderStep${index}`} onClick={step.onClick}>
                             <div className="orderStepsContent">
-                                {step.icon}
-                                <p>{step.name}</p>
+                                <div className="orderStepsName">
+                                    {step.icon}
+                                    <p>{step.name}</p>
+                                </div>
+                                <CrmOpenIcon className="svgIcon"/>
                             </div>
-                            <CrmOpenIcon className="svgIcon"/>
+                            
+                            <div className="orderStepsProgressBar" style={{ width: "50%" , display: "none"}}></div>
                         </div>
                     ))}
                 </div>
