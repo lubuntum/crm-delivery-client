@@ -5,6 +5,7 @@ import { getMaterialByOrganizationId } from "../../../services/api/materialsApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { useNavigate } from "react-router-dom"
 import { createItemRequest } from "../../../services/api/itemApi"
+import toast from "react-hot-toast"
 export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
     const [status, setStatus] = useState(STATUSES.IDLE)
     const orderIdRef = useRef(null)
@@ -43,8 +44,6 @@ export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
         if (selectedMaterialId !== item.materialId) setSelectedMaterialId(item.materialId)
     }, [item])
 
-    
-
     const pickMaterialHandler = (e) => {
         const {value} = e.target
         const {name, id} = materials.find((m) => m.id === Number(value))
@@ -80,10 +79,16 @@ export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
     const addItemToOrderHandler = async () => {
         if (order.status !== ORDER_STATUSES.INSPECTION) {
             setStatus(STATUSES.ORDER_STATUS_ERROR)
+            toast.error("Заказ не находится на проверке", 
+                {icon: false, style: 
+                    {backgroundColor: "rgba(239, 71, 111, .8)", color: "white", backdropFilter: "blur(3px)"}})
             return
         }
         if (!item.price || !item.size || !item.materialId) {
             setStatus(STATUSES.VALIDATION_ERROR)
+            toast.error("Проверьте все заполненные поля", 
+                {icon: false, style: 
+                    {backgroundColor: "rgba(239, 71, 111, .8)", color: "white", backdropFilter: "blur(3px)"}})
             return
         }
         const itemForRequest = {...item}
@@ -91,9 +96,15 @@ export const AddItemForm = ({setOrderItems, item, setItem, order}) => {
         try {
             const response = await createItemRequest(itemForRequest, images, getToken())
             setOrderItems(prev => ([...prev, response.data]))
+            toast.error("Заказ успешно добавлен", 
+                {icon: false, style: 
+                    {backgroundColor: "rgba(57, 189, 64, 0.8)", color: "white", backdropFilter: "blur(3px)"}})
             resetForm()
         } catch(err) {
             setStatus(STATUSES.ERROR)
+            toast.error("Возникла ошибка, проверьте интернет соединение", 
+                {icon: false, style: 
+                    {backgroundColor: "rgba(239, 71, 111, .8)", color: "white", backdropFilter: "blur(3px)"}})
         }
     }
     const resetForm = () => {

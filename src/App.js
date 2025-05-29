@@ -23,6 +23,7 @@ import { ReactComponent as CrmMenuIcon } from "./res/icons/crm_menu_icon.svg"
 import { ReactComponent as CrmBackIcon } from "./res/icons/crm_back_icon.svg"
 import { OrderImagesPopup } from './components/order/pickup-order/OrderImagesPopup';
 import { EmployeesPage } from './components/employees/EmployeesPage';
+import { RoleProtectedRouter } from './services/auth/RoleProtectedRouter';
 
 function App() {
 	return (
@@ -82,7 +83,7 @@ const MainPage = () => {
 					<Route path={ROUTES.ORDER_INSPECTION} 	element={<ProtectedRoute element={<OrderInspectionPage />} />} />
 					<Route path={ROUTES.FINISH_ORDER} 		element={<ProtectedRoute element={<FinishOrderPage />} />} />
 					<Route path={ROUTES.ORDER_IMAGES} 		element={<ProtectedRoute element={<OrderImagesPopup />} />} />
-					<Route path={ROUTES.EMPLOYEES_LIST} element = {<ProtectedRoute element={<EmployeesPage/>}/>} />
+					<Route path={ROUTES.EMPLOYEES_LIST} element = {<RoleProtectedRouter element={<EmployeesPage/>} roles={["DIRECTOR"]}/>} />
 				</Routes>
 			</div>
 		</div>
