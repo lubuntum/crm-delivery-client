@@ -30,7 +30,7 @@
 .inspectListItem {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 10px;
 }
 .inspectListItemInfo {
     background-color: var(--primary-color);

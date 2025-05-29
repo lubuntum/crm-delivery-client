@@ -10,6 +10,7 @@ import { OrderItem } from "./OrderItem"
 import { ReactComponent as CrmFilterIcon } from "../../../res/icons/crm_filter_icon.svg"
 
 import { ORDER_STATUSES, STATUSES } from "../../../statuses"
+import { Loader } from "../../loader/Loader"
 
 export const OrdersPage = () => {
     const { getToken } = useAuth()
@@ -29,10 +30,12 @@ export const OrdersPage = () => {
                 clientFullName: `${order.clientSecondName} ${order.clientName} ${order.clientPatronymic}`,
                 createdAt: formatDateLocalDate(order.createdAt)
             }))
-            setOrders(formattedOrders)
+            const nonCompletedOrders = formattedOrders.filter(order => order.status !== ORDER_STATUSES.COMPLETED)
+            const completedOrders = formattedOrders.filter(order => order.status === ORDER_STATUSES.COMPLETED)
+            setOrders([...nonCompletedOrders, ...completedOrders])
         } catch (err) {
-            console.error(err)
             setStatus(STATUSES.ERROR)
+            console.error(err)
         } finally {
             setLoading(false)
         }
@@ -56,15 +59,18 @@ export const OrdersPage = () => {
             order.status?.toLowerCase().includes(searchTerm)
         ))
     }, [orders, filter])
+
     const removeOrder = async (order) => {
         if (order.status !== ORDER_STATUSES.CREATED) return
         try {
             const response = await removeOrderRequest({id: order.id}, getToken())
             setOrders(prev => prev.filter(item => item.id !== order.id))
-        } catch(err) {
+        } catch (err) {
             setStatus(STATUSES.ERROR)
+            console.error(err)
         }
     }
+
     return (
         <div className="contentWrapper">
             <div className="ordersListWrapper">
@@ -86,7 +92,7 @@ export const OrdersPage = () => {
                 <div className="ordersListContainer">
                     {loading ? (
                         <div className="ordersLoadingContainer">
-                            <p>Загрузка данных...</p>
+                            <Loader/>
                         </div>
                     ) : (
                     filteredOrders.map((order, index) => (

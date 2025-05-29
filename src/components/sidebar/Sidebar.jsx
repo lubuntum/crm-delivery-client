@@ -11,6 +11,7 @@ import { ReactComponent as CrmHomeIcon } from "../../res/icons/crm_home_icon.svg
 import { ReactComponent as CrmCreateIcon } from "../../res/icons/crm_create_icon.svg"
 import { ReactComponent as CrmListIcon } from "../../res/icons/crm_list_icon.svg"
 import { ReactComponent as CrmBadgeIcon } from "../../res/icons/crm_badge_icon.svg"
+import { ReactComponent as CrmGroupIcon } from "../../res/icons/crm_group_icon.svg"
 import { ReactComponent as CrmLogoutIcon } from "../../res/icons/crm_logout_icon.svg"
 import { ReactComponent as CrmInfoIcon } from "../../res/icons/crm_info_icon.svg"
 
@@ -76,8 +77,13 @@ export const Sidebar = ({ isActive, onClose }) => {
                 </div>
 
                 {(checkAuth() && accountData?.role === "DISPATCHER") &&
-                <div className="optionsItem dispathcerItem" onClick={() => {handleClose(); navigate(ROUTES.CREATE_ORDER)}}>
+                <div className="optionsItem" onClick={() => {handleClose(); navigate(ROUTES.CREATE_ORDER)}}>
                     <CrmCreateIcon className="svgIcon"/>
+                </div>}
+
+                {(checkAuth() && accountData?.role === "DIRECTOR") &&
+                <div className="optionsItem" onClick={() => {handleClose(); navigate(ROUTES.EMPLOYEES_LIST)}}>
+                    <CrmGroupIcon className="svgIcon"/>
                 </div>}
             </div>
 
@@ -86,7 +92,7 @@ export const Sidebar = ({ isActive, onClose }) => {
                     <CrmBadgeIcon className="svgIcon"/>
                 </div>
 
-                <div className="logoutItem">
+                <div className="logoutItem" onClick={() => {handleClose(); navigate(ROUTES.SERVICE_INFO)}}>
                     <CrmInfoIcon className="svgIcon"/>
                 </div>
                 

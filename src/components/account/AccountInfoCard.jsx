@@ -9,7 +9,7 @@ export const AccountInfoCard = ({ accountData }) => {
     return (
         <div className="accountCardContainer">
             <div className="accountCardTitle">
-                <p>Данные аккаунта</p>
+                <p>Био</p>
             </div>
 
             <div className="accountCardWrapper">

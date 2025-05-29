@@ -1,4 +1,3 @@
-
 export const ROLES = {
     ADMIN: "ADMIN",
     DIRECTOR: "DIRECTOR",
@@ -6,6 +5,7 @@ export const ROLES = {
     COURIER: "COURIER",
     SPECIALIST: "SPECIALIST"
 }
+
 export const ROLES_RU = {
     ADMIN: "Администратор",
     DIRECTOR: "Директор",

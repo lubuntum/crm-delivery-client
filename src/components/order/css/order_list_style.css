@@ -21,10 +21,14 @@
 
 
 /*Стили для списка заказов*/
+.ordersListContainer {
+    width: 100%;
+    height: 100%;
+}
 .orderContainer {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 10px;
 }
 .orderContainer button {
     height: 100%;
@@ -48,7 +52,6 @@
     position: relative;
     width: 100%;
     border-radius: 15px;
-    border-bottom: 2px solid var(--accent-color);
 }
 .accordionContainer .accordionTitle {
     display: flex;
@@ -61,6 +64,7 @@
     font-size: 1.125rem;
     font-weight: 500;
     letter-spacing: 1px;
+    color: var(--accent-color);
 }
 .accordionContainer .accordionTitle .svgIcon {
     fill: var(--accent-color);
@@ -109,6 +113,7 @@
     padding-bottom: 5px;
     padding-top: 15px;
     user-select: none;
+    color: var(--accent-color);
 }
 .accordionContainer ul li .svgIcon:nth-child(2) {
     position: absolute;
@@ -159,68 +164,25 @@
 .accordionContainer ul li input[type=checkbox]:checked ~ .svgIcon {
     transform: rotate(180deg);
 }
-.createdStyle:not(.accordionItem) {
-    border-bottom: 2px solid var(--per10-30-color);
+.accordionCompletedContainer ul {
+    background-color: var(--completed-color) !important;
 }
-.pickedStyle:not(.accordionItem) {
-    border-bottom: 2px solid var(--per10-30-color);
+.accordionCompletedContainer ul p,
+.accordionCompletedContainer ul h2 {
+    color: var(--completed-text-color) !important;
 }
-.takenStyle:not(.accordionItem) {
-    border-bottom: 2px solid var(--per10-30-color);
+.accordionCompletedContainer .svgIcon {
+    fill: var(--completed-text-color) !important;
 }
-.inspectionStyle:not(.accordionItem) {
-    border-bottom: 2px solid var(--per40-70-color);
+.accordionCompletedContainer .divider {
+    border-top: 1px solid var(--completed-text-color) !important;
 }
-.readyStyle:not(.accordionItem) {
-    border-bottom: 2px solid var(--per40-70-color);
+.orderContainer .completedButton {
+    background-color: var(--completed-color) !important;
 }
-.comingStyle:not(.accordionItem) {
-    border-bottom: 2px solid var(--per40-70-color);
+.orderContainer .completedButton .svgIcon {
+    fill: var(--completed-text-color) !important;
 }
-.completedStyle:not(.accordionItem) {
-    border-bottom: 2px solid var(--per80-100-color);
-}
-.accordionItem.createdStyle .svgIcon,
-.accordionItem.createdStyle p {
-    fill: var(--per10-30-color);
-    color: var(--per10-30-color);
-}
-.accordionItem.pickedStyle .svgIcon,
-.accordionItem.pickedStyle p {
-    fill: var(--per10-30-color);
-    color: var(--per10-30-color);
-}
-
-.accordionItem.takenStyle .svgIcon,
-.accordionItem.takenStyle p {
-    fill: var(--per10-30-color);
-    color: var(--per10-30-color);
-}
-
-.accordionItem.inspectionStyle .svgIcon,
-.accordionItem.inspectionStyle p {
-    fill: var(--per40-70-color);
-    color: var(--per40-70-color);
-}
-
-.accordionItem.readyStyle .svgIcon,
-.accordionItem.readyStyle p {
-    fill: var(--per40-70-color);
-    color: var(--per40-70-color);
-}
-
-.accordionItem.comingStyle .svgIcon,
-.accordionItem.comingStyle p {
-    fill: var(--per40-70-color);
-    color: var(--per40-70-color);
-}
-
-.accordionItem.completedStyle .svgIcon,
-.accordionItem.completedStyle p {
-    fill: var(--per80-100-color);
-    color: var(--per80-100-color);
-}
-
 
 
 /*Стили для поля фильтрации*/

@@ -73,7 +73,7 @@ export const EmployeesList = () => {
                                 <th>{acc.email}</th>
                                 <th>{acc.accountStatus}</th>
                                 {(acc.role !== ROLES.DIRECTOR && acc.role !== ROLES.ADMIN) &&
-                                    <th><button onClick={()=>changeAccountStatus(acc)}>{acc.accountStatus === "DISABLED" ? "Активировать" : "Отключить"} аккаунт</button></th>
+                                    <th><button className="customButton" onClick={()=>changeAccountStatus(acc)}>{acc.accountStatus === "DISABLED" ? "Активировать" : "Отключить"} аккаунт</button></th>
                                 }
                                 
                             </tr>
@@ -81,7 +81,7 @@ export const EmployeesList = () => {
                     </tbody>
                 </table>
                 <div className="options">
-                    <button onClick={()=>{setShowCreateAccount(true)}}>Добавить сотрудника</button>
+                    <button className="customButton" onClick={()=>{setShowCreateAccount(true)}}>Добавить сотрудника</button>
                 </div>
             </div>
         </>

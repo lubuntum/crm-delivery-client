@@ -11,38 +11,54 @@ import { ResetPasswordCard } from "./ResetPasswordCard"
 import { AccountSettings } from "./AccountSettings"
 
 import { ROLES } from "../../roles"
+import { STATUSES } from "../../statuses"
+import { Loader } from "../loader/Loader"
 
 export const AccountPage = () => {
     const { getToken } = useAuth()
 
     const [accountData, setAccountData] = useState(null)
+    const [status, setStatus] = useState(STATUSES.IDLE)
 
     useEffect(()=>{
         const getAccountData = async () => {
+            setStatus(STATUSES.LOADING)
             try {
                 const response = await getAccountDataRequest(getToken())
                 setAccountData(response.data)
-            } catch(err) {
+                setStatus(STATUSES.IDLE)
+            } catch (err) {
+                setStatus(STATUSES.ERROR)
                 toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+                console.error(err)
             }
             
         }
         getAccountData()
-    }, [])
+    }, [getToken])
 
     return (
         <div className="contentWrapper">
             <div className="accountCardsWrapper">
-                <AccountInfoCard accountData={accountData}/>
+                <div className="pageTitle">
+                    <p>Данные аккаунта</p>
+                </div>
 
-                {accountData?.role === ROLES.COURIER &&  
-                <EmployeeResultsCard />}
+                {status === STATUSES.LOADING ?
+                <div className="accountLoadingContainer">
+                    <Loader/>
+                </div> :
 
-                <ResetPasswordCard/>
+                <div className="accountCardsContainer">
+                    <AccountInfoCard accountData={accountData}/>
 
-                <AccountSettings/>
+                    {accountData?.role === ROLES.COURIER &&  
+                    <EmployeeResultsCard />}
 
-                <Toaster position="bottom-center" reverseOrder={false}/>
+                    <ResetPasswordCard/>
+
+                    <Toaster position="bottom-center" reverseOrder={false}/>
+                </div>}
             </div>
         </div>
     )

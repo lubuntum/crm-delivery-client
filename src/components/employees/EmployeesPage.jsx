@@ -1,14 +1,12 @@
-import { FooterComponent } from "../footer/FooterComponent"
-import { HeaderComponent } from "../header/HeaderComponent"
+import "./css/employees_list_style.css"
+
 import { EmployeesList } from "./EmployeesList"
 
 export const EmployeesPage = () => {
     
     return (
-        <>
-            <HeaderComponent />
-            <EmployeesList />
-            <FooterComponent />
-        </>
+        <div className="contentWrapper">
+            <EmployeesList/>
+        </div>
     )
 }

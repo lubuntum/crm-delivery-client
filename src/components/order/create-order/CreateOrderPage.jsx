@@ -12,6 +12,7 @@ import { createOrderRequest, getOrderByIdRequest } from "../../../services/api/o
 import { toast, Toaster } from "react-hot-toast"
 import { EMAIL_REGEX } from "../../../services/validation/validationRegexes"
 import { STATUSES } from "../../../statuses"
+import { Loader } from "../../loader/Loader"
 
 export const CreateOrderPage = () => {
     const { getToken } = useAuth()
@@ -130,6 +131,11 @@ export const CreateOrderPage = () => {
                     <p>Заявка</p>
                 </div>
 
+                {status === STATUSES.LOADING ? 
+                <div className="orderLoadingContainer">
+                    <Loader/>
+                </div> : 
+
                 <div className="orderFormContainer">
                     <div className="orderFromInputs">
                         <div className="cutomInputContainer">
@@ -195,7 +201,7 @@ export const CreateOrderPage = () => {
                     <button className="customButton disabledButton" disabled = {status === STATUSES.SUCCESS}>
                         Заказ уже создан
                     </button>}
-                </div>
+                </div>}
 
                 <Toaster position="bottom-center" reverseOrder={false}/>
             </div>

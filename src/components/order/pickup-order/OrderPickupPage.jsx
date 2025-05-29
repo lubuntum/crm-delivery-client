@@ -10,7 +10,9 @@ import { createOrderPickupRequest, getOrderPickupByOrderIdRequest } from "../../
 
 import { ReactComponent as CrmReplayIcon } from "../../../res/icons/crm_replay_icon.svg"
 import { ReactComponent as CrmCommentIcon } from "../../../res/icons/crm_comment_icon.svg"
+import { ReactComponent as CrmImagesIcon } from "../../../res/icons/crm_image_library_icon.svg"
 import { OrderImagesPopup } from "./OrderImagesPopup"
+import { Loader } from "../../loader/Loader"
 import { DIGIT_REGEX } from "../../../services/validation/validationRegexes"
 
 export const OrderPickupPage = () => {
@@ -129,6 +131,11 @@ export const OrderPickupPage = () => {
                                   imagesContentType={"Изображения к заказу"}
                                   setShowImages={setShowImages}/>}
 
+                {status === STATUSES.LOADING ? 
+                <div className="orderLoadingContainer">
+                    <Loader/>
+                </div> : 
+                <>
                 {order && order.status === ORDER_STATUSES.CREATED &&
                 <div className="orderPickupContainer">
                     <div className="orderPickupInputs">
@@ -163,24 +170,26 @@ export const OrderPickupPage = () => {
                                       required/>
                             <CrmCommentIcon className="svgIcon"/>
                         </div>
+
+                        <div className="orderPickupImagesButton">
+                            <div className="customFileUploadContainer">
+                                <label className={`customFileUploadLabel ${order?.status !== ORDER_STATUSES.PICKED ? "customFileUploadLabelDisabled" : ""}`}
+                                        htmlFor="customFileUploadInputOrderPickup">Выбрать изображения ({images && images.length})</label>
+                                <input id="customFileUploadInputOrderPickup"
+                                        disabled={order.status !== ORDER_STATUSES.PICKED}
+                                        type="file"
+                                        multiple
+                                        onChange={handleImagesChange}
+                                        accept="image/*"/>
+                            </div>
+
+                            <button className={`customButton ${(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0) && "imagesDisabledButton"}`}
+                                    disabled={(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0)}
+                                    onClick={handleImageViewer}>
+                                <CrmImagesIcon className="svgIcon"/>
+                            </button>
+                        </div>
                     </div>  
-
-                    <div className="customFileUploadContainer">
-                        <label className={`customFileUploadLabel ${order?.status !== ORDER_STATUSES.PICKED ? "customFileUploadLabelDisabled" : ""}`}
-                                htmlFor="customFileUploadInputOrderPickup">Выбрать изображения ({images && images.length})</label>
-                        <input id="customFileUploadInputOrderPickup"
-                                disabled={order.status !== ORDER_STATUSES.PICKED}
-                                type="file"
-                                multiple
-                                onChange={handleImagesChange}
-                                accept="image/*"/>
-                    </div>
-
-                    <button className={`customButton ${(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0) && "disabledButton"}`}
-                            disabled={(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0)}
-                            onClick={handleImageViewer}>
-                        Все изображения
-                    </button>
 
                     <button className={`customButton ${order?.status !== ORDER_STATUSES.PICKED && "disabledButton"}`}
                             disabled={order?.status !== ORDER_STATUSES.PICKED}
@@ -193,7 +202,7 @@ export const OrderPickupPage = () => {
                             onClick={() => handleChangeOrderStatus(ORDER_STATUSES.INSPECTION)}>
                         Заказ доставлен
                     </button>
-                </div>}
+                </div>}</>}
 
                 <Toaster position="bottom-center" reverseOrder={false}/>
             </div>

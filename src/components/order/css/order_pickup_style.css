@@ -25,3 +25,25 @@
 .orderPickupInputs p {
     text-align: center;
 }
+.orderPickupImagesButton {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.orderPickupImagesButton button {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
+}
+.orderPickupImagesButton button .svgIcon {
+    fill: var(--accent-color);
+}
+.orderPickupImagesButton .imagesDisabledButton {
+    border: 1px solid var(--disabled-color);
+}
+.orderPickupImagesButton .imagesDisabledButton .svgIcon {
+    fill: var(--disabled-color);
+}

@@ -1,0 +1,41 @@
+.orderFinishWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+}
+.orderFinishInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+.orderFinishBioContainer,
+.orderFinishPaymentTypeContainer,
+.orderFinishInputsContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-color);
+    padding: 20px;
+    border-radius: 15px;
+    gap: 15px;
+}
+.bioItem {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.bioItem .svgIcon {
+    fill: var(--accent-color);
+}
+.orderFinishButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.orderFinishTitle {
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    font-size: 1.25rem;
+}

@@ -24,6 +24,7 @@ import { ReactComponent as CrmBackIcon } from "./res/icons/crm_back_icon.svg"
 import { OrderImagesPopup } from './components/order/pickup-order/OrderImagesPopup';
 import { EmployeesPage } from './components/employees/EmployeesPage';
 import { RoleProtectedRouter } from './services/auth/RoleProtectedRouter';
+import { InfoPage } from './components/info/InfoPage';
 
 function App() {
 	return (
@@ -75,6 +76,7 @@ const MainPage = () => {
 					<Route path='/' 						element={<Navigate to={ROUTES.HOME} replace />} />
 					<Route path={ROUTES.HOME} 				element={<HomePage />} />
 					<Route path={ROUTES.AUTH} 				element={<AuthProtectedRoute element={<AuthPage />} />} />
+					<Route path={ROUTES.SERVICE_INFO}       element={<InfoPage/>} />
 					<Route path={ROUTES.ACCOUNT} 			element={<ProtectedRoute element={<AccountPage />} />} />
 					<Route path={ROUTES.CREATE_ORDER} 		element={<ProtectedRoute element={<CreateOrderPage />} />} />
 					<Route path={ROUTES.PICKUP_ORDER} 		element={<ProtectedRoute element={<OrderPickupPage />} />} />
@@ -83,7 +85,7 @@ const MainPage = () => {
 					<Route path={ROUTES.ORDER_INSPECTION} 	element={<ProtectedRoute element={<OrderInspectionPage />} />} />
 					<Route path={ROUTES.FINISH_ORDER} 		element={<ProtectedRoute element={<FinishOrderPage />} />} />
 					<Route path={ROUTES.ORDER_IMAGES} 		element={<ProtectedRoute element={<OrderImagesPopup />} />} />
-					<Route path={ROUTES.EMPLOYEES_LIST} element = {<RoleProtectedRouter element={<EmployeesPage/>} roles={["DIRECTOR"]}/>} />
+					<Route path={ROUTES.EMPLOYEES_LIST} 	element={<RoleProtectedRouter element={<EmployeesPage/>} roles={["DIRECTOR"]}/>} />
 				</Routes>
 			</div>
 		</div>

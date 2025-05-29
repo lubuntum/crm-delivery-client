@@ -8,6 +8,7 @@ import { OrderInspectionList } from "./OrderInspectionList"
 import { changeOrderStatusRequest, getOrderByIdRequest } from "../../../services/api/orderApi"
 import { getItemsByOrderIdRequest } from "../../../services/api/itemApi"
 import { createOrderInspectionRequest, getOrderInspectionByOrderIdRequest } from "../../../services/api/orderInspectionApi"
+import { Loader } from "../../loader/Loader"
 
 export const OrderInspectionPage = () => {
     const navigate = useNavigate()
@@ -102,13 +103,18 @@ export const OrderInspectionPage = () => {
                     <p>Проверка заказа</p>
                 </div>
 
+                {status === STATUSES.LOADING ?
+                <div className="orderLoadingContainer">
+                    <Loader/>
+                </div> : 
+
                 <OrderInspectionList orderItems={orderItems}
                                      orderInspection={orderInspection}
                                      order={order}
                                      completeInspection={completeInspection}
                                      setItem={setItem}
                                      item={item}
-                                     setOrderItems={setOrderItems}/>
+                                     setOrderItems={setOrderItems}/>}
                                      
                 <Toaster position="bottom-center" reverseOrder={false}/>
             </div>

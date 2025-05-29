@@ -16,16 +16,7 @@ import { ReactComponent as CrmStatus90Icon } from "../../../res/icons/crm_status
 import { ReactComponent as CrmStatusDoneIcon } from "../../../res/icons/crm_status_done_icon.svg"
 
 import { ROUTES } from "../../../routes"
-
-const statusStyles = {
-    CREATED: 'createdStyle',
-    PICKED: 'pickedStyle',
-    TAKEN: 'takenStyle',
-    INSPECTION: 'inspectionStyle',
-    READY: 'readyStyle',
-    COMMING: 'comingStyle',
-    COMPLETED: 'completedStyle',
-}
+import { STATUSES } from "../../../statuses"
 
 const statusIcons = {
     CREATED: CrmStatus10Icon,
@@ -47,10 +38,9 @@ const statusTranslations = {
     COMPLETED: "Завершено",
 }
 
-export const OrderItem = ({ data, removeOrder}) => {
+export const OrderItem = ({ data, removeOrder }) => {
     const navigate = useNavigate()
 
-    const statusStyle = statusStyles[data.status] || ""
     const StatusIcon = statusIcons[data.status] || <CrmStatus10Icon/>
     const statusTranslation = statusTranslations[data.status]
 
@@ -60,7 +50,7 @@ export const OrderItem = ({ data, removeOrder}) => {
     
     return (
         <div className="orderContainer">
-            <div className={`accordionContainer ${statusStyle}`}>
+            <div className={`accordionContainer ${data.status === "COMPLETED" ? "accordionCompletedContainer" : ""}`}>
                 <ul>
                     <li>
                         <input type="checkbox"></input>
@@ -89,7 +79,7 @@ export const OrderItem = ({ data, removeOrder}) => {
                             <p>{data.address ? data.address : "AddressPH"}</p>
                         </div>
 
-                        <div className={`accordionItem ${statusStyle}`}>
+                        <div className={`accordionItem`}>
                             <StatusIcon className="svgIcon"/>
                             <p>{statusTranslation ? statusTranslation : "StatusPH"}</p>
                         </div>
@@ -102,7 +92,8 @@ export const OrderItem = ({ data, removeOrder}) => {
                 </ul>
             </div>
 
-            <button className="transparent" onClick={() => navigateToOrder(data)}>
+            <button className={`transparent ${data.status === "COMPLETED" ? "completedButton" : ""}`} 
+                    onClick={() => navigateToOrder(data)}>
                 <CrmOpenIcon className="svgIcon"/>
             </button>
         </div>

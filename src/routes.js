@@ -2,6 +2,7 @@ export const ROUTES = {
     HOME: "/home",
     ACCOUNT: "/account",
     AUTH: "/auth",
+    SERVICE_INFO: "/info",
     CREATE_ORDER: "/create-order",
     PICKUP_ORDER: "/order-pickup",
     ORDER_INSPECTION: "/order-inspection",
@@ -10,5 +11,5 @@ export const ROUTES = {
     ORDER_STEPS: "/order-steps",
     ORDER_IMAGES: "/order-images",
     ABOUT: "/about",
-    EMPLOYEES_LIST: "employees-list"
+    EMPLOYEES_LIST: "/employees-list"
 }

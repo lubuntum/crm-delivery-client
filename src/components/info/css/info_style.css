@@ -1,0 +1,25 @@
+.infoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+}
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.infoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    padding: 20px;
+}
+.infroItemTitle {
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    font-size: 1.25rem;
+}
