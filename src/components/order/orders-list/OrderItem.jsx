@@ -16,6 +16,17 @@ import { ReactComponent as CrmStatus90Icon } from "../../../res/icons/crm_status
 import { ReactComponent as CrmStatusDoneIcon } from "../../../res/icons/crm_status_done_icon.svg"
 
 import { ROUTES } from "../../../routes"
+import { ORDER_STATUSES } from "../../../statuses"
+
+const statusColors = {
+    CREATED: "order10-30per",
+    PICKED: "order10-30per",
+    TAKEN: "order10-30per",
+    INSPECTION: "order40-60per",
+    READY: "order40-60per",
+    COMING: "order40-60per",
+    COMPLETED: "orderDisplayNone",
+}
 
 const statusIcons = {
     CREATED: CrmStatus10Icon,
@@ -28,18 +39,19 @@ const statusIcons = {
 }
 
 const statusTranslations = {
-    CREATED: "Создано",
-    PICKED: "Забрано",
-    TAKEN: "Взято",
-    INSPECTION: "На проверке",
-    READY: "Готово",
-    COMING: "Прибыло",
-    COMPLETED: "Завершено",
+    CREATED: "Заказ создан",
+    PICKED: "Заказ забран курьером",
+    TAKEN: "Заказ взят в работу",
+    INSPECTION: "Заказ на проверке",
+    READY: "Заказ готов к получению",
+    COMING: "Заказ у заказчика",
+    COMPLETED: "Заказ закрыт",
 }
 
 export const OrderItem = ({ data, removeOrder }) => {
     const navigate = useNavigate()
 
+    const statusColor = statusColors[data.status]
     const StatusIcon = statusIcons[data.status]
     const statusTranslation = statusTranslations[data.status]
 
@@ -49,7 +61,7 @@ export const OrderItem = ({ data, removeOrder }) => {
     
     return (
         <div className="orderContainer">
-            <div className={`accordionContainer ${data.status === "COMPLETED" ? "accordionCompletedContainer" : ""}`}>
+            <div className={`accordionContainer ${data.status === ORDER_STATUSES.COMPLETED ? "accordionCompletedContainer" : ""}`}>
                 <ul>
                     <li>
                         <input type="checkbox"></input>
@@ -57,8 +69,13 @@ export const OrderItem = ({ data, removeOrder }) => {
                         <CrmArrowDownIcon className="svgIcon"/>
 
                         <div className="accordionTitle">
-                            <h2>{data.serialNumber ? data.serialNumber : "SerialPH"}</h2>
-                            <p>{data.clientFullName ? data.clientFullName : "ClientNamePH"}</p>
+                            {data.status !== ORDER_STATUSES.COMPLETED &&
+                            <div className={`accordionTitleBar ${statusColor}`}></div>}
+
+                            <div className="accordionTitleInfo" style={{ marginLeft: `${data.status !== ORDER_STATUSES.COMPLETED ? "20px" : ""}` }}>
+                                <h2>{data.serialNumber ? data.serialNumber : "SerialPH"}</h2>
+                                <p>{data.clientFullName ? data.clientFullName : "ClientNamePH"}</p>
+                            </div>
                         </div>
 
                         <div className="divider"></div>

@@ -22,6 +22,13 @@ export const InfoPage = () => {
                         </div>
                         <p>89832707050</p>
                     </div>
+
+                    <div className="infoItem">
+                        <div className="infroItemTitle">
+                            <p>Latest Build</p>
+                        </div>
+                        <p>build v1.1</p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -23,9 +23,8 @@
 	--completed-color: #b7e4c7;
 	--completed-text-color: #081c15;
 
-	--per10-30-color: #e12729; 
-	--per40-70-color: #f8cc1b; 
-	--per80-100-color: #007f4e; 
+	--per10-30-color: rgb(230, 57, 70, .9); 
+	--per40-60-color: rgb(246, 189, 96, .9);
 
 	--sidebar-width: 80px; /*Ширина сайдбара*/
 	--sidebar-marign: 15px; /* Отступы сайдбара*/

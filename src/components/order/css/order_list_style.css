@@ -55,10 +55,22 @@
 }
 .accordionContainer .accordionTitle {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
     margin: 0;
+    position: relative;
     cursor: pointer;
+}
+.accordionTitleBar {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50px;
+    display: flex;
+    width: 5px;
+    background-color: var(--accent-color);
 }
 .accordionContainer .accordionTitle h2 {
     font-size: 1.125rem;
@@ -182,6 +194,15 @@
 }
 .orderContainer .completedButton .svgIcon {
     fill: var(--completed-text-color) !important;
+}
+.accordionContainer .order10-30per {
+    background-color: var(--per10-30-color);
+}
+.accordionContainer .order40-60per {
+    background-color: var(--per40-60-color);
+}
+.accordionContainer .orderDisplayNone {
+    display: none;
 }
 
 
