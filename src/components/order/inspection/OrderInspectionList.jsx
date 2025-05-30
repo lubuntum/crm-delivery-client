@@ -53,6 +53,17 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, 
     }
 
     const handleShowDetails = () => {
+        setItem({
+            materialId: null,
+            size: 0,
+            price: 0,
+            width: "",
+            height: "",
+            pricePerUnit: "",
+            additionalPrice: "",
+            comment: "",
+            isReady: false
+        })
         setShowDetails(true)
     }
 
