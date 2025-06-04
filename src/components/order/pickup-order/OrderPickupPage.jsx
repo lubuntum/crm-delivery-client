@@ -200,7 +200,7 @@ export const OrderPickupPage = () => {
                     <button className={`customButton ${order?.status !== ORDER_STATUSES.TAKEN && "disabledButton"}`}
                             disabled={order?.status !== ORDER_STATUSES.TAKEN}
                             onClick={() => handleChangeOrderStatus(ORDER_STATUSES.INSPECTION)}>
-                        {(order?.status !== ORDER_STATUSES.TAKEN) ? "Доставить заказ" : "Заказ уже доставлен"}
+                        {(order?.status !== ORDER_STATUSES.PICKED && order?.status !== ORDER_STATUSES.TAKEN) ? "Заказ уже доставлен" : "Доставить заказ"}
                     </button>
                 </div>}</>}
 
