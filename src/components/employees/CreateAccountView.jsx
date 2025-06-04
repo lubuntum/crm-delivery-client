@@ -34,7 +34,7 @@ export const CreateAccountView = ({setShowView, setAccounts}) => {
     }
     const formatAccountData = () => {
         const {fullName, ...accountTemp} = accountData;
-        const [employeeName, employeeSecondName, employeePatronymic] = fullName.split(" ")
+        const [employeeSecondName, employeeName, employeePatronymic] = fullName.split(" ")
         if (!employeeName || !employeeSecondName || !employeePatronymic) return null
         accountTemp.employeeName = employeeName;
         accountTemp.employeeSecondName = employeeSecondName

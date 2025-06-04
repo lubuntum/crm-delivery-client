@@ -67,7 +67,7 @@ export const EmployeesList = () => {
                     <tbody>
                         {accounts.map(acc => (
                             <tr>
-                                <th>{`${acc.employeeName} ${acc.employeeSecondName} ${acc.employeePatronymic}`}</th>
+                                <th>{`${acc.employeeSecondName} ${acc.employeeName} ${acc.employeePatronymic}`}</th>
                                 <th>{acc.role}</th>
                                 <th>{acc.phone}</th>
                                 <th>{acc.email}</th>
