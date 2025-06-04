@@ -1,6 +1,6 @@
 import { MaterialsList } from "./MaterialsList"
 
-export const MaterialPage = () => {
+export const MaterialsPage = () => {
     return <>
         <MaterialsList />
     </>
