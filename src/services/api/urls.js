@@ -30,4 +30,6 @@ export const GET_EMPLOYEE_WORKFLOW_BY_DATE = "/api/employees/employee/workflow-b
 
 export const ORGANIZATION_ORDERS = "/api/organization/orders"
 export const ORGANIZATION_MATERIALS = "/api/organization/materials"
+export const ORGANIZATION_MATERIALS_CREATE = "/api/organization/materials/create"
+export const ORGANIZATION_MATERIALS_REMOVE = "/api/organization/materials/remove"
 export const BARREL_COMPONENTS = "/api/barrel/components"
