@@ -4,7 +4,7 @@ import { getOrganizationAccountsRequest, updateAccountStatus } from "../../servi
 import { STATUSES } from "../../statuses"
 import "../../styles/employees/employees.css"
 import { CreateAccountView } from "./CreateAccountView"
-import { ROLES } from "../../roles"
+import { ROLES, ROLES_RU } from "../../roles"
 export const EmployeesList = () => {
     const {getToken} = useAuth()
     const [status, setStatus] = useState(STATUSES.IDLE)
@@ -68,7 +68,7 @@ export const EmployeesList = () => {
                         {accounts.map(acc => (
                             <tr>
                                 <th>{`${acc.employeeSecondName} ${acc.employeeName} ${acc.employeePatronymic}`}</th>
-                                <th>{acc.role}</th>
+                                <th>{ROLES_RU[acc.role]}</th>
                                 <th>{acc.phone}</th>
                                 <th>{acc.email}</th>
                                 <th>{acc.accountStatus}</th>
