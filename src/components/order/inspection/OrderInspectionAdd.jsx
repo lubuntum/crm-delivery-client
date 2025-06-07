@@ -53,8 +53,9 @@ export const OrderInspectionAdd = ({ setShowDetails, setItem, item, order, setOr
             [name]: value,
         };
         console.log(tempItem)
-        tempItem.size = tempItem.width * tempItem.height
+        tempItem.size = Number((tempItem.width * tempItem.height).toFixed(2))
         tempItem.price = tempItem.size * tempItem.pricePerUnit
+        //console.log(typeof Number(tempItem.size.toFixed(2)))
         setItem(tempItem)
     }
     const changePricePerUnitHandler = (e) => {

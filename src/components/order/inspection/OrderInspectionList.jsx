@@ -120,7 +120,7 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, 
 
                             <div className="inspectListItemName">
                                 <CrmSquareIcon className="svgIcon"/>
-                                <p>{item.size} м<sup>2</sup></p>
+                                <p>{item.size.toFixed(2)} м<sup>2</sup></p>
                             </div>
 
                             <div className="inspectListItemName">
