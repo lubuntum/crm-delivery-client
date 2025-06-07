@@ -12,6 +12,16 @@ import { ReactComponent as CrmFilterIcon } from "../../../res/icons/crm_filter_i
 import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 import { Loader } from "../../loader/Loader"
 
+const ordersStatusForSorting = [
+    ORDER_STATUSES.CREATED,
+    ORDER_STATUSES.PICKED,
+    ORDER_STATUSES.TAKEN,
+    ORDER_STATUSES.INSPECTION,
+    ORDER_STATUSES.READY,
+    ORDER_STATUSES.COMING,
+    ORDER_STATUSES.COMPLETED
+]
+
 export const OrdersPage = () => {
     const { getToken } = useAuth()
 
@@ -30,9 +40,9 @@ export const OrdersPage = () => {
                 clientFullName: `${order.clientSecondName} ${order.clientName} ${order.clientPatronymic}`,
                 createdAt: formatDateLocalDate(order.createdAt)
             }))
-            const nonCompletedOrders = formattedOrders.filter(order => order.status !== ORDER_STATUSES.COMPLETED)
-            const completedOrders = formattedOrders.filter(order => order.status === ORDER_STATUSES.COMPLETED)
-            setOrders([...nonCompletedOrders, ...completedOrders])
+            //const nonCompletedOrders = formattedOrders.filter(order => order.status !== ORDER_STATUSES.COMPLETED)
+            //const completedOrders = formattedOrders.filter(order => order.status === ORDER_STATUSES.COMPLETED)
+            setOrders(formattedOrders.sort((a,b) => {return ordersStatusForSorting.indexOf(a.status) - ordersStatusForSorting.indexOf(b.status)}))
         } catch (err) {
             setStatus(STATUSES.ERROR)
             console.error(err)
