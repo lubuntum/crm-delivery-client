@@ -92,13 +92,13 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, 
                 {orderItems &&
                 <div className="inspectTotalItem">
                     <p>ИТОГО (Сумма заказа)</p>
-                    <p>{orderItems.reduce((acc, item) => { return acc + item.price }, 0)} ₽</p>
+                    <p>{(orderItems.reduce((acc, item) => { return acc + item.price }, 0)).toFixed(2)} ₽</p>
                 </div>}
 
                 {orderItems &&
                 <div className="inspectTotalItem">
                     <p>ИТОГО (Площадь)</p>
-                    <p>{orderItems.reduce((acc, item) => { return acc + item.size }, 0)} м<sup>2</sup></p>
+                    <p>{(orderItems.reduce((acc, item) => { return acc + item.size }, 0)).toFixed(2)} м<sup>2</sup></p>
                 </div>}
 
                 {orderInspection &&
