@@ -39,8 +39,8 @@ export const MaterialsList = () => {
     // - исправить то, как добавляются ФИО в работниках
     
     if (materials === null) return <div className="loadingBar"></div>
-    return <div style={{display: "flex"}}>
-        <table>
+    return <div style={{display: "flex", border: "1px solid gray", padding: "5px", borderRadius: "5px"}}>
+        <table style={{textAlign: "justify"}}>
             <thead>
                 <tr>
                     <th>
