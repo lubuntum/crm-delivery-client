@@ -199,6 +199,15 @@ export const FinishOrderPage = () => {
                             <div className="customRadioSelect"></div>
                             <p>Оплата наличными</p>
                         </label>
+                        <label className="customRadio">
+                            <input type="radio" 
+                                    name="paymentMethod" 
+                                    value={"KIND"}
+                                    onChange={handleCompleteOrder}
+                                    checked={completeOrder.paymentMethod === "KIND"}/>
+                            <div className="customRadioSelect"></div>
+                            <p>Оплата натурой</p>
+                        </label>
                     </div>
 
                     <div className="orderFinishInputsContainer">

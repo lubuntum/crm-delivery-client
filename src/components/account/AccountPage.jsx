@@ -32,7 +32,6 @@ export const AccountPage = () => {
                 toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
                 console.error(err)
             }
-            
         }
         getAccountData()
     }, [getToken])

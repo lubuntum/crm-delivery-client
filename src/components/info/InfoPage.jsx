@@ -27,7 +27,7 @@ export const InfoPage = () => {
                         <div className="infroItemTitle">
                             <p>Latest Build</p>
                         </div>
-                        <p>crm_client_mobile_1.0.0</p>
+                        <p>crm_client_mobile_1.0.1</p>
                     </div>
                 </div>
             </div>

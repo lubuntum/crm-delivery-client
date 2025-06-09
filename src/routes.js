@@ -11,5 +11,7 @@ export const ROUTES = {
     ORDER_STEPS: "/order-steps",
     ORDER_IMAGES: "/order-images",
     ABOUT: "/about",
-    EMPLOYEES_LIST: "/employees-list"
+    EMPLOYEES_LIST: "/employees-list",
+    MATERIAL_LIST: "/materials-list",
+    ORGANIZATION_MANAGEMENT: "/organization-management"
 }

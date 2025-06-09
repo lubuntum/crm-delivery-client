@@ -25,6 +25,8 @@ import { OrderImagesPopup } from './components/order/pickup-order/OrderImagesPop
 import { EmployeesPage } from './components/employees/EmployeesPage';
 import { RoleProtectedRouter } from './services/auth/RoleProtectedRouter';
 import { InfoPage } from './components/info/InfoPage';
+import { MaterialsPage } from './components/materials/MaterialsPage';
+import { ManagementPage } from './components/organization_management/ManagementPage';
 
 function App() {
 	return (
@@ -86,6 +88,8 @@ const MainPage = () => {
 					<Route path={ROUTES.FINISH_ORDER} 		element={<ProtectedRoute element={<FinishOrderPage />} />} />
 					<Route path={ROUTES.ORDER_IMAGES} 		element={<ProtectedRoute element={<OrderImagesPopup />} />} />
 					<Route path={ROUTES.EMPLOYEES_LIST} 	element={<RoleProtectedRouter element={<EmployeesPage/>} roles={["DIRECTOR"]}/>} />
+					<Route path={ROUTES.MATERIAL_LIST}		element={<RoleProtectedRouter element={<MaterialsPage/>} roles={["DIRECTOR", "SPECIALIST"]} />} />
+					<Route path={ROUTES.ORGANIZATION_MANAGEMENT} element={<RoleProtectedRouter element={<ManagementPage/>} roles={["DIRECTOR"]} />} />
 				</Routes>
 			</div>
 		</div>

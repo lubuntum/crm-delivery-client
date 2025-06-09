@@ -23,10 +23,10 @@ export const OrderInspectionPage = () => {
         materialId: null,
         size: 0,
         price: 0,
-        width: "",
-        height: "",
-        pricePerUnit: "",
-        additionalPrice: "",
+        width: 0,
+        height: 0,
+        pricePerUnit: 0,
+        additionalPrice: 0,
         comment: "",
         isReady: false
     })

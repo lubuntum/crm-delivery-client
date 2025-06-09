@@ -17,7 +17,7 @@ export const CreateAccountView = ({setShowView, setAccounts}) => {
             try {
                 const response = await getRolesRequest(getToken())
                 const rolesTemp = response.data.filter(role => role.name !== ROLES.ADMIN)
-                setAccountData(prev => ({...prev, role: rolesTemp[0]}))
+                setAccountData(prev => ({...prev, role: rolesTemp[0].name}))
                 setRoles(rolesTemp)
             } catch(err) {
                 console.error(err)
@@ -27,7 +27,6 @@ export const CreateAccountView = ({setShowView, setAccounts}) => {
     }, [])
     const handleAccountData = (e) => {
         const {name, value} = e.target
-        console.log(name, value)
         setAccountData((prev) => ({
             ...prev,
             [name]: value
@@ -35,7 +34,7 @@ export const CreateAccountView = ({setShowView, setAccounts}) => {
     }
     const formatAccountData = () => {
         const {fullName, ...accountTemp} = accountData;
-        const [employeeName, employeeSecondName, employeePatronymic] = fullName.split(" ")
+        const [employeeSecondName, employeeName, employeePatronymic] = fullName.split(" ")
         if (!employeeName || !employeeSecondName || !employeePatronymic) return null
         accountTemp.employeeName = employeeName;
         accountTemp.employeeSecondName = employeeSecondName
