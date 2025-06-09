@@ -1,4 +1,4 @@
-export const SERVER_URL = "http://192.168.212.211:8080"
+export const SERVER_URL = "http://localhost:8080"
 export const REGISTER = "/api/auth/register"
 export const LOGIN = "/api/auth/login"
 export const UPDATE_PASSOWRD = "/api/auth/update-password"
