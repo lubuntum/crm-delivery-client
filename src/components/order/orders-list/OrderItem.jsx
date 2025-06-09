@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { ReactComponent as CrmArrowDownIcon } from "../../../res/icons/crm_arrow_down_icon.svg"
 import { ReactComponent as CrmPhoneIcon } from "../../../res/icons/crm_phone_icon.svg"
 import { ReactComponent as CrmCalendarIcon } from "../../../res/icons/crm_calendar_icon.svg"
-import { ReactComponent as CrmLocationIcon } from "../../../res/icons/crm_location_icon.svg"
+import { ReactComponent as CrmPersonIcon } from "../../../res/icons/crm_person_icon.svg"
 import { ReactComponent as CrmOpenIcon } from "../../../res/icons/crm_open_in_view_icon.svg"
 import { ReactComponent as CrmDeleteIcon } from "../../../res/icons/crm_delete_icon.svg"
 
@@ -19,12 +19,12 @@ import { ROUTES } from "../../../routes"
 import { ORDER_STATUSES } from "../../../statuses"
 
 const statusColors = {
-    CREATED: "order10-30per",
-    PICKED: "order10-30per",
-    TAKEN: "order10-30per",
-    INSPECTION: "order40-60per",
-    READY: "order40-60per",
-    COMING: "order40-60per",
+    CREATED: "order10-20per",
+    PICKED: "order10-20per",
+    TAKEN: "order30-50per",
+    INSPECTION: "order30-50per",
+    READY: "order30-50per",
+    COMING: "order60-90per",
     COMPLETED: "orderDisplayNone",
 }
 
@@ -74,7 +74,7 @@ export const OrderItem = ({ data, removeOrder }) => {
 
                             <div className="accordionTitleInfo" style={{ marginLeft: `${data.status !== ORDER_STATUSES.COMPLETED ? "20px" : ""}` }}>
                                 <h2>{data.serialNumber ? data.serialNumber : "SerialPH"}</h2>
-                                <p>{data.clientFullName ? data.clientFullName : "ClientNamePH"}</p>
+                                <p>{data.address ? data.address : "AddressPH"}</p>
                             </div>
                         </div>
 
@@ -91,8 +91,8 @@ export const OrderItem = ({ data, removeOrder }) => {
                         </div>
 
                         <div className="accordionItem">
-                            <CrmLocationIcon className="svgIcon"/>
-                            <p>{data.address ? data.address : "AddressPH"}</p>
+                            <CrmPersonIcon className="svgIcon"/>
+                            <p>{data.clientFullName ? data.clientFullName : "ClientNamePH"}</p>
                         </div>
 
                         <div className={`accordionItem`}>

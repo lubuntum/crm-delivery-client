@@ -14,6 +14,7 @@ import { ReactComponent as CrmBadgeIcon } from "../../res/icons/crm_badge_icon.s
 import { ReactComponent as CrmGroupIcon } from "../../res/icons/crm_group_icon.svg"
 import { ReactComponent as CrmLogoutIcon } from "../../res/icons/crm_logout_icon.svg"
 import { ReactComponent as CrmInfoIcon } from "../../res/icons/crm_info_icon.svg"
+import { ReactComponent as CrmMaterialIcon } from "../../res/icons/crm_texture_icon.svg"
 
 export const Sidebar = ({ isActive, onClose }) => {
     const navigate = useNavigate()
@@ -84,6 +85,11 @@ export const Sidebar = ({ isActive, onClose }) => {
                 {(checkAuth() && accountData?.role === "DIRECTOR") &&
                 <div className="optionsItem" onClick={() => {handleClose(); navigate(ROUTES.EMPLOYEES_LIST)}}>
                     <CrmGroupIcon className="svgIcon"/>
+                </div>}
+                
+                {(checkAuth() && accountData?.role === "DIRECTOR") &&
+                <div className="optionsItem" onClick={() => {handleClose(); navigate(ROUTES.MATERIAL_LIST)}}>
+                    <CrmMaterialIcon className="svgIcon"/>
                 </div>}
             </div>
 

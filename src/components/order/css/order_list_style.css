@@ -195,11 +195,14 @@
 .orderContainer .completedButton .svgIcon {
     fill: var(--completed-text-color) !important;
 }
-.accordionContainer .order10-30per {
-    background-color: var(--per10-30-color);
+.accordionContainer .order10-20per {
+    background-color: var(--per10-20-color);
 }
-.accordionContainer .order40-60per {
-    background-color: var(--per40-60-color);
+.accordionContainer .order30-50per {
+    background-color: var(--per30-50-color);
+}
+.accordionContainer .order60-90per {
+    background-color: var(--per60-90-color);
 }
 .accordionContainer .orderDisplayNone {
     display: none;
