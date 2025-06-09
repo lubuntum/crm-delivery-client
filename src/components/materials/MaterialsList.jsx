@@ -18,10 +18,15 @@ export const MaterialsList = () => {
         loadMaterials()
     } , [])
     const createMaterialHandler = async() => {
+        if (!materialName) {
+            toast.error("Напишите наименование материала", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            return
+        }
         try {
             const response = await createMaterialForOrganization(getToken(), {name: materialName})
             setMaterials((prev) => [...prev, {id: response.data, name: materialName}])
             setMaterialName("")
+            toast.success("Материал добавлен", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
         } catch(err) {
             toast.error("Не удалось добавить материал", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})  
         }
@@ -30,6 +35,7 @@ export const MaterialsList = () => {
         try {
             const response = removeMaterialForOrganization(getToken(), material)
             setMaterials(materials.filter(m => m.name !== material.name))
+            toast.success("Материал удален!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
         } catch(err) {
             console.error(err)
             toast.error("Не удалось удалить материал", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})  

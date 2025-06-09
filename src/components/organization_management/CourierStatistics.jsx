@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { getEmployeesWorkflowDataByOrganizationRequest } from "../../services/api/employeeApi"
 import { useAuth } from "../../services/auth/AuthProvider"
 import { formateLocalDateForServer } from "../../services/date/dateFormattes"
-
+import DatePicker from "react-datepicker"
+import 'react-datepicker/dist/react-datepicker.css';
 export const CourierStatistics = () => {
     const {getToken} = useAuth()
     const [pickedDate, setPickedDate] = useState(formateLocalDateForServer(new Date()))
@@ -24,6 +25,11 @@ export const CourierStatistics = () => {
     }, [pickedDate])
     if (!employeesWorkflowData) return <div className="loadingBar"></div>
     return <>
+        <div>
+            <p>Выберите дату</p>
+            <DatePicker selected={pickedDate} onChange={(date) => {setPickedDate(formateLocalDateForServer(date))}} />
+        </div>
+        
         <table style={{textAlign:"justify", border: "1px solid gray", padding: "5px", borderRadius: "5px"}}>
             <thead>
                 <tr>
