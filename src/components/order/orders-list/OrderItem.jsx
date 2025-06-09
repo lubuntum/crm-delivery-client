@@ -23,7 +23,7 @@ const statusColors = {
     PICKED: "order10-20per",
     TAKEN: "order30-50per",
     INSPECTION: "order30-50per",
-    READY: "order30-50per",
+    READY: "order60-90per",
     COMING: "order60-90per",
     COMPLETED: "orderDisplayNone",
 }

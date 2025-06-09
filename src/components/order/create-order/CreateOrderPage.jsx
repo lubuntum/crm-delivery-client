@@ -174,7 +174,7 @@ export const CreateOrderPage = () => {
                         <div className="cutomInputContainer">
                             <input className="customInput"
                                 type="text"
-                                placeholder="Адресс"
+                                placeholder="Адрес"
                                 value={order.address}
                                 name="address"
                                 required
