@@ -12,7 +12,7 @@ import { useAuth } from "../../../services/auth/AuthProvider"
 import { OrderImagesPopup } from "../pickup-order/OrderImagesPopup"
 import { OrderInspectionAdd } from "./OrderInspectionAdd"
 
-export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, order, completeInspection, orderInspection }) => {
+export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, order, completeInspection, orderInspection, orderPickup }) => {
     const { getToken } = useAuth()
     
     const [isReady, setIsReady] = useState(false)
@@ -100,6 +100,18 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, 
                     <p>ИТОГО (Площадь)</p>
                     <p>{(orderItems.reduce((acc, item) => { return acc + item.size }, 0)).toFixed(2)} м<sup>2</sup></p>
                 </div>}
+                {orderPickup && 
+                    <div className="inspectTotalItem"> 
+                        <p>Пришло позиций</p>
+                        <p>{orderPickup.itemsCount}</p>
+                    </div>
+                }
+                {orderPickup && 
+                    <div className="inspectTotalItem"> 
+                        <p>Комментарий курьера</p>
+                        <p>{orderPickup.comment ? orderPickup.comment : "Нет"}</p>
+                    </div>
+                }
 
                 {orderInspection &&
                 <div className="inspectTotalItem">

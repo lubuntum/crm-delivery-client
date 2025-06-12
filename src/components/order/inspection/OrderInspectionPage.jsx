@@ -9,6 +9,7 @@ import { changeOrderStatusRequest, getOrderByIdRequest } from "../../../services
 import { getItemsByOrderIdRequest } from "../../../services/api/itemApi"
 import { createOrderInspectionRequest, getOrderInspectionByOrderIdRequest } from "../../../services/api/orderInspectionApi"
 import { Loader } from "../../loader/Loader"
+import { getOrderPickupByOrderIdRequest } from "../../../services/api/orderPickupApi"
 
 export const OrderInspectionPage = () => {
     const navigate = useNavigate()
@@ -17,6 +18,7 @@ export const OrderInspectionPage = () => {
 
     const [status, setStatus] = useState(STATUSES.IDLE)
     const [order, setOrder] = useState(null)
+    const [orderPickup, setOrderPickup] = useState(null)
     const [orderInspection, setOrderInspection] = useState(null)
     const [orderItems, setOrderItems] = useState([])
     const [item, setItem] = useState({
@@ -41,6 +43,7 @@ export const OrderInspectionPage = () => {
             try {
                 getOrderById()
                 getItemsByOrderId()
+                getOrderPickupByOrderId()
             } catch (err) {
                 toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
                 setStatus(STATUSES.ERROR)
@@ -62,6 +65,11 @@ export const OrderInspectionPage = () => {
                 return 0
             }))
         }
+        const getOrderPickupByOrderId = async () => {
+            const response = await getOrderPickupByOrderIdRequest(getToken(), orderId)
+            console.log(response.data)
+            setOrderPickup(response.data)
+        }
         fetchOrder()
     }, [getToken])
 
@@ -74,7 +82,8 @@ export const OrderInspectionPage = () => {
                 console.error(err)
             }
         }
-        fetchInspection()
+        if (order)
+            fetchInspection()
     }, [order])
 
     const checkOrderPrevStatus = () => {
@@ -114,7 +123,8 @@ export const OrderInspectionPage = () => {
                                      completeInspection={completeInspection}
                                      setItem={setItem}
                                      item={item}
-                                     setOrderItems={setOrderItems}/>}
+                                     setOrderItems={setOrderItems}
+                                     orderPickup={orderPickup}/>}
                                      
                 <Toaster position="bottom-center" reverseOrder={false}/>
             </div>
