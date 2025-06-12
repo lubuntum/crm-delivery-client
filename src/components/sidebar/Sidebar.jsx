@@ -93,10 +93,6 @@ export const Sidebar = ({ isActive, onClose }) => {
                 <div className="optionsItem" onClick={() => {handleClose(); navigate(ROUTES.ORGANIZATION_MANAGEMENT)}}>
                     <CrmMonitoringIcon className="svgIcon"/>
                 </div>}
-                {(checkAuth() && accountData?.role === "SPECIALIST") && 
-                <div className="optionsItem" onClick={() => {handleClose(); navigate(ROUTES.MATERIAL_LIST)}}>
-                    <CrmAddMaterialIcon className="svgIcon"/>
-                </div>}
             </div>
 
             <div className="logoutContainer">
