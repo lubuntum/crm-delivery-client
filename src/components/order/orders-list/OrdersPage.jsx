@@ -11,6 +11,8 @@ import { ReactComponent as CrmFilterIcon } from "../../../res/icons/crm_filter_i
 
 import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 import { Loader } from "../../loader/Loader"
+import { getAccountDataRequest } from "../../../services/api/authApi"
+import { ROLES } from "../../../roles"
 
 const ordersStatusForSorting = [
     ORDER_STATUSES.CREATED,
@@ -24,13 +26,29 @@ const ordersStatusForSorting = [
 
 export const OrdersPage = () => {
     const { getToken } = useAuth()
+    const [accountData, setAccountData] = useState(null)
 
     const [orders, setOrders] = useState([])
     const [loading, setLoading] = useState(true)
     const [status, setStatus] = useState(STATUSES.IDLE)
     const [filter, setFilter] = useState("")
 
-    const fetchOrders = useCallback(async () => {
+    //Get account data for showing orders depends on role
+    useEffect(()=> {
+        const fetchAccountData = async () => {
+            try {
+                const response = await getAccountDataRequest(getToken())
+                console.log(response.data)
+                setAccountData(response.data)
+            } catch(err) {
+                console.error(err)
+            }
+        }
+        fetchAccountData()
+    }, [])
+
+    const fetchOrders = async () => {
+        console.log("test")
         setLoading(true)
         try {
             const response = await getOrganizationOrders(getToken())
@@ -39,7 +57,14 @@ export const OrdersPage = () => {
                 ...order,
                 clientFullName: `${order.clientSecondName} ${order.clientName} ${order.clientPatronymic}`,
                 createdAt: formatDateLocalDate(order.createdAt)
-            }))
+            })).filter((order) => {
+                if (accountData?.role === ROLES.SPECIALIST && order.status === ORDER_STATUSES.INSPECTION) return order
+                else if (accountData?.role === ROLES.COURIER && 
+                    ( order.status === ORDER_STATUSES.CREATED || order.status === ORDER_STATUSES.PICKED || 
+                        order.status === ORDER_STATUSES.TAKEN || order.status === ORDER_STATUSES.READY ||
+                        order.status === ORDER_STATUSES.COMING)) return order
+                else if (accountData?.role !== ROLES.SPECIALIST && accountData?.role !== ROLES.COURIER) return order
+            })
             //const nonCompletedOrders = formattedOrders.filter(order => order.status !== ORDER_STATUSES.COMPLETED)
             //const completedOrders = formattedOrders.filter(order => order.status === ORDER_STATUSES.COMPLETED)
             setOrders(formattedOrders.sort((a,b) => {return ordersStatusForSorting.indexOf(a.status) - ordersStatusForSorting.indexOf(b.status)}))
@@ -49,12 +74,13 @@ export const OrdersPage = () => {
         } finally {
             setLoading(false)
         }
-    }, [getToken])
+    }
 
     useEffect(() => {
-        fetchOrders()
-    }, [fetchOrders])
-
+        if (accountData)
+            fetchOrders()
+    }, [accountData])
+    
     const handleFilterChange = useCallback((e) => {
         setFilter(e.target.value)
     }, [])
@@ -106,7 +132,7 @@ export const OrdersPage = () => {
                         </div>
                     ) : (
                     filteredOrders.map((order, index) => (
-                        <OrderItem key={`orderItem${index}`} data={order} removeOrder={removeOrder}/>
+                        <OrderItem key={`orderItem${index}`} data={order} removeOrder={removeOrder} accountData = {accountData}/>
                     )))}
                 </div>
             </div>
