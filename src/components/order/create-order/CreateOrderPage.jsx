@@ -123,6 +123,10 @@ export const CreateOrderPage = () => {
             setStatus(STATUSES.IDLE)
         }, 5000)
     }
+    const handlePhoneCall = () => {
+        if (!isView) return
+        window.location.href = `tel:${order.clientPhone}`
+    }
 
     return (
         <div className="contentWrapper">
@@ -157,7 +161,7 @@ export const CreateOrderPage = () => {
                                 name="clientPhone"
                                 required
                                 onChange={handleOrderData}/>
-                            <CrmPhoneIcon className="svgIcon"/>
+                            <CrmPhoneIcon className="svgIcon" onClick={handlePhoneCall}/>
                         </div>
 
                         <div className="cutomInputContainer">
