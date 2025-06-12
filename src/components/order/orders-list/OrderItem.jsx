@@ -17,6 +17,7 @@ import { ReactComponent as CrmStatusDoneIcon } from "../../../res/icons/crm_stat
 
 import { ROUTES } from "../../../routes"
 import { ORDER_STATUSES } from "../../../statuses"
+import { ROLES } from "../../../roles"
 
 const statusColors = {
     CREATED: "order10-20per",
@@ -40,15 +41,15 @@ const statusIcons = {
 
 const statusTranslations = {
     CREATED: "Заказ создан",
-    PICKED: "Заказ забран курьером",
-    TAKEN: "Заказ взят в работу",
+    PICKED: "Заказ выбран курьером",
+    TAKEN: "Заказ забран",
     INSPECTION: "Заказ на проверке",
-    READY: "Заказ готов к получению",
-    COMING: "Заказ у заказчика",
+    READY: "Заказ готов",
+    COMING: "Заказ в пути к клиенту",
     COMPLETED: "Заказ закрыт",
 }
 
-export const OrderItem = ({ data, removeOrder }) => {
+export const OrderItem = ({ data, removeOrder, accountData }) => {
     const navigate = useNavigate()
 
     const statusColor = statusColors[data.status]
@@ -56,9 +57,16 @@ export const OrderItem = ({ data, removeOrder }) => {
     const statusTranslation = statusTranslations[data.status]
 
     const navigateToOrder = (order) => {
+        if (accountData?.role === ROLES.SPECIALIST) {
+            navigate(`${ROUTES.ORDER_INSPECTION}?id=${order.id}`)
+            return
+        }
         navigate(`${ROUTES.ORDER_STEPS}?id=${order.id}`, {state: {order}})
     }
-    
+    const handlePhoneCall = (e) => {
+        e.stopPropagation()
+        window.location.href = `tel:${data.clientPhone}`
+    }
     return (
         <div className="orderContainer">
             <div className={`accordionContainer ${data.status === ORDER_STATUSES.COMPLETED ? "accordionCompletedContainer" : ""}`}>
@@ -80,7 +88,7 @@ export const OrderItem = ({ data, removeOrder }) => {
 
                         <div className="divider"></div>
 
-                        <div className="accordionItem">
+                        <div className="accordionItem" onClick={(e) => handlePhoneCall(e)}>
                             <CrmPhoneIcon className="svgIcon"/>
                             <p>{data.clientPhone ? data.clientPhone : "ClientPhonePH"}</p>
                         </div>
