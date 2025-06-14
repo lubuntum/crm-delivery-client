@@ -1,4 +1,4 @@
-export const SERVER_URL = "http://192.168.124.123:8080"
+export const SERVER_URL = "http://192.168.157.156:8080"
 export const REGISTER = "/api/auth/register"
 export const LOGIN = "/api/auth/login"
 export const UPDATE_PASSOWRD = "/api/auth/update-password"
@@ -28,6 +28,7 @@ export const GET_ORDER_FINISH_BY_ORDER_ID = "/api/orders-finish/order-finish/by-
 
 export const GET_EMPLOYEE_WORKFLOW_BY_DATE = "/api/employees/employee/workflow-by-date"
 export const GET_EMPLOYEES_WORKFLOW_BY_DATE_AND_ORGANIZATION = "/api/employees/workflow-by-organization-and-date"
+export const GET_EMPLOYEES_WORKFLOW_BY_DATE_BETWEEN_AND_ORGANIZATION = "/api/employees/workflow-by-organization-and-date-between"
 
 export const ORGANIZATION_ORDERS = "/api/organization/orders"
 export const ORGANIZATION_MATERIALS = "/api/organization/materials"
