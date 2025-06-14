@@ -21,8 +21,8 @@ export const ManagementPage = () => {
     }, [])
     return <>
     
-    <div style={{display: "flex", flexDirection: "column", gap: "15px"}}>
-        {accountData && <p>Организация {`${accountData.organizationName}`}</p>}
+    <div style={{display: "flex", flexDirection: "column"}}>
+        {accountData && <p style={{textAlign: "center"}}>Организация {`${accountData.organizationName}`}</p>}
         <CourierStatistics />
         <MaterialsList/>        
     </div>

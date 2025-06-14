@@ -1,0 +1,36 @@
+
+.materials {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0px;
+    text-align: left;
+}
+
+.materials th, .workflowTable td {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+}
+.materials th.iconCell {
+    text-align: center;
+    padding: 5px;
+}
+.materials tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.materials tbody tr:nth-of-type(even) {
+    background-color: #f2f2f2;
+}
+
+.materials tbody tr:last-of-type {
+    border-bottom: 2px solid #4CAF50;
+}
+
+.addMaterialWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.deleteIcon {
+    fill: var(--delete-color);
+}

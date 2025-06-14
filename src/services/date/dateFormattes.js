@@ -11,6 +11,7 @@ export const formatDate = (dateString) => {
 
     return `${day}/${month}/${year} ${hours}:${minutes}`
 }
+//to RU by string from mm/dd/YYYY to dd.mm.YYYY
 export const formatDateLocalDate = (dateString) => {
     const date = new Date(dateString)
 
@@ -21,6 +22,7 @@ export const formatDateLocalDate = (dateString) => {
 
     return `${day}.${month}.${year}`  
 }
+
 export const formateLocalDateForServer = (date) => {
     const year = date.getFullYear()
     const month = String(date.getMonth() + 1).padStart(2, '0')

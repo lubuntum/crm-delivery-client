@@ -1,0 +1,75 @@
+.dateContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 5px;
+}
+.dates {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+.workflowTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.workflowTable th, .workflowTable td {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+}
+
+.workflowTable tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.workflowTable tbody tr:nth-of-type(even) {
+    background-color: #f2f2f2;
+}
+
+.workflowTable tbody tr:last-of-type {
+    border-bottom: 2px solid #4CAF50;
+}
+
+@media (max-width: 450px) {
+    .workflowTable {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        white-space: nowrap; 
+        overflow-y: auto;
+        max-height: 350px;
+    }
+
+    .workflowTable thead {
+        display: none; /* Hide the header on small screens */
+    }
+
+    .workflowTable tbody tr {
+        display: flex; /* Use flexbox for rows */
+        flex-direction: column; /* Stack cells vertically */
+        margin-bottom: 15px; /* Space between rows */
+        border: 1px solid #ddd; /* Add border around each row */
+    }
+    .workflowTable tbody tr:last-child {
+        margin-bottom: 0px;
+    }
+
+    .workflowTable tbody tr td {
+        text-align: left; /* Align text to the left */
+        padding: 10px; /* Adjust padding */
+        border: none; /* Remove cell borders */
+        background-color: #fff; /* Background color for cells */
+    }
+
+    .workflowTable tbody tr:nth-of-type(even) {
+        background-color: #f9f9f9; /* Alternate row color for mobile */
+    }
+
+    .workflowTable tbody tr:hover {
+        background-color: #f1f1f1; /* Hover effect for mobile */
+    }
+}

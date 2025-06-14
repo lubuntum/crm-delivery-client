@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { toast, Toaster } from "react-hot-toast"
 import { createMaterialForOrganization, getMaterialByOrganizationId, removeMaterialForOrganization } from "../../services/api/materialsApi"
 import { useAuth } from "../../services/auth/AuthProvider"
+import { ReactComponent as CrmDeleteIcon } from "../../res/icons/crm_delete_icon.svg"
+import "./css/materials_list.css"
 export const MaterialsList = () => {
     const {getToken} = useAuth()
     const [materials, setMaterials] = useState(null)
@@ -45,8 +47,8 @@ export const MaterialsList = () => {
     // - исправить то, как добавляются ФИО в работниках
     
     if (materials === null) return <div className="loadingBar"></div>
-    return <div style={{display: "flex", border: "1px solid gray", padding: "5px", borderRadius: "5px"}}>
-        <table style={{textAlign: "justify"}}>
+    return <div style={{justifyContent: "space-around" , padding: "5px"}}>
+        <table className="materials" style={{textAlign: "justify"}}>
             <thead>
                 <tr>
                     <th>
@@ -58,15 +60,15 @@ export const MaterialsList = () => {
                 {materials && materials.map(material => (
                     <tr>
                         <th>{material.name}</th>
-                        <th><button onClick={() => removeMaterialHandler(material)}>Удалить</button></th>
+                        <th className="iconCell"><CrmDeleteIcon className="deleteIcon" onClick={() => removeMaterialHandler(material)}/></th>
                     </tr>
                 ))}
             </tbody>
         </table>
         <div>
-            <div>
-                <input name="materialName" value={materialName} type="text" placeholder="Наименование материала" onChange={(e)=> setMaterialName(e.target.value)} />
-                <button onClick={createMaterialHandler}>Добавить</button>
+            <div className="addMaterialWrapper">
+                <input className="customInput" name="materialName" value={materialName} type="text" placeholder="Наименование материала" onChange={(e)=> setMaterialName(e.target.value)} />
+                <button className="customButton" onClick={createMaterialHandler}>Добавить</button>
             </div>
         </div>
         <Toaster position="bottom-center" reverseOrder={false}/>
