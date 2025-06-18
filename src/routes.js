@@ -13,5 +13,7 @@ export const ROUTES = {
     ABOUT: "/about",
     EMPLOYEES_LIST: "/employees-list",
     MATERIAL_LIST: "/materials-list",
-    ORGANIZATION_MANAGEMENT: "/organization-management"
+    ORGANIZATION_MANAGEMENT: "/organization-management",
+
+    ADMIN : "/admin"
 }
