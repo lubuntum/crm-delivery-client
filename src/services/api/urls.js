@@ -8,6 +8,8 @@ export const GET_ACCOUNTS_ROLES = "/api/accounts/roles"
 export const UPDATE_ACCOUNT_STATUS = "/api/accounts/update-status"
 export const CREATE_ACCOUNT = "/api/accounts/create"
 
+export const GET_ORGANIZATIONS = "/api/admin/get-organizations"
+
 export const CREATE_ORDER = "/api/orders/create-order"
 export const REMOVE_ORDER = "/api/orders/remove-order"
 export const CHANGE_ORDER_STATUS = "/api/orders/change-order-status"
