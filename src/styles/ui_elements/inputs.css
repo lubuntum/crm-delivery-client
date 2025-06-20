@@ -1,12 +1,12 @@
 input {
   height: 40px;
-  border-radius: 5px;
+  
   padding: 0px 20px;
-  border: 1px solid #ced4da;
+  
   font-size: 16px;
 }
 input::placeholder {
-  font-size: 12px;
+  font-size: 16px;
 }
 input[type="file"]{
   display: none;
@@ -69,12 +69,11 @@ input[type="radio"]:checked + .custom-radio::after {
 textarea {
   padding: 15px 20px;
   resize: none;
-  border: 1px solid lightgray;
-  border-radius: 5px;
+
   font-size: 16px;
 }
 textarea::placeholder {
-  font-size: 12px;
+  font-size: 16px;
 }
 
 select {
