@@ -15,8 +15,7 @@ export const OrganizationsList = () => {
 
     const [addOrganization, setAddOrganization] = useState()
     const [organizations, setOrganizations] = useState(false)
-    useEffect(() => {
-        const getOrganizations = async () => {
+    const getOrganizations = async () => {
             try {
                 const response = await getOrganizationsRequest(getToken())
                 setOrganizations(response.data.sort((a, b) => {
@@ -28,6 +27,7 @@ export const OrganizationsList = () => {
                 console.error(err)
             }
         }
+    useEffect(() => {
         getOrganizations()
     }, [])
     const changeOrganizationActiveStatus = async (organization, status) => {
@@ -48,7 +48,7 @@ export const OrganizationsList = () => {
     if (!organizations) return <div className="loadingBar"></div>
     return (
         <>
-        {addOrganization && <AddOrganization setAddOrganization={setAddOrganization} />}
+        {addOrganization && <AddOrganization setAddOrganization={setAddOrganization} getOrganizations={getOrganizations} />}
         <div className="organizationsWrapper" style={addOrganization ? {display: "none"} : {}}>
             <h3>Организации</h3>
             {organizations && organizations.map(org => (
@@ -64,9 +64,9 @@ export const OrganizationsList = () => {
                     <>
                         <div className="divider"> </div>
                         <div className="cardBody">
-                            <p>Директор {`${org.directorData.employeeName} ${org.directorData.employeeSecondName} ${org.directorData.employeePatronymic}`}</p>
-                            <p>Почта {org.directorData.email}</p>
-                            <p>Номер {org.directorData.phone}</p>
+                            <p>Директор: {`${org.directorData.employeeName} ${org.directorData.employeeSecondName} ${org.directorData.employeePatronymic}`}</p>
+                            <p>Почта: {org.directorData.email}</p>
+                            <p>Номер: {org.directorData.phone}</p>
                         </div>
                     </>
                     }
