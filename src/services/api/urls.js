@@ -10,6 +10,7 @@ export const CREATE_ACCOUNT = "/api/accounts/create"
 
 export const GET_ORGANIZATIONS = "/api/admin/get-organizations"
 export const CHANGE_ORGANIZATION_ACTIVE_STATUS = "/api/admin/organization/change-status"
+export const ADD_ORGANIZATION = "/api/admin/organization/create"
 
 export const CREATE_ORDER = "/api/orders/create-order"
 export const REMOVE_ORDER = "/api/orders/remove-order"
