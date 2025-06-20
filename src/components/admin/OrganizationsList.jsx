@@ -3,6 +3,9 @@ import { changeOrganizationActiveStatusRequest, getOrganizationsRequest } from "
 import { useAuth } from "../../services/auth/AuthProvider"
 import "../../styles/ui_elements/inputs.css"
 import "./css/organizationsList.css"
+import "../../styles/ui_elements/buttons.css"
+
+import { AddOrganization } from "./AddOrganization"
 const organizationStatuses = [
     "ENABLED",
     "DISABLED"
@@ -10,7 +13,8 @@ const organizationStatuses = [
 export const OrganizationsList = () => {
     const {getToken} = useAuth()
 
-    const [organizations, setOrganizations] = useState()
+    const [addOrganization, setAddOrganization] = useState()
+    const [organizations, setOrganizations] = useState(false)
     useEffect(() => {
         const getOrganizations = async () => {
             try {
@@ -43,7 +47,9 @@ export const OrganizationsList = () => {
     }
     if (!organizations) return <div className="loadingBar"></div>
     return (
-        <div className="organizationsWrapper">
+        <>
+        {addOrganization && <AddOrganization setAddOrganization={setAddOrganization} />}
+        <div className="organizationsWrapper" style={addOrganization ? {display: "none"} : {}}>
             <h3>Организации</h3>
             {organizations && organizations.map(org => (
                 <div className="card" key={org.id}>
@@ -68,6 +74,9 @@ export const OrganizationsList = () => {
                 </div>
                 
             ))}
+            <button className="floatingButton" onClick={() => setAddOrganization(!addOrganization)}>+</button>
         </div>
+        </>
+        
     )
 }
