@@ -13,6 +13,7 @@ export const CHANGE_ORGANIZATION_ACTIVE_STATUS = "/api/admin/organization/change
 export const ADD_ORGANIZATION = "/api/admin/organization/create"
 
 export const CREATE_ORDER = "/api/orders/create-order"
+export const UPDATE_ORDER = "/api/orders/update-order"
 export const REMOVE_ORDER = "/api/orders/remove-order"
 export const CHANGE_ORDER_STATUS = "/api/orders/change-order-status"
 export const GET_ORDER_BY_ID = "/api/orders/order"

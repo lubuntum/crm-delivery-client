@@ -8,7 +8,7 @@ import { ReactComponent as CrmCommentaryIcon } from "../../../res/icons/crm_comm
 
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { useEffect, useState } from "react"
-import { createOrderRequest, getOrderByIdRequest } from "../../../services/api/orderApi"
+import { createOrderRequest, getOrderByIdRequest, updateOrderRequest } from "../../../services/api/orderApi"
 import { toast, Toaster } from "react-hot-toast"
 import { EMAIL_REGEX } from "../../../services/validation/validationRegexes"
 import { STATUSES } from "../../../statuses"
@@ -17,6 +17,7 @@ import { Loader } from "../../loader/Loader"
 export const CreateOrderPage = () => {
     const { getToken } = useAuth()
     const [isView, setIsView] = useState(false)
+    const [isEdited, setIsEdited] = useState(false)
     const [status, setStatus] = useState(STATUSES.IDLE)
 
     const [order, setOrder] = useState({
@@ -29,53 +30,72 @@ export const CreateOrderPage = () => {
         clientEmail: "",
         clientPhone: ""
     })
-
+    const fetchOrder = async (orderId) => {
+        setStatus(STATUSES.LOADING)
+        try {
+            const response = await getOrderByIdRequest(orderId, getToken())
+            const { clientSecondName, clientName, clientPatronymic, ...rest } = response.data
+            setOrder({
+                ...rest,
+                clientFullName: `${clientSecondName} ${clientName} ${clientPatronymic}`
+            })
+            setStatus(STATUSES.IDLE)
+        } catch (err) {
+            toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            setStatus(STATUSES.ERROR)
+            console.error(err)
+        }
+    }
     useEffect(() => {
         const param = new URLSearchParams(window.location.search)
         const orderId = param.get("id")
         if (!orderId) return
 
         setIsView(true)
-        const fetchOrder = async () => {
-            setStatus(STATUSES.LOADING)
-            try {
-                const response = await getOrderByIdRequest(orderId, getToken())
-                const { clientSecondName, clientName, clientPatronymic, ...rest } = response.data
-                setOrder({
-                    ...rest,
-                    clientFullName: `${clientSecondName} ${clientName} ${clientPatronymic}`
-                })
-                setStatus(STATUSES.IDLE)
-            } catch (err) {
-                toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-                setStatus(STATUSES.ERROR)
-                console.error(err)
-            }
-        }
-        fetchOrder()
+        
+        fetchOrder(orderId)
     }, [getToken])
-
-    const handleCreateOrder = async () => {
-        const orderData = getFormattedOrderData()
+    const validateOrderData = (orderData) => {
         if (!orderData) {
             toast.error("Поля не заполнены!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-            return
+            return false
         }
 
         if (orderData.clientPhone.length !== 11) {
             toast.error("Неверный формат номера телефона!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-            return
+            return false
         }
 
         if (orderData.clientEmail && !orderData.clientEmail.match(EMAIL_REGEX)) {
             toast.error("Неверный формат почты!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-            return
+            return false
         }
 
         if (!orderData.address) {
             toast.error("Адрес не введен!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-            return
+            return false
         }
+        return true
+    }
+    const handleEditOrder = async () => {
+        if (!isEdited) return
+        const orderData = getFormattedOrderData()
+        if (!validateOrderData(orderData)) return
+        try {
+            console.log(orderData)
+            const response = await updateOrderRequest(orderData, getToken())
+            console.log(response.data)
+            setOrder(response.data)
+            setIsEdited(false)
+            toast.success("Данные заказ изменены!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+        } catch(err) {
+
+        }
+    }
+    const handleCreateOrder = async () => {
+        const orderData = getFormattedOrderData()
+        
+        if (!validateOrderData(orderData)) return
 
         try {
             await createOrderRequest(orderData, getToken())
@@ -94,6 +114,7 @@ export const CreateOrderPage = () => {
             ...prevData,
             [name]: value
         }))
+        setIsEdited(true)
     }
 
     const getFormattedOrderData = () => {
@@ -205,6 +226,7 @@ export const CreateOrderPage = () => {
                     <button className="customButton disabledButton" disabled = {status === STATUSES.SUCCESS}>
                         Заказ уже создан
                     </button>}
+                    {isView && <button onClick={handleEditOrder} className={`customButton ${!isEdited ? "disabledButton" : ""}`}>Применить изменения</button>}
                 </div>}
 
                 <Toaster position="bottom-center" reverseOrder={false}/>

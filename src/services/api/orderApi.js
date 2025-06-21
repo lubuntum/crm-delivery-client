@@ -1,9 +1,14 @@
 import axios from "axios"
-import { CHANGE_ORDER_STATUS, CREATE_ORDER, GET_ORDER_BY_ID, ORGANIZATION_ORDERS, REMOVE_ORDER, SERVER_URL } from "./urls"
+import { CHANGE_ORDER_STATUS, CREATE_ORDER, GET_ORDER_BY_ID, ORGANIZATION_ORDERS, REMOVE_ORDER, SERVER_URL, UPDATE_ORDER } from "./urls"
 
 export const createOrderRequest = async (order, token) => {
     return await axios.post(`${SERVER_URL}${CREATE_ORDER}`, order, {
         headers:{Authorization: token}
+    })
+}
+export const updateOrderRequest = async (order, token) => {
+    return await axios.patch(`${SERVER_URL}${UPDATE_ORDER}`, order, {
+        headers: {Authorization: token}
     })
 }
 export const removeOrderRequest = async (order, token) => {
