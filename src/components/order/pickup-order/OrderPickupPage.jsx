@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { toast, Toaster } from "react-hot-toast"
 import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 import { changeOrderStatusRequest, getOrderByIdRequest } from "../../../services/api/orderApi"
-import { createOrderPickupRequest, getOrderPickupByOrderIdRequest } from "../../../services/api/orderPickupApi"
+import { createOrderPickupRequest, getOrderPickupByOrderIdRequest, updateOrderPickupRequest } from "../../../services/api/orderPickupApi"
 
 import { ReactComponent as CrmReplayIcon } from "../../../res/icons/crm_replay_icon.svg"
 import { ReactComponent as CrmCommentIcon } from "../../../res/icons/crm_comment_icon.svg"
@@ -19,6 +19,8 @@ export const OrderPickupPage = () => {
     const navigate = useNavigate()
 
     const { getToken } = useAuth()
+
+    const [isEdit, setIsEdit] = useState(false)
 
     const [order, setOrder] = useState()
     const [images, setImages] = useState([])
@@ -111,12 +113,25 @@ export const OrderPickupPage = () => {
         }
     }
 
+    const handleUpdateOrderPickup = async() => {
+        if (order?.status === ORDER_STATUSES.CREATED  || !isEdit) return
+        try {
+            await updateOrderPickupRequest(getToken(), orderPickup)
+            setIsEdit(false)
+            toast.success("Заказ успешно забран!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+        } catch(err) {
+            console.error(err)
+            toast.error("Ошибка при попытке забрать заказ!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+        }
+    }
+
     const handleOrderPickup = async (e) => {
         const { name, value } = e.target
         setOrderPickup((prevData) => ({
             ...prevData,
             [name]: value
         }))
+        setIsEdit(true)
     }
 
     return (
@@ -202,6 +217,8 @@ export const OrderPickupPage = () => {
                             onClick={() => handleChangeOrderStatus(ORDER_STATUSES.INSPECTION)}>
                         {(order?.status !== ORDER_STATUSES.PICKED && order?.status !== ORDER_STATUSES.TAKEN) ? "Заказ уже доставлен" : "Доставить заказ"}
                     </button>
+                    <button className={`customButton ${order?.status === ORDER_STATUSES.CREATED || !isEdit  ? "disabledButton" : ""}`}
+                            onClick={handleUpdateOrderPickup}>Применить изменения</button>
                 </div>}</>}
 
                 <Toaster position="bottom-center" reverseOrder={false}/>

@@ -22,6 +22,7 @@ export const GET_ITEMS_BY_ORDER_ID = "/api/orders/items/by-order-id"
 export const CHANGE_ITEM_READY_STATE = "/api/orders/items/item/change-ready-state"
 
 export const CREATE_ORDER_PICKUP = "/api/orders-pickup/create"
+export const UPDATE_ORDER_PICKUP = "/api/orders-pickup/update"
 export const GET_ORDER_PICKUP_BY_ID = "/api/orders-pickup/order-pickup"
 export const GET_ORDER_PICKUP_BY_ORDER_ID = "/api/orders-pickup/order-pickup/by-order-id"
 
