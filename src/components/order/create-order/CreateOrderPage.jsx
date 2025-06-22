@@ -84,8 +84,11 @@ export const CreateOrderPage = () => {
         try {
             console.log(orderData)
             const response = await updateOrderRequest(orderData, getToken())
-            console.log(response.data)
-            setOrder(response.data)
+            const { clientSecondName, clientName, clientPatronymic, ...rest } = response.data
+            setOrder({
+                ...rest,
+                clientFullName: `${clientSecondName} ${clientName} ${clientPatronymic}`
+            })
             setIsEdited(false)
             toast.success("Данные заказ изменены!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
         } catch(err) {
