@@ -114,7 +114,7 @@ export const OrderPickupPage = () => {
     }
 
     const handleUpdateOrderPickup = async() => {
-        if (order?.status === ORDER_STATUSES.CREATED  || !isEdit) return
+        if (order?.status === ORDER_STATUSES.CREATED || order?.status === ORDER_STATUSES.PICKED || !isEdit) return
         try {
             await updateOrderPickupRequest(getToken(), orderPickup)
             setIsEdit(false)
@@ -217,7 +217,7 @@ export const OrderPickupPage = () => {
                             onClick={() => handleChangeOrderStatus(ORDER_STATUSES.INSPECTION)}>
                         {(order?.status !== ORDER_STATUSES.PICKED && order?.status !== ORDER_STATUSES.TAKEN) ? "Заказ уже доставлен" : "Доставить заказ"}
                     </button>
-                    <button className={`customButton ${order?.status === ORDER_STATUSES.CREATED || !isEdit  ? "disabledButton" : ""}`}
+                    <button className={`customButton ${order?.status === ORDER_STATUSES.CREATED || order?.status === ORDER_STATUSES.PICKED || !isEdit  ? "disabledButton" : ""}`}
                             onClick={handleUpdateOrderPickup}>Применить изменения</button>
                 </div>}</>}
 
