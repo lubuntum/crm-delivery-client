@@ -24,7 +24,10 @@ export const AddOrganization = ({setAddOrganization, getOrganizations}) => {
             toast.success("Фирма добавлена!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
             resetData()
         } catch(err) {
-            console.error(err)
+            if (err.status === 409) {
+                toast.error("Логин уже занят", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+                return
+            }
             toast.error("Возникла ошибка при отправке", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
         }
         
@@ -46,16 +49,16 @@ export const AddOrganization = ({setAddOrganization, getOrganizations}) => {
                     onChange={(e) => {setOrganization(prev => ({...prev, name: e.target.value}))}} />
                 <input className="customInput"
                     type="text"
-                    name="employeeName" 
-                    placeholder="Имя" 
-                    value={directorData.employeeName} 
+                    name="employeeSecondName" 
+                    placeholder="Фамилия" 
+                    value={directorData.employeeSecondName} 
                     required 
                     onChange={(e) => handleDirectorData(e)} />
                 <input className="customInput"
                     type="text"
-                    name="employeeSecondName" 
-                    placeholder="Фамилия" 
-                    value={directorData.employeeSecondName} 
+                    name="employeeName" 
+                    placeholder="Имя" 
+                    value={directorData.employeeName} 
                     required 
                     onChange={(e) => handleDirectorData(e)} />
                 <input className="customInput"
