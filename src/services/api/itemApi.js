@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CHANGE_ITEM_READY_STATE, CREATE_ITEM_FOR_ORDER, GET_ITEMS_BY_ORDER_ID, SERVER_URL } from "./urls"
+import { CHANGE_ITEM_READY_STATE, CREATE_ITEM_FOR_ORDER, DELETE_ITEM_FROM_ORDER, GET_ITEMS_BY_ORDER_ID, SERVER_URL } from "./urls"
 
 export const createItemRequest = async (item, images, token) => {
     const formData = new FormData()
@@ -9,6 +9,11 @@ export const createItemRequest = async (item, images, token) => {
         headers: {Authorization: token,
             "Content-Type": "multipart/form-data"
         }
+    })
+}
+export const deleteItemRequest = async (token, itemId) => {
+    return await axios.delete(`${SERVER_URL}${DELETE_ITEM_FROM_ORDER}/${itemId}`, {
+        headers: {Authorization: token}
     })
 }
 

@@ -4,10 +4,11 @@ import { ReactComponent as CrmTextureIcon } from "../../../res/icons/crm_texture
 import { ReactComponent as CrmSquareIcon } from "../../../res/icons/crm_square_icon.svg"
 import { ReactComponent as CrmPaymentIcon } from "../../../res/icons/crm_payment_icon.svg"
 import { ReactComponent as CrmReadyIcon } from "../../../res/icons/crm_warmup_icon.svg"
+import {ReactComponent as CrmDeleteIcon} from "../../../res/icons/crm_delete_icon.svg"
 import { formatDate } from "../../../services/date/dateFormattes"
 import { useEffect, useState } from "react"
 import { ORDER_STATUSES } from "../../../statuses"
-import { updateItemReadyStateRequest } from "../../../services/api/itemApi"
+import { deleteItemRequest, updateItemReadyStateRequest } from "../../../services/api/itemApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { OrderImagesPopup } from "../pickup-order/OrderImagesPopup"
 import { OrderInspectionAdd } from "./OrderInspectionAdd"
@@ -53,6 +54,7 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, 
     }
 
     const handleShowDetails = () => {
+        if (order.status !== ORDER_STATUSES.INSPECTION) return
         setItem({
             materialId: null,
             size: 0,
@@ -70,6 +72,14 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, 
     const handleCompleteInspection = () => {
         if (!isReady || orderItems.length === 0 || order.status !== ORDER_STATUSES.INSPECTION) return
         completeInspection()
+    }
+    const handleDeleteItem = async (itemId) => {
+        try {
+            const response = await deleteItemRequest(getToken(), itemId)
+            setOrderItems(prev => prev.filter(item => item.id !== itemId))
+        } catch(err) {
+            console.error(err)
+        }
     }
     
     return (
@@ -144,6 +154,12 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, 
                                 <CrmReadyIcon className="svgIcon"/>
                                 <p>{isReady ? "Готов" : "Не готов"}</p>
                             </div>
+                            {order.status === ORDER_STATUSES.INSPECTION &&
+                                <div className="inspectListItemName">
+                                    <CrmDeleteIcon className="svgIcon" style={{fill:"red"}} onClick={() => handleDeleteItem(item.id)}/>
+                                </div>
+                            }
+                        
 
                             <input type="checkbox"
                                    checked={item.isReady}
@@ -165,7 +181,7 @@ export const OrderInspectionList = ({ orderItems, setOrderItems, setItem, item, 
 
             {(!showImages && !showDetails) &&
             <div className="inspectButtonContainer">
-                <button className="customButton" onClick={handleShowDetails}>
+                <button className={`customButton ${order?.status !== ORDER_STATUSES.INSPECTION ? "disabledButton" : ""}`} onClick={handleShowDetails}>
                     Добавить позицию
                 </button>
 
