@@ -38,6 +38,7 @@ export const GET_EMPLOYEES_WORKFLOW_BY_DATE_AND_ORGANIZATION = "/api/employees/w
 export const GET_EMPLOYEES_WORKFLOW_BY_DATE_BETWEEN_AND_ORGANIZATION = "/api/employees/workflow-by-organization-and-date-between"
 
 export const ORGANIZATION_ORDERS = "/api/organization/orders"
+export const GET_ORDERS_TOTAL_STATS_BY_ORGANIZATION = "/api/organization/statistics/remain-orders"
 export const ORGANIZATION_MATERIALS = "/api/organization/materials"
 export const ORGANIZATION_MATERIALS_CREATE = "/api/organization/materials/create"
 export const ORGANIZATION_MATERIALS_REMOVE = "/api/organization/materials/remove"
