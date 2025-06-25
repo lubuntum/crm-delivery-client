@@ -1,12 +1,39 @@
 .dateContainer {
     display: flex;
     flex-direction: row;
-    gap: 10px;
     padding: 5px;
+    align-items: center;
+}
+.dateContainer input {
+    height: 20px;
 }
 .dates {
     display: flex;
     flex-direction: column;
+    padding: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: white;
+    margin-top: 5px;
+}
+.workflowCards {
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 0px;
+    overflow-y: scroll;
+    border-top: 2px solid #4CAF50;
+    border-bottom: 2px solid #4CAF50;
+}
+.workflowCard {
+    width: 100%;
+    background-color: white;
+    border-radius: 15px;
+    padding: 10px;
+}
+.workflowCard p {
     padding: 5px;
 }
 .workflowTable {

@@ -4,6 +4,8 @@ import { CourierStatistics } from "./CourierStatistics"
 import { toast, Toaster } from "react-hot-toast"
 import { getAccountDataRequest } from "../../services/api/accountApi"
 import { useAuth } from "../../services/auth/AuthProvider"
+import "./css/management_page.css"
+import { ReadyOrdersData } from "./ReadyOrdersData"
 export const ManagementPage = () => {
     const [accountData, setAccountData] = useState(null)
     const {getToken} = useAuth()
@@ -21,10 +23,11 @@ export const ManagementPage = () => {
     }, [])
     return <>
     
-    <div style={{display: "flex", flexDirection: "column"}}>
-        {accountData && <p style={{textAlign: "center"}}>Организация {`${accountData.organizationName}`}</p>}
+    <div className="managementPage">
+        {accountData && <h3 style={{textAlign: "center"}}>Организация {`${accountData.organizationName}`}</h3>}
         <CourierStatistics />
-        <MaterialsList/>        
+        <ReadyOrdersData /> 
+        <MaterialsList /> 
     </div>
         <Toaster position="bottom-center" reverseOrder={false}/>
     </>

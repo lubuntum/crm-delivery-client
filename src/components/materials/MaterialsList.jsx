@@ -47,24 +47,17 @@ export const MaterialsList = () => {
     // - исправить то, как добавляются ФИО в работниках
     
     if (materials === null) return <div className="loadingBar"></div>
-    return <div style={{justifyContent: "space-around" , padding: "5px"}}>
-        <table className="materials" style={{textAlign: "justify"}}>
-            <thead>
-                <tr>
-                    <th>
-                        Наименование
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {materials && materials.map(material => (
-                    <tr>
-                        <th>{material.name}</th>
-                        <th className="iconCell"><CrmDeleteIcon className="deleteIcon" onClick={() => removeMaterialHandler(material)}/></th>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+    return <div className="materialsWrapper">
+        <h3>Материалы</h3>
+        <div className="materials">
+            {materials.map(material => (
+                <div className="materialItem">
+                    <p>{material.name}</p>
+                    <CrmDeleteIcon className="deleteIcon" onClick={() => removeMaterialHandler(material)}/>
+                </div>
+            ))}
+        </div>
+        
         <div>
             <div className="addMaterialWrapper">
                 <input className="customInput" name="materialName" value={materialName} type="text" placeholder="Наименование материала" onChange={(e)=> setMaterialName(e.target.value)} />

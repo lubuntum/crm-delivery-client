@@ -14,8 +14,7 @@ export const CourierStatistics = () => {
         const loadStatisticByDate = async () => {
             try {
                 const response = await getEmployeesWorkflowDataByOrganizationAndDateBetween(getToken(), startDate, endDate)
-                console.log(response.data)
-                setEmployeesWorkflowData(response.data.map((item => ({
+                setEmployeesWorkflowData(response.data.filter(item=>item).map((item => ({
                     ...item,
                     employeeFullName: `${item.secondName} ${item.name} ${item.patronymic}`
                 }))))
@@ -29,6 +28,7 @@ export const CourierStatistics = () => {
     if (!employeesWorkflowData) return <div className="loadingBar"></div>
     return <>
     <div className="dates">
+        <h3>Статистика курьеров</h3>
         <div className="dateContainer">
             <p>Начальная дата</p>
             <DatePicker selected={startDate} onChange={(date) => {setStartDate(formateLocalDateForServer(date))}} dateFormat={"dd.MM.YYYY"} placeholderText="дд.мм.гггг"/>
@@ -38,27 +38,16 @@ export const CourierStatistics = () => {
             <DatePicker selected={endDate} onChange={(date) => {setEndDate(formateLocalDateForServer(date))}} dateFormat={"dd.MM.YYYY"} placeholderText="дд.мм.гггг"  />
         </div>
     </div>
-    
-    <table className="workflowTable" >
-        <thead>
-            <tr>
-                <th>ФИО</th>
-                <th>кол-во заказов</th>
-                <th>Площадь</th>
-                <th>Цена</th>
-            </tr>
-        </thead>
-        <tbody>
-            {employeesWorkflowData.map(item => (
-                <tr>
-                    <th>{item.employeeFullName}</th>
-                    <th>{item.ordersCount}</th>
-                    <th>{item.itemsArea.toFixed(2)}м<sup>2</sup></th>
-                    <th>{item.ordersPrice.toFixed(2)}₽</th>
-                </tr>
-            ))}
-        </tbody>
-    </table>
+    <div className="workflowCards" style={{display: `${employeesWorkflowData.length === 0 ? "none" : ""}`, minHeight: `${employeesWorkflowData.length * 125}px`}}>
+        {employeesWorkflowData.map(item => (
+            <div className="workflowCard">
+                <p>{item.employeeFullName}</p>
+                <p>Кол-во заказов: {item.ordersCount}</p>
+                <p>Площадь: {item.itemsArea.toFixed(2)}м<sup>2</sup></p>
+                <p>Цена: {item.ordersPrice.toFixed(2)}₽</p>
+            </div>
+        ))}
+    </div>
         
     </>
 }
