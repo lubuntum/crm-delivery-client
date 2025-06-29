@@ -43,3 +43,6 @@ export const ORGANIZATION_MATERIALS = "/api/organization/materials"
 export const ORGANIZATION_MATERIALS_CREATE = "/api/organization/materials/create"
 export const ORGANIZATION_MATERIALS_REMOVE = "/api/organization/materials/remove"
 export const BARREL_COMPONENTS = "/api/barrel/components"
+
+export const SUBSCRIBE_NOTIFICATIONS = "/api/tg-bot/subscribe-notifications"
+export const UNSUBSCRIBE_NOTIFICATIONS = "/api/tg-bot/unsubscribe-notifications"
