@@ -6,8 +6,8 @@
   left: 50%;
   visibility: visible;
   border-radius: 50%;
-  border: 7px solid var(--color-secondary);
-  border-top: 7px solid var(--color-primary);
+  border: 7px solid var(--background-color);
+  border-top: 7px solid #2196F3;
   animation: rotate 2s linear infinite;
 }
 

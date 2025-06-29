@@ -13,15 +13,14 @@ import { AccountSettings } from "./AccountSettings"
 import { ROLES } from "../../roles"
 import { STATUSES } from "../../statuses"
 import { Loader } from "../loader/Loader"
+import { NotificationSettings } from "./NotificationSettings"
 
 export const AccountPage = () => {
     const { getToken } = useAuth()
 
     const [accountData, setAccountData] = useState(null)
     const [status, setStatus] = useState(STATUSES.IDLE)
-
-    useEffect(()=>{
-        const getAccountData = async () => {
+    const getAccountData = async () => {
             setStatus(STATUSES.LOADING)
             try {
                 const response = await getAccountDataRequest(getToken())
@@ -33,6 +32,7 @@ export const AccountPage = () => {
                 console.error(err)
             }
         }
+    useEffect(()=>{
         getAccountData()
     }, [getToken])
 
@@ -53,9 +53,9 @@ export const AccountPage = () => {
 
                     {accountData?.role === ROLES.COURIER &&  
                     <EmployeeResultsCard />}
-
+                    <NotificationSettings accountData = {accountData}/>
                     <ResetPasswordCard/>
-
+                    
                     <Toaster position="bottom-center" reverseOrder={false}/>
                 </div>}
             </div>
