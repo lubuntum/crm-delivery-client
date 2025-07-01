@@ -21,9 +21,13 @@ export const ReadyOrdersData = () => {
     return (
         <div className="readyOrdersDataWrapper">
             <h3>Информация о заказах</h3>
-            <p>Кол-во заказов с позициями: {ordersTotalStats.ordersCount}</p>
-            <p>Общая площадь: {ordersTotalStats.totalSize.toFixed(2)}м<sup>2</sup></p>
-            <p>Общая сумма: {ordersTotalStats.totalPrice.toFixed(2)}₽</p>
+            {!ordersTotalStats.ordersCount ? <p>Рабочих позиций не найдено</p> :
+            <>
+                <p>Кол-во заказов с позициями: {ordersTotalStats.ordersCount}</p>
+                <p>Общая площадь: {ordersTotalStats.totalSize?.toFixed(2)}м<sup>2</sup></p>
+                <p>Общая сумма: {ordersTotalStats.totalPrice?.toFixed(2)}₽</p>
+            </>
+            }
         </div>
     )
 }
