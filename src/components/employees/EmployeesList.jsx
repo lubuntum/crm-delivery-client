@@ -5,21 +5,29 @@ import { STATUSES } from "../../statuses"
 import "../../styles/employees/employees.css"
 import { CreateAccountView } from "./CreateAccountView"
 import { ROLES, ROLES_RU } from "../../roles"
+import { EmployeeCard } from "./EmployeeCard"
+import { toast, Toaster } from "react-hot-toast"
 export const EmployeesList = () => {
     const {getToken} = useAuth()
-    const [status, setStatus] = useState(STATUSES.IDLE)
     const [accounts, setAccounts] = useState(null)
     const [showCreateAccount, setShowCreateAccount] = useState(false)
         useEffect(()=>{
             const getAccounts = async () => {
                 try {
                     const response = await getOrganizationAccountsRequest(getToken())
-                    setAccounts(response.data)
-                    setStatus(STATUSES.SUCCESS)
-                    setTimeout(()=> setStatus(STATUSES.IDLE), 5000)
+                    console.log(response.data)
+                    setAccounts(response.data.sort((a, b) => {
+                        return a.employeeName.localeCompare(b.employeeName)
+                    }).sort((a, b) => {
+                        if (a.accountStatus === "ENABLED" && b.accountStatus === "DISABLED")
+                            return -1
+                        if (a.accountStatus === "DISABLED" && b.accountStatus === "ENABLED")
+                            return 1
+                        return 0
+                    }))
                 } catch(err) {
                     console.error(err)
-                    setStatus(STATUSES.ERROR)
+                    toast.error("Возникла ошибка при загрузке сотрудников", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
                 }
             }
             getAccounts()
@@ -33,11 +41,11 @@ export const EmployeesList = () => {
                 setAccounts(prev => 
                     prev.map(acc => acc.id === accountTemp.id ? accountTemp : acc))
             }
-            setStatus(STATUSES.SUCCESS)
-            setTimeout(()=> setStatus(STATUSES.IDLE), 5000)
+
+            toast.success(`Аккаунт ${account.email} ${accountTemp.currentStatus === "ENABLED" ? "активирован" :  "отключен"}`, {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
         } catch(err) {
             console.error(err)
-            setStatus(STATUSES.ERROR)
+            toast.error("Логин уже занят", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
         }
     }
     if (accounts === null) 
@@ -52,38 +60,17 @@ export const EmployeesList = () => {
     return (
         <> 
             {showCreateAccount && <CreateAccountView setShowView={setShowCreateAccount} setAccounts={setAccounts} />}
-            <div className="employeesWrapper">
-                {status === STATUSES.ERROR && "Возникла ошибка при получении сотрудников"}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ФИО</th>
-                            <th>Должность</th>
-                            <th>Нормер</th>
-                            <th>Логин</th>
-                            <th>Статус</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {accounts.map(acc => (
-                            <tr>
-                                <th>{`${acc.employeeSecondName} ${acc.employeeName} ${acc.employeePatronymic}`}</th>
-                                <th>{ROLES_RU[acc.role]}</th>
-                                <th>{acc.phone}</th>
-                                <th>{acc.email}</th>
-                                <th>{acc.accountStatus}</th>
-                                {(acc.role !== ROLES.DIRECTOR && acc.role !== ROLES.ADMIN) &&
-                                    <th><button className="customButton" onClick={()=>changeAccountStatus(acc)}>{acc.accountStatus === "DISABLED" ? "Активировать" : "Отключить"} аккаунт</button></th>
-                                }
-                                
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <div className="options">
-                    <button className="customButton" onClick={()=>{setShowCreateAccount(true)}}>Добавить сотрудника</button>
+            <div className={`employeesWrapper ${showCreateAccount ? "hidden" : ""}`}>
+                <div className="employeesCards" style={{minHeight: `${accounts?.length * 125}px`}}>
+                    <h3>Сотрудники</h3>
+                    {accounts.map(acc => (
+                        <EmployeeCard employeeData={acc} changeAccountStatus={changeAccountStatus}/>
+                    ))}
                 </div>
+            <button className="floatingButton" onClick={()=>{setShowCreateAccount(true)}}>+</button>
             </div>
+            
+            <Toaster position="bottom-center" reverseOrder={false}/>
         </>
     )
 }

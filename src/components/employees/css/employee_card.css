@@ -1,0 +1,32 @@
+.employeesCards {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 15px;
+    padding: 0px 0px 15px 0px;
+}
+
+.employeeCardWrapper {
+}
+.employeeCard {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: var(--primary-color);
+    gap: 5px;
+}
+.employeeCard .statusContainer {
+    display: flex;
+    justify-content: space-between;
+}
+.cardItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+.svgIcon {
+    fill: var(--acient-color);
+}

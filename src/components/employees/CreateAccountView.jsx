@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import { createAccountRequest, getRolesRequest } from "../../services/api/accountApi"
 import { useAuth } from "../../services/auth/AuthProvider"
 import { STATUSES } from "../../statuses"
-import { ROLES } from "../../roles"
-
-
+import { ROLES, ROLES_RU } from "../../roles"
+import {ReactComponent as CrmBackIcon} from "../../res/icons/crm_back_icon_2.svg"
+import "./css/create_account.css"
+import toast, { Toaster } from "react-hot-toast"
 export const CreateAccountView = ({setShowView, setAccounts}) => {
-    const [status, setStatus] = useState(STATUSES.IDLE)
     const {getToken} = useAuth()
     const [roles, setRoles] = useState(null)
     const [accountData, setAccountData] = useState({email:"", phone:"", role:"",  
@@ -45,8 +45,7 @@ export const CreateAccountView = ({setShowView, setAccounts}) => {
         const accountTemp = formatAccountData()
         if (accountTemp === null || !accountTemp.email 
             || !accountTemp.phone || !accountTemp.role) {
-                setStatus(STATUSES.ERROR)
-                setTimeout(()=> setStatus(STATUSES.IDLE), 5000)
+                toast.error("Проверьте введенные данные", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
                 return
             }
         console.log(accountTemp)
@@ -54,11 +53,11 @@ export const CreateAccountView = ({setShowView, setAccounts}) => {
             const response = await createAccountRequest(getToken(), accountTemp)
             accountTemp.id = response.data
             setAccounts(prev => ([...prev, {...accountTemp, accountStatus: 'ENABLED'}]))
-            setStatus(STATUSES.SUCCESS)
-            setTimeout(()=> setStatus(STATUSES.IDLE), 5000)
             resetForm()
+            toast.success("Аккаунт успешно добавлен", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
         } catch(err) {
             console.error(err)
+            toast.error("Ошибка при добовлении сотрудника", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
         }
     }
     const resetForm = () => {
@@ -68,29 +67,25 @@ export const CreateAccountView = ({setShowView, setAccounts}) => {
     if (!roles) return <div className="progressBar"></div>
     return (
         <>
-            <div className="floating-container">
-                <div className="floating-component">
-                    <button className="exit-button" onClick={()=> setShowView(false)}>X</button>
-                    <p>Новый аккаунт</p>
-                    <input type="text" name="fullName" value={accountData.fullName} placeholder="ФИО" onChange={handleAccountData} />
-                    <input type="text" name="phone" value={accountData.phone} placeholder="Номер" onChange={handleAccountData}/>
-                    <input type="text" name="email" value={accountData.email} placeholder="Логин для входа" onChange={handleAccountData} />
-                    <div>
-                        <label htmlFor="roles">Выберите должность:</label>
-                        <select id="roles" name="role" onChange={handleAccountData} >
-                            {roles.map(role => (
-                                <option key={role.id} value={role.name}>
-                                    {role.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <p>Пароль по умолчанию: 123456</p>
-                    <button onClick={addAccount}>Создать</button>
-                    {status === STATUSES.ERROR && <p style={{color: "red"}}>Возникла ошибка, проверьте даннные формы</p>}
-                    {status === STATUSES.SUCCESS && <p style={{color: "green"}}>Аккаунт создан</p>}
+            <div className="createAccountForm">
+                <h3>Новый аккаунт</h3>
+                <input className="customInput" type="text" name="fullName" value={accountData.fullName} placeholder="ФИО" onChange={handleAccountData} />
+                <input className="customInput" type="text" name="phone" value={accountData.phone} placeholder="Номер" onChange={handleAccountData}/>
+                <input className="customInput" type="text" name="email" value={accountData.email} placeholder="Логин для входа" onChange={handleAccountData} />
+                <div>
+                    <select className="customSelect" id="roles" name="role" onChange={handleAccountData} >
+                        {roles.map(role => (
+                            <option key={role.id} value={role.name}>
+                                {ROLES_RU[role.name]}
+                            </option>
+                        ))}
+                    </select>
                 </div>
+                <p>Пароль по умолчанию: 123456</p>
+                <button className="customButton" onClick={addAccount}>Создать</button>
             </div>
+            <button className="floatingButton" onClick={() => setShowView(false)}><CrmBackIcon /></button>
+            <Toaster position="bottom-center" reverseOrder={false}/>
         </>
     )
 }

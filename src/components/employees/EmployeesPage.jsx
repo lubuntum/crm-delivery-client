@@ -5,7 +5,7 @@ import { EmployeesList } from "./EmployeesList"
 export const EmployeesPage = () => {
     
     return (
-        <div className="contentWrapper">
+        <div className="contentWrapper" style={{alignContent:"end"}}>
             <EmployeesList/>
         </div>
     )
