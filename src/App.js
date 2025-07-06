@@ -29,6 +29,7 @@ import { MaterialsPage } from './components/materials/MaterialsPage';
 import { ManagementPage } from './components/organization_management/ManagementPage';
 import { AdminPage } from './components/admin/AdminPage';
 import { ROLES } from './roles';
+import { OrganizationDataPage } from './components/organization_data/OrganizationDataPage';
 
 function App() {
 	return (
@@ -93,6 +94,7 @@ const MainPage = () => {
 					<Route path={ROUTES.MATERIAL_LIST}		element={<RoleProtectedRouter element={<MaterialsPage/>} roles={["DIRECTOR", "SPECIALIST"]} />} />
 					<Route path={ROUTES.ORGANIZATION_MANAGEMENT} element={<RoleProtectedRouter element={<ManagementPage/>} roles={["DIRECTOR"]} />} />
 					<Route path={ROUTES.ADMIN}				element = {<RoleProtectedRouter element={<AdminPage/>} roles={[ROLES.ADMIN]} />} />
+					<Route path={ROUTES.ORGANIZATION_DATA}  element = {<RoleProtectedRouter element={<OrganizationDataPage />} roles={[ROLES.DIRECTOR]} />} />
 				</Routes>
 			</div>
 		</div>

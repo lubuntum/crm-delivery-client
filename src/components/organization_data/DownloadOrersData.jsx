@@ -1,0 +1,39 @@
+import { useState } from "react"
+import { useAuth } from "../../services/auth/AuthProvider"
+import { getOrdersBetweenDates } from "../../services/api/orderApi"
+import { Toaster, toast } from "react-hot-toast"
+
+export const DownloadOrdersData = () => {
+    const {getToken} = useAuth()
+
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
+
+    const getOrdersDataBetweenDates = async () => {
+        if (!startDate || !endDate) {
+            toast.error("Пожалуйста выберите обе даты", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            return
+        }
+        try {
+            const response = await getOrdersBetweenDates(startDate, endDate, getToken())
+            console.log(response.data)
+            //TODO написать модуль для конвертации списка в xlsx и загрузить его пользователю
+            toast.success("Данные успешно выгружены", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+        } catch(err) {
+            console.error(err)
+            toast.error("Ошибка при загрузке данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+        }
+    }
+    return (
+        <>
+            <h3>Выгрузка истории заказов</h3>
+            <div className="ordersDataContainer">
+                <input type="datetime-local" placeholder="Начальная дата" onChange={e => setStartDate(e.target.value)}/>
+                <input type="datetime-local" placeholder="Конечная дата" onChange={e => setEndDate(e.target.value)}/>
+                <button className="customButton" onClick={getOrdersDataBetweenDates}>Выгрузить данные xlsx</button>
+            </div>
+            <Toaster position="bottom-center" reverseOrder={false}/>
+        </>
+        
+    )
+}

@@ -1,0 +1,22 @@
+
+.dataPage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 35px 15px 15px 15px;
+    background-color: var(--background-color);
+}
+.ordersDataContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px 15px 25px 15px;
+    margin-top: 15px;
+}
+.ordersDataContainer > input[type="datetime-local"] {
+    padding: 0px 5px;
+}

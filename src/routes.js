@@ -14,6 +14,7 @@ export const ROUTES = {
     EMPLOYEES_LIST: "/employees-list",
     MATERIAL_LIST: "/materials-list",
     ORGANIZATION_MANAGEMENT: "/organization-management",
-
+    ORGANIZATION_DATA: "/organization-data",
+    
     ADMIN : "/admin"
 }

@@ -18,6 +18,7 @@ import { ReactComponent as CrmMaterialIcon } from "../../res/icons/crm_texture_i
 import { ReactComponent as CrmAddMaterialIcon} from "../../res/icons/crm_add_material_icon.svg"
 import { ReactComponent as CrmMonitoringIcon} from "../../res/icons/crm_monitoring_icon.svg"
 import {ReactComponent as CrmAdminOrganizations} from "../../res/icons/crm_admin_organizations.svg"
+import {ReactComponent as OrganizationDataIcon} from "../../res/icons/file_save_icon.svg"
 import { ROLES } from "../../roles"
 export const Sidebar = ({ isActive, onClose }) => {
     const navigate = useNavigate()
@@ -97,6 +98,11 @@ export const Sidebar = ({ isActive, onClose }) => {
                 {(checkAuth()) && accountData?.role === ROLES.ADMIN && 
                 <div className="optionsItem" onClick={()=>{handleClose(); navigate(ROUTES.ADMIN)}}>
                     <CrmAdminOrganizations className="svgIcon" />
+                </div>
+                }
+                {(checkAuth() && accountData?.role === "DIRECTOR") && 
+                <div className="optionsItem" onClick={() => {handleClose(); navigate(ROUTES.ORGANIZATION_DATA)}}>
+                    <OrganizationDataIcon className="svgIcon" />
                 </div>
                 }
             </div>
