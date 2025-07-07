@@ -25,7 +25,7 @@ export const DownloadOrdersData = () => {
                 "Дата создания": new Date(o.createdAt),
                 "Статус": o.status,
                 "Комментарий": o.comment,
-                "ФИО": `${o.clientName} ${o.clientSecondName} ${o.clientPatronymic}`,
+                "ФИО": `${o.clientSecondName} ${o.clientName} ${o.clientPatronymic}`,
                 "Номер": o.clientPhone,
                 "Кол-во позиций": o.itemsCount,
                 "Цена": o.totalPrice
