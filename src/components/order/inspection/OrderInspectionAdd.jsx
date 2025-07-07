@@ -54,21 +54,23 @@ export const OrderInspectionAdd = ({ setShowDetails, setItem, item, order, setOr
         };
         console.log(tempItem)
         tempItem.size = Number((tempItem.width * tempItem.height).toFixed(2))
-        tempItem.price = tempItem.size * tempItem.pricePerUnit
+        tempItem.price = tempItem.size * tempItem.pricePerUnit + Number(tempItem.additionalPrice)
         //console.log(typeof Number(tempItem.size.toFixed(2)))
         setItem(tempItem)
     }
     const changePricePerUnitHandler = (e) => {
         const pricePerUnit = e.target.value
         const tempItem = {...item, pricePerUnit : pricePerUnit}
-        tempItem.price = tempItem.size * pricePerUnit
+        console.log(tempItem)
+        tempItem.price = tempItem.size * pricePerUnit + Number(tempItem.additionalPrice)
         setItem(tempItem)
     }
     const additionalPriceHandler = (e) => {
         const tempItem = {...item}
-        tempItem.price -= tempItem.additionalPrice
-        tempItem.additionalPrice = Number(e.target.value)
-        tempItem.price += tempItem.additionalPrice
+        //tempItem.price -= tempItem.additionalPrice
+        tempItem.additionalPrice = e.target.value
+        tempItem.price = tempItem.size * tempItem.pricePerUnit + Number(tempItem.additionalPrice)
+        //tempItem.price += tempItem.additionalPrice
         setItem(tempItem)
     }
     const commentHandler = (e) => {
@@ -151,7 +153,7 @@ export const OrderInspectionAdd = ({ setShowDetails, setItem, item, order, setOr
                     </div>
 
                     <div className="detailsTotal">
-                        <p>ИТОГО (площадь): {item.size.toFixed(2)} м<sup>2</sup></p>
+                        <p>ИТОГО (площадь): {typeof item.size === 'number' ? item.size.toFixed(2) : "0.00"} м<sup>2</sup></p>
                     </div>
 
                     <div className="detailsInputRow">
@@ -177,7 +179,7 @@ export const OrderInspectionAdd = ({ setShowDetails, setItem, item, order, setOr
                     </div>
 
                     <div className="detailsTotal">
-                        <p>ИТОГО (сумма): {item.price.toFixed(2)} ₽</p>
+                        <p>ИТОГО (сумма): {typeof item.price === 'number' ? item.price.toFixed(2) : '0.00'} ₽</p>
                     </div>
 
                     <textarea className="customTextarea"
