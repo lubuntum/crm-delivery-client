@@ -2,6 +2,8 @@ import { useState } from "react"
 import { useAuth } from "../../services/auth/AuthProvider"
 import { getOrdersBetweenDates } from "../../services/api/orderApi"
 import { Toaster, toast } from "react-hot-toast"
+import { xlsxDataConverter } from "../../services/xlsx/xlsxDataConverter"
+import { formatLocalDateTimeFromServer } from "../../services/date/dateFormattes"
 
 export const DownloadOrdersData = () => {
     const {getToken} = useAuth()
@@ -18,6 +20,18 @@ export const DownloadOrdersData = () => {
             const response = await getOrdersBetweenDates(startDate, endDate, getToken())
             console.log(response.data)
             //TODO написать модуль для конвертации списка в xlsx и загрузить его пользователю
+            xlsxDataConverter(response.data.map(o => ({
+                "Номер Заказа": o.serialNumber,
+                "Адрес": o.address,
+                "Дата создания": new Date(o.createdAt),
+                "Статус": o.status,
+                "Комментарий": o.comment,
+                "ФИО": `${o.clientName} ${o.clientSecondName} ${o.clientPatronymic}`,
+                "Номер": o.clientPhone,
+                "Кол-во позиций": o.itemsCount,
+                "Цена": o.totalPrice
+
+            })), "Заказы", `Заказы_${startDate}_${endDate}.xlsx`)
             toast.success("Данные успешно выгружены", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
         } catch(err) {
             console.error(err)
