@@ -19,7 +19,6 @@ export const DownloadOrdersData = () => {
         try {
             const response = await getOrdersBetweenDates(startDate, endDate, getToken())
             console.log(response.data)
-            //TODO написать модуль для конвертации списка в xlsx и загрузить его пользователю
             xlsxDataConverter(response.data.map(o => ({
                 "Номер Заказа": o.serialNumber,
                 "Адрес": o.address,
