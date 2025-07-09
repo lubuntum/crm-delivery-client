@@ -36,7 +36,7 @@ export const EmployeeCard = ({employeeData, changeAccountStatus, deleteEmployeeH
                     <span className="slider"></span>
                 </label>
             </div>}
-            <Toaster position="bottom-center" reverseOrder={false}/>
+
         </div>
     )
 }
