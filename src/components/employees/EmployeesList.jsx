@@ -52,7 +52,7 @@ export const EmployeesList = () => {
         try {
             await updateAccountStatus(getToken(), {...account, accountStatus: "DELETED"})
             setAccounts(prev => prev.filter(acc => acc.id !== account.id))
-            toast.success(`Аккаунт ${account.email} более не доступен и скрыт в архиве`, {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+            toast.success(`Аккаунт ${account.email} более не доступен и скрыт`, {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
         } catch(err) {
             console.error(err)
              toast.error("Возникла ошибка при удалении работника", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
