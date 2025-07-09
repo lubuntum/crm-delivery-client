@@ -45,7 +45,17 @@ export const EmployeesList = () => {
             toast.success(`Аккаунт ${account.email} ${accountTemp.currentStatus === "ENABLED" ? "активирован" :  "отключен"}`, {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
         } catch(err) {
             console.error(err)
-            toast.error("Логин уже занят", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            toast.error("Возникла ошибка при отключении аккаунта", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+        }
+    }
+    const deleteEmployeeHandler = async (account) => {
+        try {
+            await updateAccountStatus(getToken(), {...account, accountStatus: "DELETED"})
+            setAccounts(prev => prev.filter(acc => acc.id !== account.id))
+            toast.success(`Аккаунт ${account.email} более не доступен и скрыт в архиве`, {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+        } catch(err) {
+            console.error(err)
+             toast.error("Возникла ошибка при удалении работника", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
         }
     }
     if (accounts === null) 
@@ -64,7 +74,7 @@ export const EmployeesList = () => {
                 <div className="employeesCards" style={{minHeight: `${accounts?.length * 125}px`}}>
                     <h3>Сотрудники</h3>
                     {accounts.map(acc => (
-                        <EmployeeCard employeeData={acc} changeAccountStatus={changeAccountStatus}/>
+                        <EmployeeCard employeeData={acc} changeAccountStatus={changeAccountStatus} deleteEmployeeHandler={deleteEmployeeHandler}/>
                     ))}
                 </div>
             <button className="floatingButton" onClick={()=>{setShowCreateAccount(true)}}>+</button>

@@ -4,14 +4,25 @@ import "../../styles/ui_elements/inputs.css"
 
 import { ReactComponent as CrmPersonIcon } from "../../res/icons/crm_person_icon.svg"
 import { ReactComponent as CrmPhoneIcon } from "../../res/icons/crm_phone_icon.svg"
-export const EmployeeCard = ({employeeData, changeAccountStatus}) => {
-
+import { ReactComponent as DeleteIcon} from "../../res/icons/crm_delete_icon.svg"
+import toast, { Toaster } from "react-hot-toast"
+export const EmployeeCard = ({employeeData, changeAccountStatus, deleteEmployeeHandler}) => {
+    const deleteEmployee = () => {
+        if (employeeData.accountStatus === "ENABLED") {
+            toast.error("Перед удалением отключите аккаунт!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            return
+        }
+        deleteEmployeeHandler(employeeData)
+    }
     return (
 
         <div className="employeeCard">
             <div className="cardItem">
-                <CrmPersonIcon className="svgIcon" />
-                <p><b>{`${employeeData.employeeSecondName} ${employeeData.employeeName} ${employeeData.employeePatronymic}`}</b></p>
+                <div className="cardTitle">
+                    <CrmPersonIcon className="svgIcon" />
+                    <p><b>{`${employeeData.employeeSecondName} ${employeeData.employeeName} ${employeeData.employeePatronymic}`}</b></p>
+                </div>
+                <DeleteIcon className={`${employeeData.accountStatus !== "ENABLED" ? "svgDeleteIcon" : "svgInactiveIcon"}`} onClick={deleteEmployee}/>
             </div>
             <p>Номер: {employeeData.phone}</p>
             <p>Логин: {employeeData.email}</p>
@@ -25,6 +36,7 @@ export const EmployeeCard = ({employeeData, changeAccountStatus}) => {
                     <span className="slider"></span>
                 </label>
             </div>}
+            <Toaster position="bottom-center" reverseOrder={false}/>
         </div>
     )
 }
