@@ -17,6 +17,18 @@
     padding: 15px 15px 25px 15px;
     margin-top: 15px;
 }
-.ordersDataContainer > input[type="datetime-local"] {
+.dateContainer > input[type="datetime-local"] {
+    position: absolute;
+    left: -15px;
     padding: 0px 5px;
+    background-color: white;
+    opacity: 0;
+
+}
+.dateContainer > label {
+    position: absolute;
+}
+.dateContainer {
+    height: 25px;
+    position: relative;
 }

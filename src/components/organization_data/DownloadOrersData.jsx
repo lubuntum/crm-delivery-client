@@ -3,13 +3,13 @@ import { useAuth } from "../../services/auth/AuthProvider"
 import { getOrdersBetweenDates } from "../../services/api/orderApi"
 import { Toaster, toast } from "react-hot-toast"
 import { xlsxDataConverter } from "../../services/xlsx/xlsxDataConverter"
-import { formatLocalDateTimeFromServer } from "../../services/date/dateFormattes"
+import { formatDateLocalDate, formatLocalDateTimeFromServer } from "../../services/date/dateFormattes"
 
 export const DownloadOrdersData = () => {
     const {getToken} = useAuth()
 
-    const [startDate, setStartDate] = useState(null)
-    const [endDate, setEndDate] = useState(null)
+    const [startDate, setStartDate] = useState(new Date())
+    const [endDate, setEndDate] = useState(new Date())
 
     const getOrdersDataBetweenDates = async () => {
         if (!startDate || !endDate) {
@@ -41,8 +41,16 @@ export const DownloadOrdersData = () => {
         <>
             <h3>Выгрузка истории заказов</h3>
             <div className="ordersDataContainer">
-                <input type="datetime-local" placeholder="Начальная дата" onChange={e => setStartDate(e.target.value)}/>
-                <input type="datetime-local" placeholder="Конечная дата" onChange={e => setEndDate(e.target.value)}/>
+                <div className="dateContainer">
+                    <label htmlFor="start-date">Начальная дата: {formatDateLocalDate(startDate)}</label>
+                    <input id="start-date" type="datetime-local" value={startDate} placeholder="Начальная дата" onChange={e => setStartDate(e.target.value)}/>
+                </div>
+                
+                <div className="dateContainer">
+                    <label htmlFor="end-date">Конечная дата: {formatDateLocalDate(endDate)}</label>
+                    <input id="end-date" type="datetime-local" placeholder="Конечная дата" onChange={e => setEndDate(e.target.value)}/>
+                </div>
+                
                 <button className="customButton" onClick={getOrdersDataBetweenDates}>Выгрузить данные xlsx</button>
             </div>
             <Toaster position="bottom-center" reverseOrder={false}/>
