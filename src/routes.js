@@ -16,5 +16,6 @@ export const ROUTES = {
     ORGANIZATION_MANAGEMENT: "/organization-management",
     ORGANIZATION_DATA: "/organization-data",
     
+    ADMIN_NEWS: "/admin/news",
     ADMIN : "/admin"
 }

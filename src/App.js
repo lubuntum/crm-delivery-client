@@ -30,6 +30,7 @@ import { ManagementPage } from './components/organization_management/ManagementP
 import { AdminPage } from './components/admin/AdminPage';
 import { ROLES } from './roles';
 import { OrganizationDataPage } from './components/organization_data/OrganizationDataPage';
+import { NewsPage } from './components/admin/news/NewsPage';
 
 function App() {
 	return (
@@ -93,8 +94,10 @@ const MainPage = () => {
 					<Route path={ROUTES.EMPLOYEES_LIST} 	element={<RoleProtectedRouter element={<EmployeesPage/>} roles={["DIRECTOR"]}/>} />
 					<Route path={ROUTES.MATERIAL_LIST}		element={<RoleProtectedRouter element={<MaterialsPage/>} roles={["DIRECTOR", "SPECIALIST"]} />} />
 					<Route path={ROUTES.ORGANIZATION_MANAGEMENT} element={<RoleProtectedRouter element={<ManagementPage/>} roles={["DIRECTOR"]} />} />
-					<Route path={ROUTES.ADMIN}				element = {<RoleProtectedRouter element={<AdminPage/>} roles={[ROLES.ADMIN]} />} />
 					<Route path={ROUTES.ORGANIZATION_DATA}  element = {<RoleProtectedRouter element={<OrganizationDataPage />} roles={[ROLES.DIRECTOR]} />} />
+
+					<Route path={ROUTES.ADMIN}				element = {<RoleProtectedRouter element={<AdminPage/>} roles={[ROLES.ADMIN]} />} />
+					<Route path={ROUTES.ADMIN_NEWS}			element = {<RoleProtectedRouter element={<NewsPage/>} roles={[ROLES.ADMIN]} />}/>
 				</Routes>
 			</div>
 		</div>
