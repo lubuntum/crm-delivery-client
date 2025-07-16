@@ -1,0 +1,41 @@
+
+img {
+    max-width: 450px;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+}
+.imageCard {
+    width: 100%;
+    height: auto;
+    padding: 15px 0px;
+    display: flex;
+    justify-content: center;
+}
+.newsWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    height: 95%;
+    
+    overflow-y: auto;
+    border-radius: 15px;
+
+    background-color: white;
+    padding: 15px;
+}
+.newsWrapper > h3 {
+    padding: 0px;
+}
+
+.newsWrapper > p {
+    border-bottom: solid 1px black;
+    padding: 7.5px 0px;
+    text-align: justify;
+}
+
+.contentWrapper {
+    align-items: end;
+}
