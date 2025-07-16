@@ -10,7 +10,7 @@ export const HomePage = () => {
             <p>Авторизуйтесь для просмотра</p>
         </div>
     return (
-        <div className="contentWrapper">
+        <div className="contentWrapper" style={{alignItems: "end"}}>
             <RecentNews />
         </div>
     )
