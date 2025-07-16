@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CREATE_NEWS, SERVER_URL } from "./urls"
+import { CREATE_NEWS, GET_RECENT_NEWS, SERVER_URL } from "./urls"
 
 export const createNewsRequest = async (token, news, imageBanner) => {
     const formData = new FormData()
@@ -11,5 +11,10 @@ export const createNewsRequest = async (token, news, imageBanner) => {
             Authorization: token,
             "Content-Type": "multipart/form-data"
         }
+    })
+}
+export const getRecentNews = async (token) => {
+    return axios.get(`${SERVER_URL}${GET_RECENT_NEWS}`, {
+        headers: {Authorization: token}
     })
 }
