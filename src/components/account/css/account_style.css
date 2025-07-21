@@ -98,3 +98,12 @@
 .inputAccountConatiner .customInput:valid + .svgIcon {
 	fill: var(--accent-color);
 }
+
+.organizationCard{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.organizationCard > button{
+    margin-top: 15px;
+}

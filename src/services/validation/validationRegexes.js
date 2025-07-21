@@ -1,3 +1,9 @@
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{1,7}$/
 export const PHONE_REGEX = /^/
 export const DIGIT_REGEX = /^\d+$/
+export const INN = /^\d{10}$|^\d{12}$/
+export const KPP = /^\d{9}$/
+export const OGRN = /^\d{13}/
+export const CURRENT_ACCOUNT = /^\d{20}$/
+export const CORRESPOND_ACCOUNT = /^\d{20}$/
+export const BIC = /^\d{9}$/

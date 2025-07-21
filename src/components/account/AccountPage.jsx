@@ -14,6 +14,8 @@ import { ROLES } from "../../roles"
 import { STATUSES } from "../../statuses"
 import { Loader } from "../loader/Loader"
 import { NotificationSettings } from "./NotificationSettings"
+import { CompanyData } from "./CompanyData"
+
 
 export const AccountPage = () => {
     const { getToken } = useAuth()
@@ -50,9 +52,8 @@ export const AccountPage = () => {
 
                 <div className="accountCardsContainer">
                     <AccountInfoCard accountData={accountData}/>
-
-                    {accountData?.role === ROLES.COURIER &&  
-                    <EmployeeResultsCard />}
+                    {accountData?.role === ROLES.DIRECTOR && <CompanyData/>}
+                    {accountData?.role === ROLES.COURIER && <EmployeeResultsCard />}
                     <NotificationSettings accountData = {accountData}/>
                     <ResetPasswordCard/>
                     
