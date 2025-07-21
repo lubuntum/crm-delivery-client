@@ -21,7 +21,7 @@ export const AddNews = () => {
             return
         }
         try {
-            news.tags = news.tags.split(" ")
+            if (news.tags) news.tags = news.tags.split(" ")
             await createNewsRequest(getToken(), news, newsBanner)
             resetFrom()
             toast.success("Новость создана!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
