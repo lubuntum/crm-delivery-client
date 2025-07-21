@@ -104,6 +104,23 @@ body {
 	border-bottom: 1px solid var(--secondary-text-color);
 	transition: all .2s ease;
 }
+.customInputContainer {
+	position: relative;
+}
+.floatingLabel {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	transition: 0.2s ease all;
+	color: #999;
+	pointer-events: none;
+}
+customInput:focus + .floatingLabel,
+.customInput:not(:placeholder-shown) + .floatingLabel {
+	top: -5px;
+	left: 10px;
+	font-size: 12px;
+}
 .customTextarea {
 	background-color: transparent;
 	width: 100%;
