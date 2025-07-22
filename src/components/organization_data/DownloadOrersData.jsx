@@ -8,8 +8,8 @@ import { formatDateLocalDate, formatLocalDateTimeFromServer } from "../../servic
 export const DownloadOrdersData = () => {
     const {getToken} = useAuth()
 
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date())
+    const [startDate, setStartDate] = useState(new Date().toISOString().slice(0, 16))
+    const [endDate, setEndDate] = useState(new Date().toISOString().slice(0, 16))
 
     const getOrdersDataBetweenDates = async () => {
         if (!startDate || !endDate) {
@@ -37,13 +37,17 @@ export const DownloadOrdersData = () => {
             toast.error("Ошибка при загрузке данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
         }
     }
+    const setTestDate = (e) => {
+        console.log(e.target.value)
+        setStartDate(e.target.value)
+    }
     return (
         <>
             <h3>Выгрузка истории заказов</h3>
             <div className="ordersDataContainer">
                 <div className="dateContainer">
                     <label htmlFor="start-date">Начальная дата: {formatDateLocalDate(startDate)}</label>
-                    <input id="start-date" type="datetime-local" value={startDate} placeholder="Начальная дата" onChange={e => setStartDate(e.target.value)}/>
+                    <input id="start-date" type="datetime-local" value={startDate} placeholder="Начальная дата" onChange={setTestDate}/>
                 </div>
                 
                 <div className="dateContainer">
