@@ -25,10 +25,27 @@
 .orderPickupInputs p {
     text-align: center;
 }
+.agreementContainer {
+    width: 100%;
+}
 .orderPickupImagesButton {
     display: flex;
     flex-direction: row;
     gap: 15px;
+}
+.agreementContainer button .svgIcon {
+    position: absolute;
+    right: 15px;
+}
+.agreementContainer button {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
 }
 .orderPickupImagesButton button {
     width: 100px;
@@ -38,12 +55,13 @@
     background-color: transparent;
     border: 1px solid var(--accent-color);
 }
-.orderPickupImagesButton button .svgIcon {
-    fill: var(--accent-color);
-}
-.orderPickupImagesButton .imagesDisabledButton {
+
+.orderPickupImagesButton .imagesDisabledButton, 
+.agreementContainer .imagesDisabledButton {
     border: 1px solid var(--disabled-color);
+    color: var(--disabled-color);
 }
-.orderPickupImagesButton .imagesDisabledButton .svgIcon {
+.orderPickupImagesButton .imagesDisabledButton .svgIcon,
+.agreementContainer .imagesDisabledButton .svgIcon {
     fill: var(--disabled-color);
 }

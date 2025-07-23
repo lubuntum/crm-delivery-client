@@ -11,6 +11,7 @@ import { createOrderPickupRequest, getOrderPickupByOrderIdRequest, updateOrderPi
 import { ReactComponent as CrmReplayIcon } from "../../../res/icons/crm_replay_icon.svg"
 import { ReactComponent as CrmCommentIcon } from "../../../res/icons/crm_comment_icon.svg"
 import { ReactComponent as CrmImagesIcon } from "../../../res/icons/crm_image_library_icon.svg"
+import { ReactComponent as CopyIcon} from "../../../res/icons/copy_icon.svg"
 import { OrderImagesPopup } from "./OrderImagesPopup"
 import { Loader } from "../../loader/Loader"
 import { DIGIT_REGEX } from "../../../services/validation/validationRegexes"
@@ -30,6 +31,7 @@ export const OrderPickupPage = () => {
     const [orderPickup, setOrderPickup] = useState({
         itemsCount: "",
         comment: "",
+        agreementUrl: "",
         orderId: null
     })
 
@@ -56,6 +58,7 @@ export const OrderPickupPage = () => {
 
         const getOrderPickupByOrderId = async (orderId) => {
             const response = await getOrderPickupByOrderIdRequest(getToken(), orderId)
+            console.log(response.data)
             setOrderPickup(response.data)
         }
         fetchOrder()
@@ -134,6 +137,21 @@ export const OrderPickupPage = () => {
         setIsEdit(true)
     }
 
+    const copyAgreementUrlToClipboard = (url) => {
+        if (!url) {
+            toast.error("Ссылка не найдена", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            return
+        }
+        const textarea = document.createElement('textarea')
+        textarea.value = url
+        document.body.appendChild(textarea)
+        textarea.select()
+        textarea.setSelectionRange(0, 999)
+        document.execCommand('copy')
+        document.body.removeChild(textarea)
+        toast.success("Ссылка на договор скопирована", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+    }
+
     return (
         <div className="contentWrapper">
             <div className="orderPickupWrapper">
@@ -202,6 +220,13 @@ export const OrderPickupPage = () => {
                                     disabled={(!orderPickup?.orderImages || orderPickup?.orderImages?.length === 0)}
                                     onClick={handleImageViewer}>
                                 <CrmImagesIcon className="svgIcon"/>
+                            </button>
+                        </div>
+                        <div className="agreementContainer">
+                            <button className={`customButton ${(order?.status === ORDER_STATUSES.CREATED || order?.status === ORDER_STATUSES.PICKED) ? "imagesDisabledButton" : ""}`}
+                                    disabled = {(order?.status === ORDER_STATUSES.CREATED || order?.status === ORDER_STATUSES.PICKED)}
+                                    onClick={() => {copyAgreementUrlToClipboard(orderPickup?.agreementUrl)}}>
+                                Ссылка на договор <CopyIcon className="svgIcon" />
                             </button>
                         </div>
                     </div>  
