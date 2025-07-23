@@ -15,6 +15,7 @@ import { ReactComponent as CopyIcon} from "../../../res/icons/copy_icon.svg"
 import { OrderImagesPopup } from "./OrderImagesPopup"
 import { Loader } from "../../loader/Loader"
 import { DIGIT_REGEX } from "../../../services/validation/validationRegexes"
+import { SERVER_URL } from "../../../services/api/urls"
 
 export const OrderPickupPage = () => {
     const navigate = useNavigate()
@@ -225,7 +226,7 @@ export const OrderPickupPage = () => {
                         <div className="agreementContainer">
                             <button className={`customButton ${(order?.status === ORDER_STATUSES.CREATED || order?.status === ORDER_STATUSES.PICKED) ? "imagesDisabledButton" : ""}`}
                                     disabled = {(order?.status === ORDER_STATUSES.CREATED || order?.status === ORDER_STATUSES.PICKED)}
-                                    onClick={() => {copyAgreementUrlToClipboard(orderPickup?.agreementUrl)}}>
+                                    onClick={() => {copyAgreementUrlToClipboard(`${SERVER_URL}/${orderPickup?.agreementUrl}`)}}>
                                 Ссылка на договор <CopyIcon className="svgIcon" />
                             </button>
                         </div>
