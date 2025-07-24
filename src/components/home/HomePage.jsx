@@ -5,10 +5,10 @@ import { RecentNews } from "./RecentNews"
 
 export const HomePage = () => {
     const { checkAuth } = useAuth()
-    if (!checkAuth()) return 
+    if (!checkAuth()) return( 
         <div className="contentWrapper">
-            <p>Авторизуйтесь для просмотра</p>
-        </div>
+            <p>Авторизуйтесь для работы</p>
+        </div>)
     return (
         <div className="contentWrapper" style={{alignItems: "end"}}>
             <RecentNews />
