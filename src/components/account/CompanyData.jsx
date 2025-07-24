@@ -3,13 +3,14 @@ import toast from "react-hot-toast"
 import { BIC, CORRESPOND_ACCOUNT, CURRENT_ACCOUNT, INN, KPP, OGRN } from "../../services/validation/validationRegexes"
 import { getOrganizationDetailsRequest, updateOrganizationDetailsRequest } from "../../services/api/organizationDetailsApi"
 import { useAuth } from "../../services/auth/AuthProvider"
-
+import { Loader } from "../loader/Loader"
+//TODO 
+// - Make company data expandable (not appear when entered in account info)
+// - After user expand company data try to load CompanyDetails from the server (not when user entered to component like now)
+// - Make smooth animation for expand and back
 export const CompanyData = () => {
     const {getToken} = useAuth()
-    const [organizationData, setOrganizationData] = useState({
-        brandName: "", inn: "", ogrn: "", kpp: "",
-        legalAddress: "", phoneNumber: "", emailAddress: "",
-        bankName: "", currentAccount: "", correspondAccount: "", bic: ""})
+    const [organizationData, setOrganizationData] = useState(null)
     const placeholders = {
         brandName: "Введите имя бренда",
         inn: "ИНН",
@@ -35,7 +36,13 @@ export const CompanyData = () => {
         const loadOrganizationData = async () => {
             try {
                 const response = await getOrganizationDetailsRequest(getToken())
-                if (!response.data) return
+                if (!response.data) {
+                    setOrganizationData({
+                        brandName: "", inn: "", ogrn: "", kpp: "",
+                        legalAddress: "", phoneNumber: "", emailAddress: "",
+                        bankName: "", currentAccount: "", correspondAccount: "", bic: ""})
+                    return
+                }
                 setOrganizationData(response.data)
             } catch(err) {
                 console.error(err)
@@ -70,6 +77,7 @@ export const CompanyData = () => {
     const validateData = () => {
         
     }
+    if (!organizationData) return (<div style={{height:"250px", display:"flex", justifyContent:"center", alignContent:"center"}}><Loader/></div>)
     return (
         <div className="accountCardContainer">
             <div className="accountCardTitle">
