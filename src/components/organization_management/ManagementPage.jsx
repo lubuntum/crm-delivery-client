@@ -27,7 +27,6 @@ export const ManagementPage = () => {
         {accountData && <h3 style={{textAlign: "center"}}>Организация {`${accountData.organizationName}`}</h3>}
         <CourierStatistics />
         <ReadyOrdersData /> 
-        <MaterialsList /> 
     </div>
         <Toaster position="bottom-center" reverseOrder={false}/>
     </>

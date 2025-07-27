@@ -15,6 +15,7 @@ import { STATUSES } from "../../statuses"
 import { Loader } from "../loader/Loader"
 import { NotificationSettings } from "./NotificationSettings"
 import { CompanyData } from "./CompanyData"
+import { MaterialsList } from "../materials/MaterialsList"
 
 
 export const AccountPage = () => {
@@ -52,7 +53,10 @@ export const AccountPage = () => {
 
                 <div className="accountCardsContainer">
                     <AccountInfoCard accountData={accountData}/>
-                    {accountData?.role === ROLES.DIRECTOR && <CompanyData/>}
+                    {accountData?.role === ROLES.DIRECTOR &&  <>
+                        <CompanyData/> 
+                        <MaterialsList/> 
+                    </>}
                     {accountData?.role === ROLES.COURIER && <EmployeeResultsCard />}
                     <NotificationSettings accountData = {accountData}/>
                     <ResetPasswordCard/>
