@@ -1,10 +1,15 @@
-.dateContainer {
+.courierDateContainer {
     display: flex;
     flex-direction: row;
     padding: 5px;
     align-items: center;
+    height: auto !important;
+    min-width: 125px;
 }
-.dateContainer input {
+.courierDateContainer > p {
+    min-width: 125px;
+}
+.courierDateContainer input {
     height: 20px;
 }
 .dates {

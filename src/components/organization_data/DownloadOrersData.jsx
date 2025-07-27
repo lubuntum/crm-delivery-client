@@ -43,8 +43,9 @@ export const DownloadOrdersData = () => {
     }
     return (
         <>
-            <h3>Выгрузка истории заказов</h3>
-            <div className="ordersDataContainer">
+            
+            <div className="ordersDatesContainer">
+                <h3>Выгрузка истории заказов</h3>
                 <div className="dateContainer">
                     <label htmlFor="start-date">Начальная дата: {formatDateLocalDate(startDate)}</label>
                     <input id="start-date" type="datetime-local" value={startDate} placeholder="Начальная дата" onChange={setTestDate}/>

@@ -29,11 +29,11 @@ export const CourierStatistics = () => {
     return <>
     <div className="dates">
         <h3>Статистика курьеров</h3>
-        <div className="dateContainer">
+        <div className="courierDateContainer">
             <p>Начальная дата</p>
             <DatePicker selected={startDate} onChange={(date) => {setStartDate(formateLocalDateForServer(date))}} dateFormat={"dd.MM.YYYY"} placeholderText="дд.мм.гггг"/>
         </div>
-        <div className="dateContainer">
+        <div className="courierDateContainer">
             <p>Конечная дата</p>
             <DatePicker selected={endDate} onChange={(date) => {setEndDate(formateLocalDateForServer(date))}} dateFormat={"dd.MM.YYYY"} placeholderText="дд.мм.гггг"  />
         </div>
