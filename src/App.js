@@ -1,5 +1,6 @@
 import './App.css';
 import './styles/ui_elements/loading_bar.css'
+import './styles/ui_elements/icons.css'
 import { useState } from 'react';
 import { Route, Routes, Navigate, BrowserRouter, useNavigate, useLocation } from 'react-router-dom'
 import { ProtectedRoute } from './services/auth/ProtectedRoute';
