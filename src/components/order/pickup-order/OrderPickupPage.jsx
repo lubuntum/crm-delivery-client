@@ -139,7 +139,8 @@ export const OrderPickupPage = () => {
     }
 
     const copyAgreementUrlToClipboard = (url) => {
-        if (!url) {
+        //if url is empty or its just client side inserted data
+        if (!url || url === `${SERVER_URL}/`) {
             toast.error("Ссылка не найдена", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
             return
         }
