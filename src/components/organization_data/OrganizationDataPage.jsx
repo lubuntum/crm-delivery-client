@@ -1,3 +1,4 @@
+import { DataUsage } from "./DataUsage"
 import { DownloadOrdersData } from "./DownloadOrersData"
 import "./css/organization_data_page.css"
 export const OrganizationDataPage = () => {
@@ -5,6 +6,7 @@ export const OrganizationDataPage = () => {
     return (
         <div className="dataPage">
             <DownloadOrdersData />
+            <DataUsage/>
         </div>
     )
 }
