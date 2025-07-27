@@ -48,7 +48,7 @@ export const MaterialsList = () => {
     
     if (materials === null) return <div className="loadingBar"></div>
     return <div className="materialsWrapper">
-        <h3>Материалы</h3>
+        <div className="materialCardTitle">Материалы организации</div>
         <div className="materials">
             {materials.map(material => (
                 <div className="materialItem">

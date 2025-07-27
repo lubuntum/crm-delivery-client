@@ -8,7 +8,9 @@
     max-height: 300px;
 }
 .materialsWrapper {
-    padding: 10px 0px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: white;
 }
 .materials th, .workflowTable td {
     padding: 10px 12px;
@@ -43,6 +45,7 @@
     flex-direction: column;
     gap: 15px;
     overflow-y: scroll;
+    padding: 5px;
 }
 .materialItem {
     display: flex;
@@ -52,4 +55,11 @@
     padding: 10px;
     background-color: white;
     border-radius: 15px;
+    box-shadow: 0px 1px 5px lightgray;
+}
+.materialCardTitle {
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    font-size: 1.25rem;
+    margin-bottom: 20px;
 }
