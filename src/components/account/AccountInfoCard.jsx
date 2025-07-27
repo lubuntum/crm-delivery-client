@@ -50,7 +50,7 @@ export const AccountInfoCard = ({ accountData }) => {
                     <div className="accountCardPersonItem">
                         <CrmOrgIcon className="svgIcon" />
                         <div className="accountCardPersonItemData">
-                            <p>Организцаия</p>
+                            <p>Бренд</p>
                             <p>{accountData.organizationName}</p>
                         </div>
                     </div>

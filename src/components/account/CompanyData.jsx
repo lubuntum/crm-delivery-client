@@ -12,7 +12,7 @@ export const CompanyData = () => {
     const {getToken} = useAuth()
     const [organizationData, setOrganizationData] = useState(null)
     const placeholders = {
-        brandName: "Введите имя бренда",
+        brandName: "Наименование компании",
         inn: "ИНН",
         kpp: "КПП",
         ogrn: "ОГРН",
@@ -74,9 +74,7 @@ export const CompanyData = () => {
             toast.error("Ошибка отправки данных организации!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
         }
     }
-    const validateData = () => {
-        
-    }
+    
     if (!organizationData) return (<div style={{height:"250px", display:"flex", justifyContent:"center", alignContent:"center"}}><Loader/></div>)
     return (
         <div className="accountCardContainer">
