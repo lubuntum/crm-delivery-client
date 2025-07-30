@@ -32,6 +32,7 @@ import { AdminPage } from './components/admin/AdminPage';
 import { ROLES } from './roles';
 import { OrganizationDataPage } from './components/organization_data/OrganizationDataPage';
 import { NewsPage } from './components/admin/news/NewsPage';
+import { OrganizationActionsPage } from './components/admin/organization-actions/OrganizationActionsPage';
 
 function App() {
 	return (
@@ -98,6 +99,7 @@ const MainPage = () => {
 					<Route path={ROUTES.ORGANIZATION_DATA}  element = {<RoleProtectedRouter element={<OrganizationDataPage />} roles={[ROLES.DIRECTOR]} />} />
 
 					<Route path={ROUTES.ADMIN}				element = {<RoleProtectedRouter element={<AdminPage/>} roles={[ROLES.ADMIN]} />} />
+					<Route path={ROUTES.ADMIN_ORGANIZATION} element = {<RoleProtectedRouter element={<OrganizationActionsPage />} roles={[ROLES.ADMIN]} />}/>
 					<Route path={ROUTES.ADMIN_NEWS}			element = {<RoleProtectedRouter element={<NewsPage/>} roles={[ROLES.ADMIN]} />}/>
 				</Routes>
 			</div>

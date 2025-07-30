@@ -6,11 +6,15 @@ import "./css/organizationsList.css"
 import "../../styles/ui_elements/buttons.css"
 
 import { AddOrganization } from "./AddOrganization"
+import { useNavigate, useNavigation } from "react-router-dom"
+import { ROUTES } from "../../routes"
 const organizationStatuses = [
     "ENABLED",
     "DISABLED"
 ]
 export const OrganizationsList = () => {
+    const navigate = useNavigate()
+
     const {getToken} = useAuth()
 
     const [addOrganization, setAddOrganization] = useState()
@@ -45,6 +49,9 @@ export const OrganizationsList = () => {
             console.error(err)
         }
     }
+    const showOrganizationDetails = (organization) => {
+        navigate(`${ROUTES.ADMIN_ORGANIZATION}`, {state : organization})
+    }
     if (!organizations) return <div className="loadingBar"></div>
     return (
         <>
@@ -52,7 +59,7 @@ export const OrganizationsList = () => {
         <div className="organizationsWrapper" style={addOrganization ? {display: "none"} : {}}>
             <h3>Организации</h3>
             {organizations && organizations.map(org => (
-                <div className="card" key={org.id}>
+                <div className="card" key={org.id} onClick={() => {showOrganizationDetails(org)}}>
                     <div className="cardHeader"> 
                         <p><b>{org.name}</b></p>
                         <label className="switch">

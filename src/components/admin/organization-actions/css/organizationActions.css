@@ -1,0 +1,25 @@
+
+.actionsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.actionItem {
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+.actionContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.actionName {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
