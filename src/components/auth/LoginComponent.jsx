@@ -21,6 +21,10 @@ const LoginComponent = () => {
         }
     }
 
+    const resetPasswordNotification = () => {
+        toast.success(`Обратитесь к директору или администратору`, {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+    }
+
     return (
         <div className="loginContainer">
             <div className="loginTitle">
@@ -46,7 +50,7 @@ const LoginComponent = () => {
             </div>
 
             <div className="forgotPassContainer">
-                <button className="linkButton">Восстановить пароль</button>
+                <button onClick={resetPasswordNotification} className="linkButton">Восстановить пароль</button>
             </div>
 
             <button className="customButton" onClick={loginHandler}>Войти</button>
