@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ACCOUNT_DATA, ACCOUNTS_BY_ORGANIZATION, CREATE_ACCOUNT, GET_ACCOUNTS_ROLES, SERVER_URL, UPDATE_ACCOUNT_STATUS, UPDATE_PASSOWRD } from "./urls"
+import { ACCOUNT_DATA, ACCOUNTS_BY_ORGANIZATION, CREATE_ACCOUNT, GET_ACCOUNTS_ROLES, RESET_PASSWORD_FOR_ACCOUNT, SERVER_URL, UPDATE_ACCOUNT_STATUS, UPDATE_PASSOWRD } from "./urls"
 
 export const getAccountDataRequest = async (token) => {
     console.log("passed token => ", token)
@@ -34,5 +34,10 @@ export const updatePasswordRequest = async (token, authCredential) => {
     console.log(authCredential)
     return await axios.post(`${SERVER_URL}${UPDATE_PASSOWRD}`, authCredential, {
         headers:{Authorization: token}
+    })
+}
+export const resetPasswordForAccountRequest = async (token, accountResetData) => {
+    return axios.post(`${SERVER_URL}${RESET_PASSWORD_FOR_ACCOUNT}`, accountResetData, {
+        headers: {Authorization: token}
     })
 }
