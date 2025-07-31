@@ -9,7 +9,7 @@
     box-shadow: 0 2px 5px 1px lightgray;
 }
 .icon {
-    fill: black;
+    fill: var(--accent-color);
 }
 .rotated {
     transform: rotate(180deg);

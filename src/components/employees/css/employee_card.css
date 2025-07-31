@@ -17,7 +17,18 @@
     background-color: var(--primary-color);
     gap: 5px;
 }
-.employeeCard .statusContainer {
+.cardOptions {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    gap: 5px;
+    margin-top: 5px;
+    padding-top: 10px;
+    border-top: 1px solid var(--accent-color);
+    
+}
+
+.employeeCard .option {
     display: flex;
     justify-content: space-between;
 }
@@ -33,7 +44,7 @@
     gap: 5px;
 }
 .svgIcon {
-    fill: var(--acient-color);
+    fill: var(--accent-color);
 }
 .svgInactiveIcon {
     fill: lightgray;
