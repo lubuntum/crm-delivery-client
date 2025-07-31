@@ -6,17 +6,20 @@ import {ReactComponent as OpenInIcon} from "../../../res/icons/crm_open_in_view_
 import { ReactComponent as ShipingIcon } from "../../../res/icons/crm_shiping_icon.svg"
 import {ReactComponent as Notification } from "../../../res/icons/notification_multiple.svg"
 import "./css/organizationActions.css"
-const actions = [
-    {title: "Сотрудники", actionIcon: <PersonIcon className="icon"/>},
-    {title: "Выгрузка истории заказов", actionIcon: <ShipingIcon className="icon"/>},
-    {title: "Автоматическая рассылка", actionIcon: <Notification className="icon"/>}
-]
+import { ROUTES } from "../../../routes"
+import { ROLES } from "../../../roles"
 
 export const OrganizationActionsPage = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
     const [organization, setOrganization] = useState(null)
+
+    const actions = [
+        {title: "Сотрудники", actionIcon: <PersonIcon className="icon"/>, clickListener: () => {}},
+        {title: "Выгрузка истории заказов", actionIcon: <ShipingIcon className="icon"/>, clickListener: () => {navigate(ROUTES.ORGANIZATION_DATA, {state: organization})}},
+        {title: "Автоматическая рассылка", actionIcon: <Notification className="icon"/>, clickListener: () => {}}
+    ]
     useEffect(()=>{
         if (!location.state) navigate(-1)
         console.log(location.state)
@@ -30,7 +33,7 @@ export const OrganizationActionsPage = () => {
     return (<div className="contentWrapper">
         <div className="actionsContainer">
             {actions.map(action => (
-                <div className="actionItem">
+                <div className="actionItem" onClick={action.clickListener}>
                     <div className="actionContent">
                         <div className="actionName">
                             {action.actionIcon}
