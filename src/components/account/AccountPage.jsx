@@ -52,7 +52,7 @@ export const AccountPage = () => {
                 </div> :
 
                 <div className="accountCardsContainer">
-                    <AccountInfoCard accountData={accountData}/>
+                    <AccountInfoCard accountData={accountData} setAccountData = {setAccountData}/>
                     {accountData?.role === ROLES.DIRECTOR &&  <>
                         <CompanyData/> 
                         <MaterialsList/> 
