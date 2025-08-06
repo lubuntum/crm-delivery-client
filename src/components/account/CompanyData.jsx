@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { BIC, CORRESPOND_ACCOUNT, CURRENT_ACCOUNT, INN, KPP, OGRN } from "../../services/validation/validationRegexes"
+import { ANY_VALUE, BIC, CORRESPOND_ACCOUNT, CURRENT_ACCOUNT, EMPTY_FIELD, INN, KPP, OGRN, PHONE_REGEX_SIMPLE } from "../../services/validation/validationRegexes"
 import { getOrganizationDetailsRequest, updateOrganizationDetailsRequest } from "../../services/api/organizationDetailsApi"
 import { useAuth } from "../../services/auth/AuthProvider"
 import { Loader } from "../loader/Loader"
@@ -14,7 +14,7 @@ export const CompanyData = () => {
     const placeholders = {
         brandName: "Наименование компании",
         inn: "ИНН",
-        kpp: "КПП",
+        kpp: "КПП (опционально)",
         ogrn: "ОГРН",
         legalAddress: "Юр. адресс",
         currentAccount: "Расчетный счет",
@@ -25,12 +25,17 @@ export const CompanyData = () => {
         emailAddress: "Электронная почта"
     }
     const validationData = {
-        inn: [INN, "ИНН от 10 до 12 символов"],
-        kpp: [KPP, "КПП - 9 символов"],
-        ogrn: [OGRN, "ОГРН - 13 символов"],
-        currentAccount: [CURRENT_ACCOUNT, "Расчетный счет - 20 символов"],
-        correspondAccount: [CORRESPOND_ACCOUNT, "Корреспондентский счет - 20 символов"],
-        bic: [BIC, "Бик - 9 символов"]
+        inn: [INN, "ИНН от 10 до 12 символов", "number"],
+        kpp: [KPP, "КПП - 9 символов", "number"],//remove ?
+        ogrn: [OGRN, "ОГРН - 13 символов", "number"],
+        currentAccount: [CURRENT_ACCOUNT, "Расчетный счет - 20 символов", "number"],
+        correspondAccount: [CORRESPOND_ACCOUNT, "Корреспондентский счет - 20 символов", "number"],
+        bankName: [ANY_VALUE, "Заполните имя банка", "text"],
+        bic: [BIC, "Бик - 9 символов", "number"],
+        brandName: [ANY_VALUE, "Заполните имя", "text"],
+        legalAddress: [ANY_VALUE, "Заполните Юр.Адресс", "text"],
+        phoneNumber: [PHONE_REGEX_SIMPLE, "Заполните номер телефона", "number"],
+        emailAddress: [ANY_VALUE, "Заполните почту", "text"]
     }
     useEffect(()=> {
         const loadOrganizationData = async () => {
@@ -84,7 +89,7 @@ export const CompanyData = () => {
             <div className="organizationCard">
                 {Object.keys(organizationData).map((key) => (
                     <div className="customInputContainer">
-                        <input className="customInput" type={validationData[key] ? "number" : "text"} id={key} name={key} value={organizationData[key]} placeholder={placeholders[key]} onChange={handleChanges}/>
+                        <input className="customInput" type={validationData[key][2]} id={key} name={key} value={organizationData[key]} placeholder={placeholders[key]} onChange={handleChanges}/>
                         <label htmlFor={key} className="floatingLabel">{placeholders[key]}</label>
                     </div>
                     
