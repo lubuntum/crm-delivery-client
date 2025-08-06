@@ -17,6 +17,7 @@ export const AddOrganization = ({setAddOrganization, getOrganizations}) => {
     }
     const addOrganizationHandler = async () => {
         try {
+            if (!validateData()) return
             const organizationTemp = {...organization, directorData}
             console.log(organizationTemp)
             await addOrganizationRequest(getToken(), organizationTemp)
@@ -35,6 +36,19 @@ export const AddOrganization = ({setAddOrganization, getOrganizations}) => {
     const resetData = () => {
         setOrganization({name:""})
         setDirectorData({email:"", role: ROLES.DIRECTOR, employeeName: "", employeeSecondName: "", employeePatronymic:"", phone: "" })
+    }
+    const validateData = () => {
+        for(const key in directorData)
+            if (directorData[key] === null || directorData[key] === undefined || directorData[key] === ""){
+                toast.error("Проверьте данные директора", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+                return false
+            }
+                
+            if (!organization.name){
+                toast.error("Введите имя организации", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+                return false
+            }
+            return true
     }
     return (
         <div className="formWrapper">
