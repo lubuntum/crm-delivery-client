@@ -101,6 +101,7 @@ const MainPage = () => {
 					<Route path={ROUTES.ADMIN}				element = {<RoleProtectedRouter element={<AdminPage/>} roles={[ROLES.ADMIN]} />} />
 					<Route path={ROUTES.ADMIN_ORGANIZATION} element = {<RoleProtectedRouter element={<OrganizationActionsPage />} roles={[ROLES.ADMIN]} />}/>
 					<Route path={ROUTES.ADMIN_NEWS}			element = {<RoleProtectedRouter element={<NewsPage/>} roles={[ROLES.ADMIN]} />}/>
+					<Route path={ROUTES.ADMIN_ORGANIZATION_EMPLOYEES_LIST} element = {<RoleProtectedRouter element={<EmployeesPage/>} roles={[ROLES.ADMIN]}/>} />
 				</Routes>
 			</div>
 		</div>
