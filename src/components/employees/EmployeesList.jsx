@@ -1,20 +1,30 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "../../services/auth/AuthProvider"
-import { getOrganizationAccountsRequest, updateAccountStatus } from "../../services/api/accountApi"
+import { getOrganizationAccountsByIdRequest, getOrganizationAccountsRequest, updateAccountStatus } from "../../services/api/accountApi"
 import { STATUSES } from "../../statuses"
 import "../../styles/employees/employees.css"
 import { CreateAccountView } from "./CreateAccountView"
 import { ROLES, ROLES_RU } from "../../roles"
 import { EmployeeCard } from "./EmployeeCard"
 import { toast, Toaster } from "react-hot-toast"
+import { useLocation, useNavigate } from "react-router-dom"
+import { getAccountDataRequest } from "../../services/api/authApi"
 export const EmployeesList = () => {
+    const location = useLocation()
     const {getToken} = useAuth()
     const [accounts, setAccounts] = useState(null)
+    const [accountData, setAccountData] = useState(null)
     const [showCreateAccount, setShowCreateAccount] = useState(false)
         useEffect(()=>{
             const getAccounts = async () => {
                 try {
-                    const response = await getOrganizationAccountsRequest(getToken())
+                    //if organization data passed then it's admin, get employees by org id else just by token
+                    let response = null
+                    const organization = location.state
+                    if (organization) 
+                        response = await getOrganizationAccountsByIdRequest(getToken(), organization.id)
+                    else
+                        response = await getOrganizationAccountsRequest(getToken())
                     console.log(response.data)
                     setAccounts(response.data.sort((a, b) => {
                         return a.employeeName.localeCompare(b.employeeName)
@@ -31,6 +41,18 @@ export const EmployeesList = () => {
                 }
             }
             getAccounts()
+        }, [])
+        useEffect(()=> {
+            if (!location.state) return
+            const getAccountData = async () => {
+                try {
+                    const response = await getAccountDataRequest(getToken())
+                    setAccountData(response.data)
+                } catch(err) {
+                    console.error(err)
+                }
+            }
+            getAccountData()
         }, [])
     const changeAccountStatus = async (account) => {
         try {
@@ -74,7 +96,7 @@ export const EmployeesList = () => {
                 <div className="employeesCards" style={{minHeight: `${accounts?.length * 125}px`}}>
                     <h3>Сотрудники</h3>
                     {accounts.map(acc => (
-                        <EmployeeCard employeeData={acc} changeAccountStatus={changeAccountStatus} deleteEmployeeHandler={deleteEmployeeHandler}/>
+                        <EmployeeCard employeeData={acc} changeAccountStatus={changeAccountStatus} deleteEmployeeHandler={deleteEmployeeHandler} accountData = {accountData}/>
                     ))}
                 </div>
             <button className="floatingButton" onClick={()=>{setShowCreateAccount(true)}}>+</button>

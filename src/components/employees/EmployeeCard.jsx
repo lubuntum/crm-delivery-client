@@ -9,7 +9,7 @@ import { ReactComponent as ResetPasswordIcon} from "../../res/icons/reset_passwo
 import toast, { Toaster } from "react-hot-toast"
 import { resetPasswordForAccountRequest, updatePasswordRequest } from "../../services/api/accountApi"
 import { useAuth } from "../../services/auth/AuthProvider"
-export const EmployeeCard = ({employeeData, changeAccountStatus, deleteEmployeeHandler}) => {
+export const EmployeeCard = ({employeeData, changeAccountStatus, deleteEmployeeHandler, accountData}) => {
     console.log(employeeData)
     const {getToken} =  useAuth()
     const deleteEmployee = () => {
@@ -44,7 +44,7 @@ export const EmployeeCard = ({employeeData, changeAccountStatus, deleteEmployeeH
             <p>Логин: {employeeData.email}</p>
             <p>Должность: {ROLES_RU[employeeData.role]}</p>
             
-            {(employeeData.role !== ROLES.DIRECTOR && employeeData.role !== ROLES.ADMIN) && 
+            {((employeeData.role !== ROLES.DIRECTOR && employeeData.role !== ROLES.ADMIN) || (accountData && accountData.role === ROLES.ADMIN && employeeData.role !== ROLES.ADMIN)) && //Добавить условие или редактор администратор и employeeData.rile !== ADMIN
             <div className="cardOptions">
                 <div className="option">
                     <p>Статус</p>

@@ -16,7 +16,7 @@ export const OrganizationActionsPage = () => {
     const [organization, setOrganization] = useState(null)
 
     const actions = [
-        {title: "Сотрудники", actionIcon: <PersonIcon className="icon"/>, clickListener: () => {}},
+        {title: "Сотрудники", actionIcon: <PersonIcon className="icon"/>, clickListener: () => {navigate(ROUTES.ADMIN_ORGANIZATION_EMPLOYEES_LIST, {state: organization})}},
         {title: "Выгрузка истории заказов", actionIcon: <ShipingIcon className="icon"/>, clickListener: () => {navigate(ROUTES.ORGANIZATION_DATA, {state: organization})}},
         {title: "Автоматическая рассылка", actionIcon: <Notification className="icon"/>, clickListener: () => {}}
     ]
