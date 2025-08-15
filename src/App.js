@@ -33,6 +33,7 @@ import { ROLES } from './roles';
 import { OrganizationDataPage } from './components/organization_data/OrganizationDataPage';
 import { NewsPage } from './components/admin/news/NewsPage';
 import { OrganizationActionsPage } from './components/admin/organization-actions/OrganizationActionsPage';
+import { RequestPage } from './components/auth/RequestPage';
 
 function App() {
 	return (
@@ -84,6 +85,7 @@ const MainPage = () => {
 					<Route path='/' 						element={<Navigate to={ROUTES.HOME} replace />} />
 					<Route path={ROUTES.HOME} 				element={<HomePage />} />
 					<Route path={ROUTES.AUTH} 				element={<AuthProtectedRoute element={<AuthPage />} />} />
+					<Route path={ROUTES.ORGANIZATION_REQUEST} element={<AuthProtectedRoute element={<RequestPage />} />}/>
 					<Route path={ROUTES.SERVICE_INFO}       element={<InfoPage/>} />
 					<Route path={ROUTES.ACCOUNT} 			element={<ProtectedRoute element={<AccountPage />} />} />
 					<Route path={ROUTES.CREATE_ORDER} 		element={<ProtectedRoute element={<CreateOrderPage />} />} />
