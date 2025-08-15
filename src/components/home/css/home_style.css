@@ -35,3 +35,9 @@ img {
     padding: 7.5px 0px;
     text-align: justify;
 }
+.homeWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
