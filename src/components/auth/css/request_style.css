@@ -1,0 +1,13 @@
+
+.requestWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: justify;
+    height: 85%;
+}
+.requestContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
