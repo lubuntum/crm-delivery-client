@@ -62,8 +62,8 @@ export const OrganizationsList = () => {
                 <div className="card" key={org.id} onClick={() => {showOrganizationDetails(org)}}>
                     <div className="cardHeader"> 
                         <p><b>{org.name}</b></p>
-                        <label className="switch">
-                            <input type="checkbox" checked = {org.activeStatus === "ENABLED"} onChange={e => {changeOrganizationActiveStatus(org, e.target.checked)}}/>
+                        <label className="switch" onClick={(e) => e.stopPropagation()}>
+                            <input type="checkbox" checked = {org.activeStatus === "ENABLED"} onChange={e => {e.stopPropagation();changeOrganizationActiveStatus(org, e.target.checked)}}/>
                             <span className="slider"></span>
                         </label>
                     </div>

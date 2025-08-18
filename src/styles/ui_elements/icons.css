@@ -11,6 +11,9 @@
 .icon {
     fill: var(--accent-color);
 }
+.iconDanger {
+    fill: var(--delete-color)
+}
 .rotated {
     transform: rotate(180deg);
 }

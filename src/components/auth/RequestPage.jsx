@@ -24,6 +24,10 @@ export const RequestPage = () => {
             toast.success(`Заявка успешно отправлена!`, {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
         } catch(err) {
             console.error(err)
+            if (err.response?.status === 409){
+                toast.error("Введенная вами почта занята", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+                return
+            }
             toast.error("Возникла ошибка при отправке!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
         }
     }

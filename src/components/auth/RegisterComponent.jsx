@@ -18,9 +18,8 @@ const RegisterComponent = ({setCurrentComponent}) => {
     
     const registerHandler = async () => {
         try {
-            console.log(accountData)
             const response = await registerRequest(accountData)
-            console.log(response)
+            
             if (response.status === 201) setCurrentComponent(authComponentsKeys.LOGIN)
         } catch(err) {
             console.error(err)
