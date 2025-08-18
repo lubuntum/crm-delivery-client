@@ -34,6 +34,7 @@ import { OrganizationDataPage } from './components/organization_data/Organizatio
 import { NewsPage } from './components/admin/news/NewsPage';
 import { OrganizationActionsPage } from './components/admin/organization-actions/OrganizationActionsPage';
 import { RequestPage } from './components/auth/RequestPage';
+import { IncomingRequestPage } from './components/admin/registration_requests/IncomingRequestPage';
 
 function App() {
 	return (
@@ -104,6 +105,7 @@ const MainPage = () => {
 					<Route path={ROUTES.ADMIN_ORGANIZATION} element = {<RoleProtectedRouter element={<OrganizationActionsPage />} roles={[ROLES.ADMIN]} />}/>
 					<Route path={ROUTES.ADMIN_NEWS}			element = {<RoleProtectedRouter element={<NewsPage/>} roles={[ROLES.ADMIN]} />}/>
 					<Route path={ROUTES.ADMIN_ORGANIZATION_EMPLOYEES_LIST} element = {<RoleProtectedRouter element={<EmployeesPage/>} roles={[ROLES.ADMIN]}/>} />
+					<Route path={ROUTES.ADMIN_REGISTRATION_REQUESTS} element = {<RoleProtectedRouter element={<IncomingRequestPage />} roles={[ROLES.ADMIN]} />}/>
 				</Routes>
 			</div>
 		</div>

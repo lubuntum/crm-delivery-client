@@ -20,5 +20,6 @@ export const ROUTES = {
     ADMIN_NEWS: "/admin/news",
     ADMIN_ORGANIZATION: "/admin/organization",
     ADMIN : "/admin",
-    ADMIN_ORGANIZATION_EMPLOYEES_LIST : "/admin/organization/employees-list"
+    ADMIN_ORGANIZATION_EMPLOYEES_LIST : "/admin/organization/employees-list",
+    ADMIN_REGISTRATION_REQUESTS: "/admin/registration-requests"
 }
