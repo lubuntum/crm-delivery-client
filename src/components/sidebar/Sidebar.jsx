@@ -20,6 +20,7 @@ import { ReactComponent as CrmMonitoringIcon} from "../../res/icons/crm_monitori
 import {ReactComponent as CrmAdminOrganizations} from "../../res/icons/crm_admin_organizations.svg"
 import {ReactComponent as OrganizationDataIcon} from "../../res/icons/file_save_icon.svg"
 import {ReactComponent as NewsFeedIcon} from "../../res/icons/news_icon.svg"
+import {ReactComponent as NotificationIcon} from "../../res/icons/registration_request_icon.svg"
 import { ROLES } from "../../roles"
 export const Sidebar = ({ isActive, onClose }) => {
     const navigate = useNavigate()
@@ -82,7 +83,7 @@ export const Sidebar = ({ isActive, onClose }) => {
                     <CrmListIcon className="svgIcon"/>
                 </div>
 
-                {(checkAuth() && accountData?.role === "DISPATCHER") &&
+                {(checkAuth() && (accountData?.role === "DISPATCHER" || accountData?.role === ROLES.DIRECTOR)) &&
                 <div className="optionsItem" onClick={() => {handleClose(); navigate(ROUTES.CREATE_ORDER)}}>
                     <CrmCreateIcon className="svgIcon"/>
                 </div>}
@@ -99,6 +100,11 @@ export const Sidebar = ({ isActive, onClose }) => {
                 {(checkAuth()) && accountData?.role === ROLES.ADMIN && 
                 <div className="optionsItem" onClick={()=>{handleClose(); navigate(ROUTES.ADMIN)}}>
                     <CrmAdminOrganizations className="svgIcon" />
+                </div>
+                }
+                {(checkAuth() && accountData?.role === ROLES.ADMIN) &&
+                <div className="optionsItem" onClick={() => {handleClose(); navigate(ROUTES.ADMIN_REGISTRATION_REQUESTS)}}>
+                    <NotificationIcon className="svgIcon"/>
                 </div>
                 }
                 {(checkAuth() && accountData?.role === ROLES.ADMIN) &&
