@@ -11,11 +11,14 @@ import { useEffect, useState } from "react"
 import { createOrderRequest, getOrderByIdRequest, updateOrderRequest } from "../../../services/api/orderApi"
 import { toast, Toaster } from "react-hot-toast"
 import { EMAIL_REGEX } from "../../../services/validation/validationRegexes"
-import { STATUSES } from "../../../statuses"
+import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 import { Loader } from "../../loader/Loader"
+import { useNavigate } from "react-router-dom"
+import { ROUTES } from "../../../routes"
 
 export const CreateOrderPage = () => {
     const { getToken } = useAuth()
+    const navigate = useNavigate()
     const [isView, setIsView] = useState(false)
     const [isEdited, setIsEdited] = useState(false)
     const [status, setStatus] = useState(STATUSES.IDLE)
@@ -102,9 +105,22 @@ export const CreateOrderPage = () => {
 
         try {
             await createOrderRequest(orderData, getToken())
-            toast.success("Форма успешно создана!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+            toast.success("Заказ создан!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
             setStatus(STATUSES.SUCCESS)
             handleResetForm()
+        } catch(err) {
+            toast.error("Ошибка отправки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            setStatus(STATUSES.ERROR)
+        }
+    }
+    const handleCreateDeliveredOrder = async () => {
+        const orderData = getFormattedOrderData()
+        if (!validateOrderData(orderData)) return
+        orderData.status = ORDER_STATUSES.PICKED
+        try {
+            const response = await createOrderRequest(orderData, getToken())
+            toast.success("Дозаполните форму приема заказа", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+            navigate(`${ROUTES.PICKUP_ORDER}?id=${response.data}`)
         } catch(err) {
             toast.error("Ошибка отправки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
             setStatus(STATUSES.ERROR)
@@ -224,11 +240,12 @@ export const CreateOrderPage = () => {
                     
                     {!isView ? 
                     <button className="customButton" onClick={handleCreateOrder}>
-                        {status === STATUSES.SUCCESS ? "Успешно" : "Создать заказ"}
+                        {status === STATUSES.SUCCESS ? "Успешно" : "Создать заказ для курьера"}
                     </button> :
                     <button className="customButton disabledButton" disabled = {status === STATUSES.SUCCESS}>
                         Заказ уже создан
                     </button>}
+                    {!isView && <button className="customButton" onClick={handleCreateDeliveredOrder}>{status === STATUSES.SUCCESS ? "Успешно" : "Заказ уже на месте"}</button>}
                     {isView && <button onClick={handleEditOrder} className={`customButton ${!isEdited ? "disabledButton" : ""}`}>Применить изменения</button>}
                 </div>}
 
