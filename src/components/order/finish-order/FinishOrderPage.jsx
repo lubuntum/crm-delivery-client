@@ -27,7 +27,9 @@ export const FinishOrderPage = () => {
     const [completeOrder, setCompleteOrder] = useState({
         paymentMethod: "",
         itemsCount: "",
-        comment: ""
+        comment: "",
+        tips: "",
+        deliveryPrice: ""
     })
 
     useEffect(() => {
@@ -94,6 +96,7 @@ export const FinishOrderPage = () => {
     }
 
     const handleCompleteOrder = (e) => {
+        if (isOrderComplted()) return
         const { value, name } = e.target
         setCompleteOrder(prev => ({...prev, [name]: value}))
     }
@@ -172,10 +175,16 @@ export const FinishOrderPage = () => {
 
                         <div className="bioItem">
                             <CrmPaymentIcon className="svgIcon" />
-                            <p>{order.totalPrice} ₽</p>
+                            <p>{Number(order.totalPrice) + Number(completeOrder.tips) + Number(completeOrder.deliveryPrice)} ₽</p>
                         </div>
                     </div>
-
+                    <div className="orderFinishInputsContainer">
+                        <div className="orderFinishTitle">
+                            <p>Для курьера</p>
+                        </div>
+                        <input className="customInput" placeholder="Доставка ₽ (опционально)" type="number" value={completeOrder.deliveryPrice} onChange={handleCompleteOrder} name="deliveryPrice"/>
+                        <input className="customInput" placeholder="Чаевые ₽ (опционально)" type="number" value={completeOrder.tips} onChange={handleCompleteOrder} name="tips"/>
+                    </div>
                     <div className="orderFinishPaymentTypeContainer">
                         <div className="orderFinishTitle">
                             <p>Тип оплаты</p>
