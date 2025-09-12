@@ -6,6 +6,7 @@ import { ReactComponent as CrmPaymentIcon } from "../../../res/icons/crm_payment
 import { ReactComponent as CrmAddressIcon } from "../../../res/icons/crm_location_icon.svg"
 import { ReactComponent as CrmQuantityIcon } from "../../../res/icons/crm_replay_icon.svg"
 import { ReactComponent as CrmCommentaryIcon } from "../../../res/icons/crm_comment_icon.svg"
+import { ReactComponent as CopyIcon} from "../../../res/icons/copy_icon.svg"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
@@ -16,6 +17,8 @@ import { getItemsByOrderIdRequest } from "../../../services/api/itemApi"
 import { formateLocalDateForServer } from "../../../services/date/dateFormattes"
 import { createOrderFinishRequest, getOrderFinishByOrderId } from "../../../services/api/orderFinishApi"
 import { Loader } from "../../loader/Loader"
+import { copyToClipboard } from "../../util/copyToClipboard"
+import { SERVER_URL } from "../../../services/api/urls"
 
 export const FinishOrderPage = () => {
     const navigate = useNavigate()
@@ -29,7 +32,8 @@ export const FinishOrderPage = () => {
         itemsCount: "",
         comment: "",
         tips: "",
-        deliveryPrice: ""
+        deliveryPrice: "",
+        completionUrl: ""
     })
 
     useEffect(() => {
@@ -128,10 +132,24 @@ export const FinishOrderPage = () => {
             setStatus(STATUSES.SUCCESS)
             setTimeout(() => {setStatus(STATUSES.IDLE)}, 5000)
         } catch (err) {
-             toast.error("Ошибка при попытке доставки заказа!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            toast.error("Ошибка при попытке доставки заказа!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
             setStatus(STATUSES.ERROR)
             console.error(err)
         }
+    }
+    const copyServiceProvisionLink = (url) => {
+        console.log(url, order.status)
+        if (!url || order.status !== ORDER_STATUSES.COMPLETED) {
+            toast.error("Завершите заказ для формирования документа", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            return
+        }
+        try {
+            copyToClipboard(url)
+            toast.success("Заказ успешно доставлен!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+        } catch(err) {
+            toast.error("Ошибка при попытке доставки заказа!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+        }
+
     }
 
     return (
@@ -260,6 +278,14 @@ export const FinishOrderPage = () => {
                             onClick={handleComplteOrder}>
                         Доставить заказ
                     </button>
+                    <div className="serviceProvision">
+                        <button className={`customButton ${order.status !== ORDER_STATUSES.COMPLETED ? "disabledButton" : ""}`}
+                                disabled= {order.status !== ORDER_STATUSES.COMPLETED}
+                                onClick={() => {copyServiceProvisionLink(`${SERVER_URL}/${completeOrder.completionUrl}`)}}>
+                            Акт оказания услуги <CopyIcon className="svgIcon" />
+                        </button>
+                    </div>
+                    
                 </div></>}</>}
 
                 <Toaster position="bottom-center" reverseOrder={false}/>
