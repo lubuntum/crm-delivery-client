@@ -16,6 +16,7 @@ import { OrderImagesPopup } from "./OrderImagesPopup"
 import { Loader } from "../../loader/Loader"
 import { DIGIT_REGEX } from "../../../services/validation/validationRegexes"
 import { SERVER_URL } from "../../../services/api/urls"
+import { copyToClipboard } from "../../util/copyToClipboard"
 
 export const OrderPickupPage = () => {
     const navigate = useNavigate()
@@ -144,14 +145,10 @@ export const OrderPickupPage = () => {
             toast.error("Ссылка не найдена", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
             return
         }
-        const textarea = document.createElement('textarea')
-        textarea.value = url
-        document.body.appendChild(textarea)
-        textarea.select()
-        textarea.setSelectionRange(0, 999)
-        document.execCommand('copy')
-        document.body.removeChild(textarea)
-        toast.success("Ссылка на договор скопирована", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+        if (copyToClipboard(url))
+            toast.success("Ссылка на договор скопирована", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
+        else 
+            toast.error("Возникла ошибка при доступе к url", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
     }
 
     return (
