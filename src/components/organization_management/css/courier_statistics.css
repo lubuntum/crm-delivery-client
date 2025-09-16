@@ -11,6 +11,8 @@
 }
 .courierDateContainer input {
     height: 20px;
+    padding: 0 0 0 20px;
+    max-width: 100px;
 }
 .dates {
     display: flex;
