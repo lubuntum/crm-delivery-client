@@ -18,7 +18,7 @@ export const OrganizationActionsPage = () => {
     const actions = [
         {title: "Сотрудники", actionIcon: <PersonIcon className="icon"/>, clickListener: () => {navigate(ROUTES.ADMIN_ORGANIZATION_EMPLOYEES_LIST, {state: organization})}},
         {title: "Выгрузка истории заказов", actionIcon: <ShipingIcon className="icon"/>, clickListener: () => {navigate(ROUTES.ORGANIZATION_DATA, {state: organization})}},
-        {title: "Автоматическая рассылка", actionIcon: <Notification className="icon"/>, clickListener: () => {}}
+        {title: "Автоматическая рассылка", actionIcon: <Notification className="icon"/>, clickListener: () => {navigate(ROUTES.ADMIN_SMS_MAILING, {state: organization})}}
     ]
     useEffect(()=>{
         if (!location.state) navigate(-1)

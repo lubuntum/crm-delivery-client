@@ -21,5 +21,6 @@ export const ROUTES = {
     ADMIN_ORGANIZATION: "/admin/organization",
     ADMIN : "/admin",
     ADMIN_ORGANIZATION_EMPLOYEES_LIST : "/admin/organization/employees-list",
-    ADMIN_REGISTRATION_REQUESTS: "/admin/registration-requests"
+    ADMIN_REGISTRATION_REQUESTS: "/admin/registration-requests",
+    ADMIN_SMS_MAILING: "/admin/sms-mailing"
 }
