@@ -1,4 +1,4 @@
-export const SERVER_URL = "http://192.168.131.130:8080"
+export const SERVER_URL = "http://192.168.63.62:8080"
 export const REGISTER = "/api/auth/register"
 export const LOGIN = "/api/auth/login"
 export const CREATE_ORG_REGISTRATION_REQUEST = "/api/auth/registration-request" 
@@ -58,3 +58,5 @@ export const BARREL_COMPONENTS = "/api/barrel/components"
 
 export const SUBSCRIBE_NOTIFICATIONS = "/api/tg-bot/subscribe-notifications"
 export const UNSUBSCRIBE_NOTIFICATIONS = "/api/tg-bot/unsubscribe-notifications"
+
+export const SMS_MAILING = "/api/sms/broadcast"
