@@ -33,7 +33,8 @@ export const FinishOrderPage = () => {
         comment: "",
         tips: "",
         deliveryPrice: "",
-        completionUrl: ""
+        completionUrl: "",
+        discount: ""
     })
 
     useEffect(() => {
@@ -193,7 +194,7 @@ export const FinishOrderPage = () => {
 
                         <div className="bioItem">
                             <CrmPaymentIcon className="svgIcon" />
-                            <p>{Number(order.totalPrice) + Number(completeOrder.tips) + Number(completeOrder.deliveryPrice)} ₽</p>
+                            <p>{((Number(order.totalPrice) + Number(completeOrder.tips) + Number(completeOrder.deliveryPrice)) * (1 - Number(completeOrder.discount)/100)).toFixed(2)} ₽</p>
                         </div>
                     </div>
                     <div className="orderFinishInputsContainer">
@@ -202,6 +203,12 @@ export const FinishOrderPage = () => {
                         </div>
                         <input className="customInput" placeholder="Доставка ₽ (опционально)" type="number" value={completeOrder.deliveryPrice} onChange={handleCompleteOrder} name="deliveryPrice"/>
                         <input className="customInput" placeholder="Чаевые ₽ (опционально)" type="number" value={completeOrder.tips} onChange={handleCompleteOrder} name="tips"/>
+                    </div>
+                    <div className="orderFinishInputsContainer">
+                        <div className="orderFinishTitle">
+                            <p>Скидка</p>
+                        </div>
+                        <input className="customInput" placeholder="Процент скидки (опционально)" type="number" value={completeOrder.discount} onChange={handleCompleteOrder} name="discount"/>
                     </div>
                     <div className="orderFinishPaymentTypeContainer">
                         <div className="orderFinishTitle">
