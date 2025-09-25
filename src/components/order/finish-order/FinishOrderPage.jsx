@@ -31,10 +31,10 @@ export const FinishOrderPage = () => {
         paymentMethod: "",
         itemsCount: "",
         comment: "",
-        tips: "",
-        deliveryPrice: "",
+        tips: 0,
+        deliveryPrice: 0,
         completionUrl: "",
-        discount: ""
+        discount: 0
     })
 
     useEffect(() => {
@@ -79,6 +79,7 @@ export const FinishOrderPage = () => {
         const getCompleteOrderData = async () => {
             const response = await getOrderFinishByOrderId(getToken(), order.id)
             if (response.data === null) return
+            if (response.data.discount) response.data.discount *= 100
             setCompleteOrder(response.data)
         }
 
@@ -126,6 +127,7 @@ export const FinishOrderPage = () => {
         if (!isDataValid() || isOrderComplted()) return
 
         try {
+            if (completeOrder.discount) completeOrder.discount = completeOrder.discount / 100
             const response = await createOrderFinishRequest(getToken(), completeOrder)
             const statusResponse = await changeOrderStatusRequest(order.id, ORDER_STATUSES.COMPLETED, getToken())
             setOrder(prev => ({...prev, status: statusResponse.data}))
@@ -151,6 +153,12 @@ export const FinishOrderPage = () => {
             toast.error("Ошибка при попытке доставки заказа!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
         }
 
+    }
+    const calculateFinalPrice = () => {
+        const discountMultiplier = 1 - (completeOrder.discount || 0) / 100
+        const basePrice = order.totalPrice * discountMultiplier
+        const additionalCosts = Number(completeOrder.tips || 0) + Number(completeOrder.deliveryPrice || 0)
+        return (basePrice + additionalCosts).toFixed(2)
     }
 
     return (
@@ -194,21 +202,21 @@ export const FinishOrderPage = () => {
 
                         <div className="bioItem">
                             <CrmPaymentIcon className="svgIcon" />
-                            <p>{((Number(order.totalPrice) + Number(completeOrder.tips) + Number(completeOrder.deliveryPrice)) * (1 - Number(completeOrder.discount)/100)).toFixed(2)} ₽</p>
+                            <p>{calculateFinalPrice()} ₽</p>
                         </div>
                     </div>
                     <div className="orderFinishInputsContainer">
                         <div className="orderFinishTitle">
                             <p>Для курьера</p>
                         </div>
-                        <input className="customInput" placeholder="Доставка ₽ (опционально)" type="number" value={completeOrder.deliveryPrice} onChange={handleCompleteOrder} name="deliveryPrice"/>
-                        <input className="customInput" placeholder="Чаевые ₽ (опционально)" type="number" value={completeOrder.tips} onChange={handleCompleteOrder} name="tips"/>
+                        <input className="customInput" placeholder="Доставка ₽ (опционально)" type="number" value={completeOrder.deliveryPrice ? completeOrder.deliveryPrice : ""} onChange={handleCompleteOrder} name="deliveryPrice"/>
+                        <input className="customInput" placeholder="Чаевые ₽ (опционально)" type="number" value={completeOrder.tips ? completeOrder.tips : ""} onChange={handleCompleteOrder} name="tips"/>
                     </div>
                     <div className="orderFinishInputsContainer">
                         <div className="orderFinishTitle">
                             <p>Скидка</p>
                         </div>
-                        <input className="customInput" placeholder="Процент скидки (опционально)" type="number" value={completeOrder.discount} onChange={handleCompleteOrder} name="discount"/>
+                        <input className="customInput" placeholder="Процент скидки (опционально)" type="number" value={completeOrder.discount ? completeOrder.discount : ""} onChange={handleCompleteOrder} name="discount"/>
                     </div>
                     <div className="orderFinishPaymentTypeContainer">
                         <div className="orderFinishTitle">
