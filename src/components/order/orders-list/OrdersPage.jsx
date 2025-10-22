@@ -1,6 +1,6 @@
 import "../css/order_list_style.css"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { use, useCallback, useEffect, useMemo, useState } from "react"
 import { getOrganizationOrders, removeOrderRequest } from "../../../services/api/orderApi"
 import { useAuth } from "../../../services/auth/AuthProvider"
 import { formatDateLocalDate } from "../../../services/date/dateFormattes"
@@ -13,6 +13,10 @@ import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 import { Loader } from "../../loader/Loader"
 import { getAccountDataRequest } from "../../../services/api/authApi"
 import { ROLES } from "../../../roles"
+import { useNetworkStatus } from "../../../hooks/useNetworkStatus"
+import { toast, Toaster } from "react-hot-toast"
+import { useAccountSettings } from "../../../services/account-settings/useAccountSettings"
+import { useOfflineData } from "../../../services/indexed-db/useOfflineData"
 
 const ordersStatusForSorting = [
     ORDER_STATUSES.CREATED,
@@ -32,10 +36,57 @@ export const OrdersPage = () => {
     const [loading, setLoading] = useState(true)
     const [status, setStatus] = useState(STATUSES.IDLE)
     const [filter, setFilter] = useState("")
+    //offline test
+    const {checkOnline} = useNetworkStatus()
+    const {settings} = useAccountSettings()
+    const {getOrdersOffline, isReady, loadRemoteOrdersData} = useOfflineData()
+    //save data after orders was loaded
+    
+    const saveLocalOrders = async (formattedOrders) => {
+        if (settings.offlineMode && formattedOrders && formattedOrders.length > 0) {
+            await loadRemoteOrdersData(formattedOrders, getToken())
+            /* console.log("🔄 Saving orders to offline storage:", formattedOrders.length)
+            saveOrdersOffline(formattedOrders).then(success => {
+                if (success) {
+                    console.log("Orders saved offline successfully")
+                } else {
+                    console.error("Failed to save orders offline")
+                }
+            }).catch(error => {
+                console.error("Error saving offline:", error)
+            }) */
+        }
+    }
+    const loadLocalOrders = async () => {
+        
+        console.log("⚙️ Offline mode setting:", settings.offlineMode)
 
+        //onst offlineOrders = await getOrdersOffline()
+        //toast(JSON.stringify(offlineOrders))
+        //setOrders(offlineOrders.sort((a,b) => {return ordersStatusForSorting.indexOf(a.status) - ordersStatusForSorting.indexOf(b.status)}))
+        if (settings.offlineMode){
+            toast("Нет соединения с сервером", {
+                style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                },
+            })
+            const offlineOrders = await getOrdersOffline()
+            setOrders(offlineOrders.sort((a,b) => {return ordersStatusForSorting.indexOf(a.status) - ordersStatusForSorting.indexOf(b.status)}))
+            toast.success("Использованы локальные данные")
+            if (loading) setLoading(false)
+        }
+    }
     //Get account data for showing orders depends on role
     useEffect(()=> {
         const fetchAccountData = async () => {
+            const isOnline = await checkOnline()
+            console.log(`online = ${isOnline}`)
+            if (!isOnline) {
+                await loadLocalOrders()
+                return
+            }
             try {
                 const response = await getAccountDataRequest(getToken())
                 console.log(response.data)
@@ -67,8 +118,14 @@ export const OrdersPage = () => {
             })
             //const nonCompletedOrders = formattedOrders.filter(order => order.status !== ORDER_STATUSES.COMPLETED)
             //const completedOrders = formattedOrders.filter(order => order.status === ORDER_STATUSES.COMPLETED)
+            //console.log(formattedOrders)
+            if (settings.offlineMode) {
+                console.log("trying to hash orders")
+                saveLocalOrders(formattedOrders)
+            }
             setOrders(formattedOrders.sort((a,b) => {return ordersStatusForSorting.indexOf(a.status) - ordersStatusForSorting.indexOf(b.status)}))
-        } catch (err) {
+        } catch (err) { 
+
             setStatus(STATUSES.ERROR)
             console.error(err)
         } finally {
@@ -136,6 +193,7 @@ export const OrdersPage = () => {
                     )))}
                 </div>
             </div>
+            <Toaster position="bottom-center" reverseOrder={false}/>
         </div> 
     )
 }
