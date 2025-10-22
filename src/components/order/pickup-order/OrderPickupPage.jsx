@@ -17,6 +17,9 @@ import { Loader } from "../../loader/Loader"
 import { DIGIT_REGEX } from "../../../services/validation/validationRegexes"
 import { SERVER_URL } from "../../../services/api/urls"
 import { copyToClipboard } from "../../util/copyToClipboard"
+import { useNetworkStatus } from "../../../hooks/useNetworkStatus"
+import { useAccountSettings } from "../../../services/account-settings/useAccountSettings"
+import { useOfflineData } from "../../../services/indexed-db/useOfflineData"
 
 export const OrderPickupPage = () => {
     const navigate = useNavigate()
@@ -37,6 +40,26 @@ export const OrderPickupPage = () => {
         orderId: null
     })
 
+    const {isOnline, checkOnline} = useNetworkStatus()
+    const {settings} = useAccountSettings()
+    const {getDataByOrderId, getData, putData, getOrderOffline} = useOfflineData()
+
+    useEffect(()=>{
+        if (isOnline || !settings.offlineMode) return
+        const loadOrderPickupFromDB = async () => {
+            const param = new URLSearchParams(window.location.search)
+            const orderId = Number(param.get("id"))
+            if (!orderId) return
+            const orderTemp = await getOrderOffline(orderId)
+            const orderPickupTemp = await getDataByOrderId("ordersPickup", orderId)
+            console.log("here is data ", orderTemp, orderPickupTemp)
+            setOrder(orderTemp || null)
+            setOrderPickup(orderPickupTemp || null)
+            setStatus(STATUSES.IDLE)
+            toast.success("Использованы локальные данные")
+        }
+        loadOrderPickupFromDB()
+    }, [isOnline])
     useEffect(() => {
         const param = new URLSearchParams(window.location.search)
         const orderId = param.get("id")
@@ -52,9 +75,11 @@ export const OrderPickupPage = () => {
                     orderTemp.status !== ORDER_STATUSES.CREATED) await getOrderPickupByOrderId(orderTemp.id)
                 setStatus(STATUSES.IDLE)
             } catch (err) {
-                toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+                //toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
                 setStatus(STATUSES.ERROR)
                 console.error(err)
+                checkOnline()
+                
             }
         }
 
@@ -186,7 +211,7 @@ export const OrderPickupPage = () => {
                                    step={1} 
                                    min={1}
                                    placeholder="Количество"
-                                   value={orderPickup.itemsCount}
+                                   value={orderPickup?.itemsCount}
                                    onChange={handleOrderPickup}
                                    required/>
                                 <CrmReplayIcon className="svgIcon"/>
@@ -196,7 +221,7 @@ export const OrderPickupPage = () => {
                             <textarea className="customTextarea"
                                       placeholder="Комментарий"
                                       name="comment"
-                                      value={orderPickup.comment}
+                                      value={orderPickup?.comment}
                                       onChange={handleOrderPickup}
                                       rows={5}
                                       required/>
