@@ -15,6 +15,9 @@ import { ORDER_STATUSES, STATUSES } from "../../../statuses"
 import { Loader } from "../../loader/Loader"
 import { useNavigate } from "react-router-dom"
 import { ROUTES } from "../../../routes"
+import { useNetworkStatus } from "../../../hooks/useNetworkStatus"
+import { useAccountSettings } from "../../../services/account-settings/useAccountSettings"
+import { useOfflineData } from "../../../services/indexed-db/useOfflineData"
 
 export const CreateOrderPage = () => {
     const { getToken } = useAuth()
@@ -22,6 +25,23 @@ export const CreateOrderPage = () => {
     const [isView, setIsView] = useState(false)
     const [isEdited, setIsEdited] = useState(false)
     const [status, setStatus] = useState(STATUSES.IDLE)
+
+    //offlinemode
+    const {isOnline, checkOnline} = useNetworkStatus()
+    const {settings} = useAccountSettings()
+    const {getOrderOffline} = useOfflineData()
+    useEffect(()=>{
+        if (isOnline) return
+        if (!settings.offlineMode) return
+        const loadOrderFromDB = async () => {
+            const param = new URLSearchParams(window.location.search)
+            const orderId = Number(param.get("id"))
+            if (!orderId) return
+            setOrder(await getOrderOffline(orderId))
+            toast.success("Использованы локальные данные")
+        }
+        loadOrderFromDB()
+    }, [isOnline, settings.offlineMode])
 
     const [order, setOrder] = useState({
         address: "",
@@ -44,9 +64,10 @@ export const CreateOrderPage = () => {
             })
             setStatus(STATUSES.IDLE)
         } catch (err) {
-            toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            toast.error("Сеть недоступна!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
             setStatus(STATUSES.ERROR)
             console.error(err)
+            checkOnline()
         }
     }
     useEffect(() => {
@@ -167,7 +188,10 @@ export const CreateOrderPage = () => {
         if (!isView) return
         window.location.href = `tel:${order.clientPhone}`
     }
-
+    if (!order) return 
+        <div className="orderLoadingContainer">
+            <Loader/>
+        </div>
     return (
         <div className="contentWrapper">
             <div className="orderFormWrapper">
