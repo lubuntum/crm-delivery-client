@@ -1,0 +1,26 @@
+
+.card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-desc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    text-align: justify;
+    overflow-y: scroll;
+    transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
+}
+.content.visible {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 15px;
+}

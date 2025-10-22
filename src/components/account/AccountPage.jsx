@@ -16,6 +16,7 @@ import { Loader } from "../loader/Loader"
 import { NotificationSettings } from "./NotificationSettings"
 import { CompanyData } from "./CompanyData"
 import { MaterialsList } from "../materials/MaterialsList"
+import { OfflineModeCard } from "./offline-mode/OfflineModeCard"
 
 
 export const AccountPage = () => {
@@ -60,6 +61,7 @@ export const AccountPage = () => {
                     {accountData?.role === ROLES.COURIER && <EmployeeResultsCard />}
                     <NotificationSettings accountData = {accountData}/>
                     <ResetPasswordCard/>
+                    <OfflineModeCard />
                     
                     <Toaster position="bottom-center" reverseOrder={false}/>
                 </div>}
