@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react"
+import { checkServerHealth } from "../services/api/healthApi"
 
 export const useNetworkStatus = () => {
-    const [isOnline, setIsOnline] = useState(navigator.onLine)
-    const [connectionInfo, setConnectionInfo] = useState(null)
-
-    useEffect(()=> {
-        const handleOnline = () => {
-            setIsOnline(true)
-        }
-        const handleOffline = () => {
+    const [isOnline, setIsOnline] = useState(true)
+    const checkOnline = async () => {
+        try {
+            return ((await checkServerHealth()).data.status === "OK")
+        } catch(err) {
             setIsOnline(false)
+            return (false)
         }
-        window.addEventListener('online', handleOnline)
-        window.addEventListener('offline', handleOffline)
-        return () => {
-            window.removeEventListener('online', handleOnline)
-            window.removeEventListener('offline', handleOffline)
-        }
-    }, [])
+    }
     return {
-        isOnline
+        isOnline,
+        checkOnline
     }
 }
