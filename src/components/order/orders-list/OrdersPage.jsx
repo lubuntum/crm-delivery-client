@@ -17,6 +17,7 @@ import { useNetworkStatus } from "../../../hooks/useNetworkStatus"
 import { toast, Toaster } from "react-hot-toast"
 import { useAccountSettings } from "../../../services/account-settings/useAccountSettings"
 import { useOfflineData } from "../../../services/indexed-db/useOfflineData"
+import { getOrdersWithItems } from "../../../services/api/offlineApi"
 
 const ordersStatusForSorting = [
     ORDER_STATUSES.CREATED,
@@ -102,7 +103,8 @@ export const OrdersPage = () => {
         console.log("test")
         setLoading(true)
         try {
-            const response = await getOrganizationOrders(getToken())
+            //const response = await getOrganizationOrders(getToken())
+            const response = await getOrdersWithItems(getToken())
             const sortedOrders = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             const formattedOrders = sortedOrders.map(order => ({
                 ...order,

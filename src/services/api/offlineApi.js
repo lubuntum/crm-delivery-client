@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GET_ORDER_FINISH_LIST_BY_IRDERS_ID, GET_ORDER_PICKUP_LIST_BY_ORDERS_ID, SERVER_URL } from "./urls"
+import { GET_ORDER_FINISH_LIST_BY_IRDERS_ID, GET_ORDER_PICKUP_LIST_BY_ORDERS_ID, GET_ORDERS_WITH_iTEMS, SERVER_URL } from "./urls"
 
 export const getOrderPickupListByOrdersId = async (ordersId, token) => {
     console.log(token)
@@ -19,5 +19,10 @@ export const getOrderFinishListByOrdersId = async (ordersId, token) => {
         paramsSerializer: {
             indexes: null
         }
+    })
+}
+export const getOrdersWithItems = async (token) => {
+    return await axios.get(`${SERVER_URL}${GET_ORDERS_WITH_iTEMS}`, {
+        headers: {Authorization: token}
     })
 }
