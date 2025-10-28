@@ -19,6 +19,9 @@ import { createOrderFinishRequest, getOrderFinishByOrderId } from "../../../serv
 import { Loader } from "../../loader/Loader"
 import { copyToClipboard } from "../../util/copyToClipboard"
 import { SERVER_URL } from "../../../services/api/urls"
+import { useNetworkStatus } from "../../../hooks/useNetworkStatus"
+import { useAccountSettings } from "../../../services/account-settings/useAccountSettings"
+import { useOfflineData } from "../../../services/indexed-db/useOfflineData"
 
 export const FinishOrderPage = () => {
     const navigate = useNavigate()
@@ -36,6 +39,30 @@ export const FinishOrderPage = () => {
         completionUrl: "",
         discount: 0
     })
+    //offline mode (not ready)
+    //offline mode (not ready)
+    const {isOnline, checkOnline} = useNetworkStatus()
+    const {settings} = useAccountSettings()
+    const {getOrderOffline, getDataByOrderId} = useOfflineData()
+    /*
+    
+    useEffect(()=> {
+        const loadLocalData = async () => {
+            const orderId = Number(new URLSearchParams(window.location.search).get("id"))
+            const orderTemp = await getOrderOffline(orderId)
+            const totalPrice = orderTemp.items.reduce((acc, item) => acc + item.price, 0)
+            const itemsArea = orderTemp.items.reduce((acc, item) => acc + item.size, 0)
+            setOrder({...orderTemp, totalPrice: totalPrice})
+            console.log(order)
+
+            const orderFinish = await getDataByOrderId("ordersFinish", orderId)
+            if (!orderFinish) return
+            setCompleteOrder({orderFinish, orderCompleteData: {totalPrice: totalPrice, itemsArea: itemsArea, workDate: formateLocalDateForServer(new Date())}})
+            console.log(orderFinish)
+        }
+        loadLocalData()
+    }, [isOnline])
+    */
 
     useEffect(() => {
         const param = new URLSearchParams(window.location.search)
@@ -45,42 +72,76 @@ export const FinishOrderPage = () => {
         const fetchOrder = async () => {
             setStatus(STATUSES.LOADING)
             try {
-                await getOrderById()
-                await getOrderTotalPrice()
+                await getOrderById(orderId)
+                await getOrderTotalPrice(orderId)
                 setStatus(STATUSES.IDLE)
             } catch (err) {
                 toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-                setStatus(STATUSES.ERROR)
-                console.error(err)
+                setStatus(STATUSES.IDLE)
+                //setStatus(STATUSES.ERROR)
+                //console.warn(err)
+                //checkOnline()
             }
         }
 
-        const getOrderById = async () => {
-            const response = await getOrderByIdRequest(orderId, getToken())
-            setOrder(response.data)
-            setCompleteOrder(prev => ({...prev, orderId: response.data.id}))
+        const getOrderById = async (orderId) => {
+            try {
+                const response = await getOrderByIdRequest(orderId, getToken())
+                setOrder(response.data)
+                setCompleteOrder(prev => ({...prev, orderId: response.data.id}))
+            } catch(err) {
+                console.log("try to get order data")
+                if (!settings.offlineMode) return
+                const orderTemp = await getOrderOffline(Number(orderId))
+                console.log("orderTemp", orderTemp)
+                setOrder(orderTemp)
+                //setCompleteOrder(prev => ({...prev, orderId: orderTemp.id}))
+            }
+            
         }
 
-        const getOrderTotalPrice = async () => {
-            const response = await getItemsByOrderIdRequest(orderId, getToken())
-            const items = response.data
-            const totalPrice = items.reduce((acc, item) => acc + item.price, 0)
-            const itemsArea = items.reduce((acc, item) => acc + item.size, 0)
-            setOrder(prev => ({...prev, totalPrice: totalPrice}))
-            setCompleteOrder(prev => ({...prev, orderCompleteData: {totalPrice: totalPrice, itemsArea: itemsArea, workDate: formateLocalDateForServer(new Date())}}))
+        const getOrderTotalPrice = async (orderId) => {
+            try {
+                const response = await getItemsByOrderIdRequest(orderId, getToken())
+                const items = response.data
+                const totalPrice = items.reduce((acc, item) => acc + item.price, 0)
+                const itemsArea = items.reduce((acc, item) => acc + item.size, 0)
+                setOrder(prev => ({...prev, totalPrice: totalPrice}))
+                setCompleteOrder(prev => ({...prev, orderCompleteData: {totalPrice: totalPrice, itemsArea: itemsArea, workDate: formateLocalDateForServer(new Date())}}))
+            } catch(err) {
+                
+                if (!settings.offlineMode) return
+                const orderTemp = await getOrderOffline(Number(orderId))
+                console.log("try to get complete order data and accountable things...", orderTemp)
+                if (!orderTemp || !orderTemp.items) return
+                const totalPrice = orderTemp.items.reduce((acc, item) => acc + item.price, 0)
+                const itemsArea = orderTemp.items.reduce((acc, item) => acc + item.size, 0)
+                console.log("Complete order data", totalPrice, itemsArea)
+                setOrder(prev => ({...prev, totalPrice: totalPrice}))
+                setCompleteOrder(prev => ({...prev, orderCompleteData: {totalPrice: totalPrice, itemsArea: itemsArea, workDate: formateLocalDateForServer(new Date())}}))
+            }
         }
 
         fetchOrder()
     }, [getToken])
 
     useEffect(() => {
-        if (!order || order.status !== ORDER_STATUSES.COMPLETED) return
-
         const getCompleteOrderData = async () => {
-            const response = await getOrderFinishByOrderId(getToken(), order.id)
-            if (response.data === null) return
-            if (response.data.discount) response.data.discount *= 100
-            setCompleteOrder(response.data)
+            if (!order || order.status !== ORDER_STATUSES.COMPLETED) return
+            try {
+                const response = await getOrderFinishByOrderId(getToken(), order.id)
+                if (response.data === null) return
+                if (response.data.discount) response.data.discount *= 100
+                setCompleteOrder(response.data)
+
+            } catch(err) {
+                console.log("trying to load order finish data cos order is completed")
+                const orderFinishData = await getDataByOrderId("ordersFinish", order.id)
+                if (!orderFinishData) return
+                console.log(orderFinishData)
+                setCompleteOrder(orderFinishData)
+            }
+            
         }
 
         getCompleteOrderData()
