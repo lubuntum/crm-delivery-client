@@ -20,7 +20,11 @@ import { copyToClipboard } from "../../util/copyToClipboard"
 import { useNetworkStatus } from "../../../hooks/useNetworkStatus"
 import { useAccountSettings } from "../../../services/account-settings/useAccountSettings"
 import { useOfflineData } from "../../../services/indexed-db/useOfflineData"
-
+//TODO 
+// 1. When user click button for change order statys and thete is network activity, change it locally and add it to queue for changelog
+// 2. Create new table for monitoring changed data (for three tables orderFinishQueue, orderQueue, orderPickupQueue)
+// 3. All this data persist for normal woring need just adjust changes and apply it locally and in queue 
+// 4. After netrowk is here just check queue and make needed api calls, clear queue and update local storage for the server 
 export const OrderPickupPage = () => {
     const navigate = useNavigate()
 
@@ -47,16 +51,7 @@ export const OrderPickupPage = () => {
     useEffect(()=>{
         if (isOnline || !settings.offlineMode) return
         const loadOrderPickupFromDB = async () => {
-            const param = new URLSearchParams(window.location.search)
-            const orderId = Number(param.get("id"))
-            if (!orderId) return
-            const orderTemp = await getOrderOffline(orderId)
-            const orderPickupTemp = await getDataByOrderId("ordersPickup", orderId)
-            console.log("here is data ", orderTemp, orderPickupTemp)
-            setOrder(orderTemp || null)
-            setOrderPickup(orderPickupTemp || null)
-            setStatus(STATUSES.IDLE)
-            toast.success("Использованы локальные данные")
+           
         }
         loadOrderPickupFromDB()
     }, [isOnline])
@@ -76,9 +71,14 @@ export const OrderPickupPage = () => {
                 setStatus(STATUSES.IDLE)
             } catch (err) {
                 //toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-                setStatus(STATUSES.ERROR)
-                console.error(err)
-                checkOnline()
+                if (!orderId) return
+                const orderTemp = await getOrderOffline(Number(orderId))
+                const orderPickupTemp = await getDataByOrderId("ordersPickup", Number(orderId))
+                console.log("here is data ", orderTemp, orderPickupTemp)
+                setOrder(orderTemp || null)
+                setOrderPickup(orderPickupTemp || null)
+                toast.success("Использованы локальные данные")
+                setStatus(STATUSES.IDLE)
                 
             }
         }
@@ -104,6 +104,7 @@ export const OrderPickupPage = () => {
         } catch (err) {
             setStatus(STATUSES.ERROR)
             console.error(err)
+            console.log("New local data for order changed status", {...order, status: orderStatus})
         }
     }
 
