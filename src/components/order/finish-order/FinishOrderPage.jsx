@@ -43,7 +43,7 @@ export const FinishOrderPage = () => {
     //offline mode (not ready)
     const {isOnline, checkOnline} = useNetworkStatus()
     const {settings} = useAccountSettings()
-    const {getOrderOffline, getDataByOrderId} = useOfflineData()
+    const {getOrderOffline, getDataByOrderId, putData} = useOfflineData()
     /*
     
     useEffect(()=> {
@@ -178,9 +178,9 @@ export const FinishOrderPage = () => {
             setStatus(STATUSES.SUCCESS)
             setTimeout(() => {setStatus(STATUSES.IDLE)}, 5000)
         } catch (err) {
-            toast.error("Ошибка при попытке забрать заказ!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-            setStatus(STATUSES.ERROR)
             console.error(err)
+            await putData('orders', {...order, status: ORDER_STATUSES.COMING, syncStatus: "pending"})
+            setOrder(prev => ({...prev, status: ORDER_STATUSES.COMING}))
         }
     }
 
@@ -196,9 +196,12 @@ export const FinishOrderPage = () => {
             setStatus(STATUSES.SUCCESS)
             setTimeout(() => {setStatus(STATUSES.IDLE)}, 5000)
         } catch (err) {
-            toast.error("Ошибка при попытке доставки заказа!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-            setStatus(STATUSES.ERROR)
             console.error(err)
+            completeOrder.id = -Date.now()
+            completeOrder.orderId = order.id
+            await putData("ordersFinish", {...completeOrder, syncStatus: "pending"})
+            await putData("orders", {...order, status: ORDER_STATUSES.COMPLETED, syncStatus: "pending"})
+            setOrder(prev => ({...prev, status: ORDER_STATUSES.COMPLETED}))
         }
     }
     const copyServiceProvisionLink = (url) => {
