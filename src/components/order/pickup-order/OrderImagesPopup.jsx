@@ -3,6 +3,15 @@ import "../css/order_popup_style.css"
 import { SERVER_URL } from "../../../services/api/urls"
 
 export const OrderImagesPopup = ({ images, imagesContentType, setShowImages }) => {
+    const getImageSrc = (image) => {
+        if (image.path) return `${SERVER_URL}/${image.path}`
+        if (image.data) return image.data
+        if (typeof image === "string") return image.startsWith("data:") ? image : `${SERVER_URL}/${image.path}`
+        return ""
+    }
+    const getImageKey = (image, index) => {
+        return image.id || image.path || `image-${index}`
+    }
     return (
         <div className="popupWrapper">
             <div className="popupContainer">
@@ -10,8 +19,8 @@ export const OrderImagesPopup = ({ images, imagesContentType, setShowImages }) =
 
                 <div className="popupCards">
                     {images.map((image, index) => (
-                        <div className="popupCard">
-                            <img src={`${SERVER_URL}/${image.path}`} alt={`popupImage${index}`}/>
+                        <div key={getImageKey(image, index)} className="popupCard">
+                            <img src={getImageSrc(image)} alt={`popupImage${index}`}/>
                         </div>
                     ))}
                 </div>
