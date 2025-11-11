@@ -46,22 +46,14 @@ export const OrderPickupPage = () => {
 
     const {isOnline, checkOnline} = useNetworkStatus()
     const {settings} = useAccountSettings()
-    const {getDataByOrderId, getData, putData, getOrderOffline} = useOfflineData()
+    const {getDataByOrderId, getData, putData, getOrderOffline, saveImages, getOrderImageForServer, getOrderImages} = useOfflineData()
 
-    useEffect(()=>{
-        if (isOnline || !settings.offlineMode) return
-        const loadOrderPickupFromDB = async () => {
-           
-        }
-        loadOrderPickupFromDB()
-    }, [isOnline])
     useEffect(() => {
         const param = new URLSearchParams(window.location.search)
         const orderId = param.get("id")
         if (!orderId) navigate(-1)
 
         const fetchOrder = async () => {
-            setStatus(STATUSES.LOADING)
             try {
                 const response = await getOrderByIdRequest(orderId, getToken())
                 const orderTemp = response.data
@@ -73,7 +65,14 @@ export const OrderPickupPage = () => {
                 //toast.error("Ошибка загрузки данных!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
                 if (!orderId) return
                 const orderTemp = await getOrderOffline(Number(orderId))
-                const orderPickupTemp = await getDataByOrderId("ordersPickup", Number(orderId))
+                const [orderPickupData, orderImages] = await Promise.all([getDataByOrderId("ordersPickup", Number(orderId)), getOrderImages(Number(orderId))])
+                const orderPickupTemp = {
+                    itemsCount: orderPickupData?.itemsCount || "",
+                    comment: orderPickupData?.comment || "",
+                    agreementUrl: orderPickupData?.agreementUrl || "",
+                    orderId: orderPickupData?.orderId || null,
+                    orderImages: orderImages || []
+                }
                 console.log("here is data ", orderTemp, orderPickupTemp)
                 setOrder(orderTemp || null)
                 setOrderPickup(orderPickupTemp || null)
@@ -99,13 +98,14 @@ export const OrderPickupPage = () => {
         try {
             const response = await changeOrderStatusRequest(order.id, orderStatus, getToken())
             setOrder(prev => ({...prev, status: response.data}))
-            setStatus(STATUSES.SUCCESS)
-            setTimeout(() => setStatus(STATUSES.IDLE), 500)
+            
         } catch (err) {
-            setStatus(STATUSES.ERROR)
-            console.error(err)
             console.log("New local data for order changed status", {...order, status: orderStatus})
+            await putData("orders", {...order, status: orderStatus, syncStatus: "pending"})
+            setOrder(prev => ({...prev, status: orderStatus}))
         }
+        setStatus(STATUSES.SUCCESS)
+        setTimeout(() => setStatus(STATUSES.IDLE), 500)
     }
 
     const handleImagesChange = (e) => {
@@ -133,15 +133,24 @@ export const OrderPickupPage = () => {
             const updateOrderPickup = await getOrderPickupByOrderIdRequest(getToken(), order.id)
             setOrderPickup(updateOrderPickup.data)
             setOrder(prev => ({...prev, status: response.data}))
-            setImages([])
             toast.success("Заказ успешно забран!", {icon: false, style: {backgroundColor: "rgba(57, 189, 64, 0.8)",color: "white",backdropFilter: "blur(3px)"}})
-            setStatus(STATUSES.SUCCESS)
-            setTimeout(() => setStatus(STATUSES.IDLE), 5000)
+            
         } catch (err) {
-            toast.error("Ошибка при попытке забрать заказ!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
-            setStatus(STATUSES.ERROR)
-            console.error(err)
+            const orderTemp = {...order, status: ORDER_STATUSES.TAKEN, syncStatus: "pending"}
+            const orderPickupTemp = {...orderPickup, orderId: order.id, id: -Date.now(), syncStatus: "pending"}
+            console.log(orderPickup, orderPickupTemp)
+            await putData("ordersPickup", orderPickupTemp)
+            await putData("orders", orderTemp)
+            await saveImages(order.id, images)
+
+            const localImages = await getOrderImages(order.id)
+            setOrderPickup({...orderPickupTemp, orderImages: localImages})
+            setOrder(prev => ({...prev, status: ORDER_STATUSES.TAKEN}))
+            toast.success("Статус заказа изменен")
         }
+        setImages([])
+        setStatus(STATUSES.SUCCESS)
+        setTimeout(() => setStatus(STATUSES.IDLE), 5000)
     }
 
     const handleUpdateOrderPickup = async() => {
@@ -153,6 +162,7 @@ export const OrderPickupPage = () => {
         } catch(err) {
             console.error(err)
             toast.error("Ошибка при попытке забрать заказ!", {icon: false, style: {backgroundColor: "rgba(239, 71, 111, .8)",color: "white",backdropFilter: "blur(3px)"}})
+            await putData("ordersPickup", {...orderPickup, syncStatus: "pending"})
         }
     }
 
