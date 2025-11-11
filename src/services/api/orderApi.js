@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CHANGE_ORDER_STATUS, CREATE_ORDER, GET_ORDER_BY_ID, GET_ORDERS_BETWEEN_DATES, GET_ORDERS_TOTAL_STATS_BY_ORGANIZATION, ORGANIZATION_ORDERS, REMOVE_ORDER, SERVER_URL, UPDATE_ORDER } from "./urls"
+import { CHANGE_ORDER_STATUS, CHANGE_ORDERS_STATUSES, CREATE_ORDER, GET_ORDER_BY_ID, GET_ORDERS_BETWEEN_DATES, GET_ORDERS_TOTAL_STATS_BY_ORGANIZATION, ORGANIZATION_ORDERS, REMOVE_ORDER, SERVER_URL, UPDATE_ORDER } from "./urls"
 
 export const createOrderRequest = async (order, token) => {
     return await axios.post(`${SERVER_URL}${CREATE_ORDER}`, order, {
@@ -18,6 +18,11 @@ export const removeOrderRequest = async (order, token) => {
 }
 export const changeOrderStatusRequest = async (orderId, status, token) => {
     return await axios.post(`${SERVER_URL}${CHANGE_ORDER_STATUS}`, {orderId: orderId, status: status}, {
+        headers: {Authorization: token}
+    })
+}
+export const changeOrdersStatusesRequest = async (orderStatuses, token) => {
+    return await axios.post(`${SERVER_URL}${CHANGE_ORDERS_STATUSES}`, orderStatuses, {
         headers: {Authorization: token}
     })
 }
