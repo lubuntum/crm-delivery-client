@@ -2,7 +2,9 @@
 class OfflineDB {
     static ORDERS_STORE = "orders"
     static ORDERS_PICKUP_STORE = "ordersPickup"
+    static ORDERS_PICKUP_IMAGES_STORE = "images"
     static ORDERS_FINISH_STORE = "ordersFinish"
+    
     static CURRENT_VERSION = 3
     constructor() {
         this.dbName = "offlineData"
@@ -25,18 +27,109 @@ class OfflineDB {
                 if (!db.objectStoreNames.contains(OfflineDB.ORDERS_STORE)) {
                     const store = db.createObjectStore(OfflineDB.ORDERS_STORE, {keyPath: 'id'})
                     store.createIndex('id', 'id', {unique: true})
+                    store.createIndex("syncStatus", "syncStatus", {unique: false})
                 }
                 if (!db.objectStoreNames.contains(OfflineDB.ORDERS_PICKUP_STORE)){
                     const store = db.createObjectStore(OfflineDB.ORDERS_PICKUP_STORE, {keyPath: 'id'})
                     store.createIndex('id', 'id', {unique: true})
                     store.createIndex('orderId', 'orderId', {unique: true})
+                    store.createIndex("syncStatus", "syncStatus", {unique: false})
                 }
                 if (!db.objectStoreNames.contains(OfflineDB.ORDERS_FINISH_STORE)) {
                     const store = db.createObjectStore(OfflineDB.ORDERS_FINISH_STORE, {keyPath: 'id'})
                     store.createIndex('id', 'id', {unique: true})
                     store.createIndex('orderId', 'orderId', {unique: true})
+                    store.createIndex("syncStatus", "syncStatus", {unique: false})
+                }
+                if (!db.objectStoreNames.contains(OfflineDB.ORDERS_PICKUP_IMAGES_STORE)) {
+                    const store = db.createObjectStore(OfflineDB.ORDERS_PICKUP_IMAGES_STORE, {keyPath: 'id'})
+                    store.createIndex('id', 'id', {unique: true})
+                    store.createIndex('orderId', 'orderId', {unique: false})
+                    store.createIndex("syncStatus", "syncStatus", {unique: false})
                 }
             }
+        })
+    }
+    async getDataBySyncStatus(storeName, syncStatus) {
+        if (!this.db) throw new Error("Database not initialized")
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction([storeName], "readonly")
+            const store = transaction.objectStore(storeName)
+            const index = store.index("syncStatus")
+            const request = index.getAll(syncStatus)
+            request.onsuccess = () => resolve(request.result)
+            request.onerror = () => reject(request.error)
+
+        })
+    }
+    async saveOrderImages(orderId, imageFiles) {
+        if (!this.db) throw new Error("Database not initialized")
+        const imageRecords = await Promise.all(imageFiles.map(async (file, index) => {
+            const base64 = await this.fileToBase64(file)
+            return {
+                id: -Date.now() - index,
+                orderId: orderId,
+                data: base64, 
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                imageIndex: index,
+                createdAt: new Date().toISOString()
+            }
+        }))
+        console.log(imageRecords)
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction([OfflineDB.ORDERS_PICKUP_IMAGES_STORE], 'readwrite')
+            const store = transaction.objectStore(OfflineDB.ORDERS_PICKUP_IMAGES_STORE)
+            const imageIds = []
+            let completed = 0
+            transaction.oncomplete = () => {
+                console.log("Transaction completed", imageIds.length)
+                resolve(imageIds)
+            }
+            transaction.onerror = () => reject(transaction.error)
+            imageRecords.forEach(record => {
+                const request = store.put(record)
+                request.onsuccess = () => {
+                    imageIds.push(record.id)
+                    completed++
+                    console.log(`Saved image ${completed}/${imageRecords.length}`)
+                }
+                request.onerror = () => {
+                    console.error("Failed to save image: ", record.id)
+                }
+            })
+        })
+    }
+    async getOrderImages(orderId) {
+        if (!this.db) throw new Error("Database not initialized")
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction([OfflineDB.ORDERS_PICKUP_IMAGES_STORE], 'readonly')
+            const store = transaction.objectStore(OfflineDB.ORDERS_PICKUP_IMAGES_STORE)
+            const index = store.index('orderId')
+            const request = index.getAll(orderId)
+            request.onsuccess = () => {
+                const images = request.result
+                    .sort((a, b) => a.imageIndex - b.imageIndex)
+                    .map(image => ({
+                        id: image.id,
+                        data: image.data,
+                        name: image.name,
+                        type: image.type,
+                        size: image.size,
+                        createdAt: image.createdAt
+                    }))
+                resolve(images)
+            }
+            request.onerror = () => reject(request.error)
+        })
+    }
+    async getOrderImageForServer(orderId) {
+        if (!this.db) throw new Error("Database not initialized") 
+        const images = await this.getOrderImages(orderId)
+        return new Promise((resolve, reject) => {
+            const imagesFiles = images.map(image => this.base64ToFile(image.data, image.name, image.type)) 
+            resolve(imagesFiles)
         })
     }
     //generic methods for any store
@@ -176,6 +269,26 @@ class OfflineDB {
     async verifyOrdersSaved(expectedCount) {
         const savedOrders = await this.getOrders()
         return savedOrders.length >= expectedCount
+    }
+    // Utility methods
+    fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = () => resolve(reader.result)
+            reader.onerror = error => reject(error)
+        })
+    }
+    base64ToFile(base64Data, filename, fileType) {
+        const arr = base64Data.split(',')
+        const mime = arr[0].match(/:(.*?);/)[1]
+        const bstr = atob(arr[1])
+        let n = bstr.length
+        const u8arr = new Uint8Array(n)
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n)
+        }
+        return new File([u8arr], filename, {type: fileType || mime})
     }
 }
 export const offlineDB = new OfflineDB()
