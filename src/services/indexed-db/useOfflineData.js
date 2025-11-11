@@ -64,6 +64,22 @@ export const useOfflineData = () => {
         await saveDataList("ordersFinish", orderFinishListResponse.data)
         //awaait 
     }
+    const saveImages = async (orderId, imageFiles) => {
+        if (!isReady) offlineDB.init()
+        await offlineDB.saveOrderImages(orderId, imageFiles)
+    }
+    const getOrderImages = async (orderId) => {
+        if (!isReady) offlineDB.init()
+        return await offlineDB.getOrderImages(orderId)
+    }
+    const getOrderImageForServer = async (orderId) => {
+        if (!isReady) offlineDB.init()
+        return await offlineDB.getOrderImageForServer(orderId)
+    }
+    const getDataBySyncStatus = async (storeName, syncStatus) => {
+        if (!isReady) offlineDB.init()
+        return await offlineDB.getDataBySyncStatus(storeName, syncStatus)
+    }
 
     return {
         isReady,
@@ -73,6 +89,10 @@ export const useOfflineData = () => {
         putData,
         getData,
         getDataByOrderId,
-        loadRemoteOrdersData
+        loadRemoteOrdersData,
+        saveImages,
+        getOrderImages,
+        getOrderImageForServer,
+        getDataBySyncStatus
     }
 }
