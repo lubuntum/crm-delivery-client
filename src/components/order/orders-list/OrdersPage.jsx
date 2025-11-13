@@ -18,6 +18,7 @@ import { toast, Toaster } from "react-hot-toast"
 import { useAccountSettings } from "../../../services/account-settings/useAccountSettings"
 import { useOfflineData } from "../../../services/indexed-db/useOfflineData"
 import { getOrdersWithItems } from "../../../services/api/offlineApi"
+import { syncService } from "../../../services/indexed-db/SyncService"
 
 const ordersStatusForSorting = [
     ORDER_STATUSES.CREATED,
@@ -84,13 +85,17 @@ export const OrdersPage = () => {
         const fetchAccountData = async () => {
             const isOnline = await checkOnline()
             console.log(`online = ${isOnline}`)
+            if (settings.offlineMode && isOnline) {
+                await syncService.syncAll(getToken())
+                //after sync clear local orders and load it later 
+            }
             if (!isOnline) {
                 await loadLocalOrders()
                 return
             }
+            
             try {
                 const response = await getAccountDataRequest(getToken())
-                console.log(response.data)
                 setAccountData(response.data)
             } catch(err) {
                 console.error(err)
@@ -100,7 +105,6 @@ export const OrdersPage = () => {
     }, [])
 
     const fetchOrders = async () => {
-        console.log("test")
         setLoading(true)
         try {
             //const response = await getOrganizationOrders(getToken())
@@ -122,8 +126,9 @@ export const OrdersPage = () => {
             //const completedOrders = formattedOrders.filter(order => order.status === ORDER_STATUSES.COMPLETED)
             //console.log(formattedOrders)
             if (settings.offlineMode) {
-                console.log("trying to hash orders")
-                saveLocalOrders(formattedOrders)
+                console.log("trying to hash orders", formattedOrders)
+                //await syncService.syncAll(getToken())
+                await saveLocalOrders(formattedOrders)
             }
             setOrders(formattedOrders.sort((a,b) => {return ordersStatusForSorting.indexOf(a.status) - ordersStatusForSorting.indexOf(b.status)}))
         } catch (err) { 
