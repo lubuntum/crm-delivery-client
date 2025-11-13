@@ -50,6 +50,24 @@ class OfflineDB {
             }
         })
     }
+    async clearAllData() {
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction([
+                OfflineDB.ORDERS_STORE,
+                OfflineDB.ORDERS_PICKUP_STORE,
+                OfflineDB.ORDERS_FINISH_STORE,
+                OfflineDB.ORDERS_PICKUP_IMAGES_STORE
+            ], "readwrite")
+            transaction.onerror = () => reject(transaction.error)
+            transaction.oncomplete = () => resolve()
+
+            transaction.objectStore(OfflineDB.ORDERS_STORE).clear()
+            transaction.objectStore(OfflineDB.ORDERS_PICKUP_STORE).clear()
+            transaction.objectStore(OfflineDB.ORDERS_FINISH_STORE).clear()
+            transaction.objectStore(OfflineDB.ORDERS_PICKUP_IMAGES_STORE).clear()
+            console.log("All data cleared")
+        })
+    }
     async getDataBySyncStatus(storeName, syncStatus) {
         if (!this.db) throw new Error("Database not initialized")
         return new Promise((resolve, reject) => {

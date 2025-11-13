@@ -16,10 +16,11 @@ class SyncService {
         this.isSynching = false
     }
     async syncAll(token) {
-        if (this.isSynching) {
+        /* if (this.isSynching) {
             console.log("Sync is already in progress")
             return
-        }
+        } */
+        await this.offlineDB.init()
         this.isSynching = true
         try {
             const orders = await this.offlineDB.getDataBySyncStatus("orders", "pending")
@@ -53,9 +54,11 @@ class SyncService {
                 await createOrdersFinishRequest(token, finishOrderList)
             
             console.log("All data sync, clear hash ...")
+            await offlineDB.clearAllData()
 
         } catch(err) {
             console.log(err)
+            this.isSynching = false
         }
         this.isSynching = false
     }
