@@ -37,7 +37,8 @@ export const Sidebar = ({ isActive, onClose }) => {
                 const response = await getAccountDataRequest(getToken())
                 setAccountData(response.data)
             } catch (error) {
-                logout()
+                //logout()
+                console.warn("Can't confirm credential data, app may not work as intended.")
             }
         }
         if (checkAuth()) {
