@@ -24,7 +24,6 @@ export const ResetPasswordCard = () => {
     }
     const passwordHandler = (e) => {
         const {name, value} = e.target
-        console.log(value)
         if (name === 'password') setPassword(value) 
             else setRepeatPassword(value)
     }
