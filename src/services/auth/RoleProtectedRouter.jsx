@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "./AuthProvider"
 import { getAccountDataRequest } from "../api/authApi"
-import { Navigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import { ROUTES } from "../../routes"
 
 export const RoleProtectedRouter = ({element, roles}) => {
     const {isAuth, checkAuth, getToken} = useAuth()
     const [accountData, setAccountData] = useState(null)
+    const navigate = useNavigate()
     useEffect(()=> {
         const getAccountData = async () => {
             try {
                 const response = await getAccountDataRequest(getToken())
                 setAccountData(response.data)
             } catch(err) {
-
+                navigate(ROUTES.HOME)
             }
         }
         getAccountData()
