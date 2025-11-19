@@ -1,4 +1,5 @@
-export const SERVER_URL = "http://192.168.198.198:8080"
+const API_BASE_URL = process.env.REACT_APP_SERVER_URL
+export const SERVER_URL = API_BASE_URL
 export const REGISTER = "/api/auth/register"
 export const LOGIN = "/api/auth/login"
 export const CREATE_ORG_REGISTRATION_REQUEST = "/api/auth/registration-request" 
