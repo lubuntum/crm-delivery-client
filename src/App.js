@@ -1,7 +1,7 @@
 import './App.css';
 import './styles/ui_elements/loading_bar.css'
 import './styles/ui_elements/icons.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, Navigate, BrowserRouter, useNavigate, useLocation } from 'react-router-dom'
 import { ProtectedRoute } from './services/auth/ProtectedRoute';
 import { AuthProvider, useAuth } from './services/auth/AuthProvider';
@@ -36,8 +36,12 @@ import { OrganizationActionsPage } from './components/admin/organization-actions
 import { RequestPage } from './components/auth/RequestPage';
 import { IncomingRequestPage } from './components/admin/registration_requests/IncomingRequestPage';
 import { SmsMailingPage } from './components/admin/sms-mailing/SmsMailingPage';
+import { registerServiceWorker } from './services/workers/registerServiceWorker';
 
 function App() {
+	useEffect(()=>{
+		registerServiceWorker()
+	}, [])
 	return (
 		<BrowserRouter>
 			<AuthProvider>
